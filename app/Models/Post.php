@@ -20,8 +20,8 @@ class Post extends Model
     public function photo(){
         return $this->belongsTo(Photo::class);
     }
-    public function postcomments(){
-        return $this->hasMany(Comment::class);
+    public function comments(){
+        return $this->hasMany(PostComment::class);
     }
     /*   public function keywords(){
            return $this->morphToMany(Keyword::class, 'keywordable');

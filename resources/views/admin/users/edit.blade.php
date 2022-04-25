@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('content')
     <div class="col-12">
-        <div class="border border-2 rounded-3 my-3">
-            <h1 class="text-center">Edit User</h1>
+        <div class="border border-2 rounded-3 my-3 bg-black">
+            <h1 class="text-center text-white">Edit User</h1>
         </div>
         <div class="row py-3">
             <div class="col-8 offset-2 img-thumbnail bg-black">

@@ -39,11 +39,11 @@
                         <td>
                             <img width="auto" height="62" src="{{$post->photo ? asset('img/posts') . $post->photo->file : 'http://via.placeholder.com/62'}}" alt="{{$post->title}}">
                         </td>
-                        <td>{{$post->user ? $post->user->name : 'Username not known'}}</td>
+                        <td>{{$post->user ? $post->user->first_name . $post->user->last_name : 'Username not known'}}</td>
                         <td>
                             @if($post->categories)
                                 @foreach($post->categories as $category)
-                                    <span class="badge badge-pill badge-info m-1">{{$category->name}}</span>
+                                    <span class="badge rounded-pill bg-secondary m-1">{{$category->name}}</span>
                                 @endforeach
                             @endif
                         </td>

@@ -97,10 +97,11 @@
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                             <a class="nav-link" href="{{route('posts.index')}}">All Posts</a>
                             <a class="nav-link" href="{{route('posts.create')}}">Create Post</a>
+
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                                data-bs-target="#collapsePostCategories" aria-expanded="false"
                                aria-controls="collapsePostCategories">
-                                PostCategories
+                                Post Categories
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePostCategories" aria-labelledby="headingOne"
@@ -108,6 +109,20 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{route('postCategories.index')}}">All PostCategories</a>
                                     <a class="nav-link" href="{{route('postCategories.create')}}">Create PostCategory</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#collapsePostComments" aria-expanded="false"
+                               aria-controls="collapsePostComments">
+                                Post Comments
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePostComments" aria-labelledby="headingOne"
+                                 data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{route('postComments.index')}}">All Post Comments</a>
+                                    <a class="nav-link" href="{{route('postComments.create')}}">Create Post Comment</a>
                                 </nav>
                             </div>
                         </nav>

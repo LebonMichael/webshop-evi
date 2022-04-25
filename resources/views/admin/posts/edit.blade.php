@@ -1,24 +1,24 @@
 @extends('layouts.admin')
 @section('content')
     <div class="col-12">
-        <div class="border border-2 rounded-3 my-3">
-            <h1 class="text-center">Edit Post</h1>
+        <div class="border border-2 rounded-3 my-3 bg-black">
+            <h1 class="text-center text-white">Edit Post</h1>
         </div>
         <div class="row">
-            <div class="col-6 img-thumbnail">
+            <div class="col-6 img-thumbnail bg-black">
                 @include('includes.form_error')
                 <form action="{{route('posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="form-group">
-                        <label class="text-black" for="title">Title</label>
+                        <label class="text-white" for="title">Title</label>
                         <input value="{{$post->title}}" type="text" name="title" id="title"
-                               class="form-control bg-black"
+                               class="form-control"
                                placeholder="Title...">
                     </div>
                     <div class="form-group">
-                        <label class="text-black" for="category">Category (CTRL + CLICK multiple select)</label>
-                        <select name="categories[]" class="form-control custom-select bg-black" multiple>
+                        <label class="text-white" for="category">Category (CTRL + CLICK multiple select)</label>
+                        <select name="categories[]" class="form-control custom-select" multiple>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}"
                                         @if($post->categories->contains($category->id)) selected @endif>
@@ -28,12 +28,12 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="text-black" for="category">Post :</label>
-                        <textarea class="form-control bg-black" name="body" id="body" cols="100%" rows="10"
+                        <label class="text-white" for="category">Post :</label>
+                        <textarea class="form-control " name="body" id="body" cols="100%" rows="10"
                                   placeholder="Description...">{{$post->body}}</textarea>
                     </div>
                     <div class="form-group">
-                        <label class="text-black" for="photo_id">Photo Product:</label>
+                        <label class="text-white" for="photo_id">Photo Product:</label>
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
@@ -43,13 +43,15 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Post</button>
+                    <div class="text-center m-3">
+                        <button type="submit" class="btn btn-primary">Add Post</button>
+                    </div>
                 </form>
             </div>
             <div class="col-6 ">
                 <label for="">Featured Image</label>
                 <br>
-                <img class="img-fluid img-thumbnail my-3"
+                <img class="img-fluid img-thumbnail bg-black my-3"
                      src="{{$post->photo ? asset('img/posts') . $post->photo->file : 'http://via.placeholder.com/400'}}"
                      alt="{{$post->title}}">
             </div>

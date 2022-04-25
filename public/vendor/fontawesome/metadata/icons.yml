@@ -4423,7 +4423,7 @@ comment-alt:
     - '4.4'
     - 5.0.0
     - 5.10.1
-  label: Alternate Comment
+  label: Alternate PostComment
   search:
     terms:
       - bubble
@@ -4445,7 +4445,7 @@ comment-alt:
 comment-dollar:
   changes:
     - 5.3.0
-  label: Comment Dollar
+  label: PostComment Dollar
   search:
     terms:
       - bubble
@@ -4470,7 +4470,7 @@ comment-dollar:
 comment-dots:
   changes:
     - 5.0.9
-  label: Comment Dots
+  label: PostComment Dots
   search:
     terms:
       - bubble
@@ -4518,7 +4518,7 @@ comment-medical:
 comment-slash:
   changes:
     - 5.0.9
-  label: Comment Slash
+  label: PostComment Slash
   search:
     terms:
       - bubble

@@ -6,6 +6,7 @@ use App\Http\Requests\PostsCreateRequest;
 use App\Models\Category;
 use App\Models\Photo;
 use App\Models\Post;
+use App\Models\PostCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,7 @@ class AdminPostsController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = PostCategory::all();
         return view('admin.posts.create', compact('categories'));
     }
 
@@ -88,7 +89,7 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::all();
+        $categories = PostCategory::all();
         $post = Post::findOrFail($id);
         return view('admin.posts.edit', compact('post', 'categories'));
     }
