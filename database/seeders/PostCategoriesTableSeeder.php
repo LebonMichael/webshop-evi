@@ -18,9 +18,23 @@ class PostCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('post_categories')->insert(['name' => 'Nieuws', 'slug' => 'Nieuws', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
-        DB::table('post_categories')->insert(['name' => 'Sport', 'slug' => 'Sport', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
-        DB::table('post_categories')->insert(['name' => 'Politiek', 'slug' => 'Politiek', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+        DB::table('post_categories')->insert([
+            'name' => 'Nieuws',
+            'slug' => 'Nieuws',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+
+        DB::table('post_categories')->insert([
+            'name' => 'Sport',
+            'slug' => 'Sport',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+
+        DB::table('post_categories')->insert([
+            'name' => 'Politiek',
+            'slug' => 'Politiek',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
 
 
         $categories = PostCategory::all();

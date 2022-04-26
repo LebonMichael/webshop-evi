@@ -42,8 +42,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('homebackend');
+
     Route::resource('posts', App\Http\Controllers\AdminPostsController::class);
     Route::resource('postCategories', App\Http\Controllers\AdminPostsCategoriesController::class);
     Route::get('postCategories/restore/{postCategory}', 'App\Http\Controllers\AdminPostsCategoriesController@restore')->name('postCategories.restore');
+
+    Route::resource('products', App\Http\Controllers\AdminProductsController::class);
+    Route::resource('productCategories', App\Http\Controllers\AdminProductCategoriesController::class);
+    Route::resource('brands', App\Http\Controllers\AdminBrandsController::class);
+    Route::get('brands/restore/{brand}', 'App\Http\Controllers\AdminBrandsController@restore')->name('brands.restore');
+    Route::resource('colours', App\Http\Controllers\AdminColourController::class);
+    Route::get('colours/restore/{colour}', 'App\Http\Controllers\AdminColourController@restore')->name('colours.restore');
+    Route::resource('shoe-size', App\Http\Controllers\AdminShoeSizeController::class);
+    Route::resource('cloth-size', App\Http\Controllers\AdminClothSizeController::class);
+    Route::resource('genders', App\Http\Controllers\AdminGendersController::class);
+
 });
 

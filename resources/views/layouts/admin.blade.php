@@ -129,6 +129,51 @@
                     </div>
                     <!-- end posts-->
 
+                    <!--start products-->
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProducts"
+                       aria-expanded="false" aria-controls="collapseProducts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        Products
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+
+                    <div class="collapse" id="collapseProducts" aria-labelledby="headingTwo"
+                         data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <a class="nav-link" href="{{route('products.index')}}">All Products</a>
+                            <a class="nav-link" href="{{route('products.create')}}">Create Product</a>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#collapsePostCategories" aria-expanded="false"
+                               aria-controls="collapsePostCategories">
+                                Product Brands
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePostCategories" aria-labelledby="headingOne"
+                                 data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{route('brands.index')}}">All Product Brands</a>
+                                    <a class="nav-link" href="{{route('brands.create')}}">Create Product Brand</a>
+                                </nav>
+                            </div>
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#collapsePostComments" aria-expanded="false"
+                               aria-controls="collapsePostComments">
+                                Product Colours
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePostComments" aria-labelledby="headingOne"
+                                 data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{route('colours.index')}}">All Product Colours</a>
+                                    <a class="nav-link" href="{{route('colours.create')}}">Create Product Colour</a>
+                                </nav>
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- end products-->
+
                     <div class="sb-sidenav-menu-heading">Addons</div>
                     <a class="nav-link" href="charts.html">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>

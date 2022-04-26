@@ -21,6 +21,12 @@ class DatabaseSeeder extends Seeder
             UsersRolesTableSeeder::class,
             PostsTableSeeder::class,
             PostCategoriesTableSeeder::class,
+            ClothSizeSeeder::class,
+            ShoeSizeSeeder::class,
+            ProductCategoriesSeeder::class,
+            BrandSeeder::class,
+            GenderSeeder::class,
+            ColourSeeder::class,
 
         ]);
     }
