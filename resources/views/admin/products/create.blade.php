@@ -64,11 +64,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="text-white" for="colours[]">Colours: (CTRL + CLICK multiple select)</label>
-                        <select name="colours[]" class="form-control custom-select" multiple>
-                            @foreach($colours as $colour)
-                                <option value="{{$colour->id}}">
-                                    {{$colour->name}}
+                        <label class="text-white" for="colors[]">Colours: (CTRL + CLICK multiple select)</label>
+                        <select name="colors[]" class="form-control custom-select" multiple>
+                            @foreach($colors as $color)
+                                <option value="{{$color->id}}">
+                                    {{$color->name}}
                                 </option>
                             @endforeach
                         </select>

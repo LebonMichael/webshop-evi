@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Colour;
+use App\Models\Color;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
-class AdminColourController extends Controller
+class AdminColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class AdminColourController extends Controller
      */
     public function index()
     {
-        $colours = Colour::withTrashed()->paginate(15);
+        $colors = Color::withTrashed()->paginate(15);
 
-        return view('admin.colours.index', compact('colours'));
+        return view('admin.colors.index', compact('colors'));
     }
 
     /**
@@ -28,7 +28,7 @@ class AdminColourController extends Controller
      */
     public function create()
     {
-        return view('admin.colours.create');
+        return view('admin.colors.create');
     }
 
     /**
@@ -40,13 +40,13 @@ class AdminColourController extends Controller
 
     public function store(Request $request)
     {
-        $colour = new Colour();
-        $colour->name = $request->name;
-        $colour->code = $request->code;
-        $colour->slug = Str::slug($colour->name, '-');
-        $colour->save();
-        Session::flash('category_message', 'Colour ' . $request->name . ' was created!');
-        return redirect()->route('colours.index');
+        $color = new Color();
+        $color->name = $request->name;
+        $color->slug = Str::slug($color->name, '-');
+        $color->code = $request->code;
+        $color->save();
+        Session::flash('category_message', 'Color ' . $request->name . ' was created!');
+        return redirect()->route('colors.index');
     }
 
 
@@ -69,7 +69,8 @@ class AdminColourController extends Controller
      */
     public function edit($id)
     {
-        //
+        $color = Color::findOrFail($id);
+        return view('admin.colors.edit', compact('color'));
     }
 
     /**
@@ -81,7 +82,13 @@ class AdminColourController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $color = Color::findOrFail($id);
+        $color->name = $request->name;
+        $color->slug = Str::slug($color->name,'-');
+        $color->code = $request->code;
+        $color->update();
+        Session::flash('category_message','Color ' . $request->name . ' was created!');
+        return redirect()->route('colors.index');
     }
 
     /**
@@ -92,17 +99,17 @@ class AdminColourController extends Controller
      */
     public function destroy($id)
     {
-        $colour = Colour::findOrFail($id);
+        $colour = Color::findOrFail($id);
         Session::flash('category_message', $colour->name . ' was deleted!');
         $colour->delete();
-        return redirect()->route('colours.index');
+        return redirect()->route('colors.index');
     }
 
     public function restore($id)
     {
-        Colour::onlyTrashed()->where('id', $id)->restore();
-        $colour = Colour::findOrFail($id);
+        Color::onlyTrashed()->where('id', $id)->restore();
+        $colour = Color::findOrFail($id);
         Session::flash('category_message', $colour->name . ' was restored!');
-        return redirect()->route('colours.index');
+        return redirect()->route('colors.index');
     }
 }

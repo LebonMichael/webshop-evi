@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
+use App\Models\ClothSizes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
-class AdminBrandsController extends Controller
+class AdminClothSizesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class AdminBrandsController extends Controller
      */
     public function index()
     {
-        $brands = Brand::withTrashed()->paginate(15);
+        $clothSizes = ClothSizes::withTrashed()->paginate(15);
 
-        return view('admin.brands.index', compact('brands'));
+        return view('admin.cloth-sizes.index', compact('clothSizes'));
     }
 
     /**
@@ -28,8 +27,7 @@ class AdminBrandsController extends Controller
      */
     public function create()
     {
-
-        return view('admin.brands.create');
+        return view('admin.cloth-sizes.create');
     }
 
     /**
@@ -40,12 +38,11 @@ class AdminBrandsController extends Controller
      */
     public function store(Request $request)
     {
-        $brand = new Brand();
-        $brand->name = $request->name;
-        $brand->slug = Str::slug($brand->name,'-');
-        $brand->save();
-        Session::flash('category_message','Brand ' . $request->name . ' was created!');
-        return redirect()->route('brands.index');
+        $clothSize = new ClothSizes();
+        $clothSize->size = $request->size;
+        $clothSize->save();
+        Session::flash('clothSize_message','Cloth Size ' . $request->size . ' was created!');
+        return redirect()->route('cloth-sizes.index');
     }
 
     /**
@@ -67,8 +64,8 @@ class AdminBrandsController extends Controller
      */
     public function edit($id)
     {
-        $brand = Brand::findOrFail($id);
-        return view('admin.brands.edit', compact('brand'));
+        $clothSize = ClothSizes::findOrFail($id);
+        return view('admin.cloth-sizes.edit', compact('clothSize'));
     }
 
     /**
@@ -80,12 +77,11 @@ class AdminBrandsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $brand = Brand::findOrFail($id);
-        $brand->name = $request->name;
-        $brand->slug = Str::slug($brand->name, '-');
-        $brand->update();
-        Session::flash('category_message', 'Brand ' . $request->name . ' was updated!');
-        return redirect()->route('brands.index');
+        $clothSize = ClothSizes::findOrFail($id);
+        $clothSize->size = $request->size;
+        $clothSize->update();
+        Session::flash('clothSize_message', 'Cloth Size ' . $request->size . ' was Updated!');
+        return redirect()->route('cloth-sizes.index');
     }
 
     /**
@@ -96,17 +92,17 @@ class AdminBrandsController extends Controller
      */
     public function destroy($id)
     {
-        $brand = Brand::findOrFail($id);
-        Session::flash('category_message', $brand->name . ' was deleted!');
-        $brand->delete();
-        return redirect()->route('brands.index');
+        $clothSize = ClothSizes::findOrFail($id);
+        Session::flash('clothSize_message', $clothSize->size . ' was deleted!');
+        $clothSize->delete();
+        return redirect()->route('cloth-sizes.index');
     }
 
     public function restore($id)
     {
-        Brand::onlyTrashed()->where('id', $id)->restore();
-        $brand = Brand::findOrFail($id);
-        Session::flash('category_message', $brand->name . ' was restored!');
-        return redirect()->route('brands.index');
+        ClothSizes::onlyTrashed()->where('id', $id)->restore();
+        $clothSize = ClothSizes::findOrFail($id);
+        Session::flash('clothSize_message', $clothSize->name . ' was restored!');
+        return redirect()->route('cloth-sizes.index');
     }
 }

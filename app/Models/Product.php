@@ -28,11 +28,11 @@ class Product extends Model
 
 
 
-    public function colours(){
-        return $this->belongsToMany(Colour::class, 'product_colours');
+    public function colors(){
+        return $this->belongsToMany(Color::class, 'product_colors');
     }
     public function clothSize(){
-        return $this->belongsToMany(ClothSize::class, 'product_cloth_size');
+        return $this->belongsToMany(ClothSizes::class, 'product_cloth_size');
     }
     public function shoeSize(){
         return $this->belongsToMany(ShoeSize::class, 'product_shoe_size');
@@ -45,7 +45,7 @@ class Product extends Model
                 ->where('name', 'like', '%' . request('search') . '%')
                 ->where('price', 'like', '%' . request('search') . '%')
                 ->orWhere('stock', 'like', '%' . request('search') . '%')
-                ->orWhereHas('colours', function ($query) {
+                ->orWhereHas('colors', function ($query) {
                     $query->where('name', 'like', '%' . request('search') . '%');
                 });
         }

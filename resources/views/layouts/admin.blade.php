@@ -144,12 +144,12 @@
                             <a class="nav-link" href="{{route('products.create')}}">Create Product</a>
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                               data-bs-target="#collapsePostCategories" aria-expanded="false"
-                               aria-controls="collapsePostCategories">
+                               data-bs-target="#collapseBrands" aria-expanded="false"
+                               aria-controls="collapseBrands">
                                 Product Brands
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapsePostCategories" aria-labelledby="headingOne"
+                            <div class="collapse" id="collapseBrands" aria-labelledby="headingOne"
                                  data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{route('brands.index')}}">All Product Brands</a>
@@ -158,16 +158,29 @@
                             </div>
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                               data-bs-target="#collapsePostComments" aria-expanded="false"
-                               aria-controls="collapsePostComments">
+                               data-bs-target="#collapsePostColor" aria-expanded="false"
+                               aria-controls="collapsePostColor">
                                 Product Colours
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapsePostComments" aria-labelledby="headingOne"
+                            <div class="collapse" id="collapsePostColor" aria-labelledby="headingOne"
                                  data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{route('colours.index')}}">All Product Colours</a>
-                                    <a class="nav-link" href="{{route('colours.create')}}">Create Product Colour</a>
+                                    <a class="nav-link" href="{{route('colors.index')}}">All Product Colours</a>
+                                    <a class="nav-link" href="{{route('colors.create')}}">Create Product Colour</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#collapseClothSize" aria-expanded="false"
+                               aria-controls="collapseClothSize">
+                                Product Cloth Size
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseClothSize" aria-labelledby="headingOne"
+                                 data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{route('cloth-sizes.index')}}">All Product Cloth Sizes</a>
+                                    <a class="nav-link" href="{{route('cloth-sizes.create')}}">Create Product Cloth Size</a>
                                 </nav>
                             </div>
                         </nav>

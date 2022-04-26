@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
 use App\Models\Brand;
-use App\Models\ClothSize;
-use App\Models\Colour;
+use App\Models\ClothSizes;
+use App\Models\Color;
 use App\Models\Gender;
 use App\Models\Photo;
 use App\Models\Product;
@@ -25,7 +25,7 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with('photo','brand','productCategory','gender','colours','shoeSize','clothSize')->withTrashed()->orderBy('updated_at', 'desc')->filter(request(['search']))->paginate(20);
+        $products = Product::with('photo','brand','productCategory','gender','colors','shoeSize','clothSize')->withTrashed()->orderBy('updated_at', 'desc')->filter(request(['search']))->paginate(20);
         return view('admin.products.index', compact('products'));
     }
 
@@ -37,12 +37,12 @@ class AdminProductsController extends Controller
     public function create()
     {
         $brands = Brand::all();
-        $colours = Colour::all();
+        $colors = Color::all();
         $genders = Gender::all();
         $shoeSizes = ShoeSize::all();
-        $clothSizes = ClothSize::all();
+        $clothSizes = ClothSizes::all();
         $productCategories = ProductCategory::all();
-        return view('admin.products.create', compact('brands','colours','genders','shoeSizes','clothSizes','productCategories'));
+        return view('admin.products.create', compact('brands','colors','genders','shoeSizes','clothSizes','productCategories'));
     }
 
     /**
@@ -72,7 +72,7 @@ class AdminProductsController extends Controller
         }
         $product->save();
 
-        $product->colours()->sync($request->colours, false);
+        $product->colors()->sync($request->colors, false);
         $product->shoeSize()->sync($request->shoeSize, false);
         $product->clothSize()->sync($request->clothSize, false);
 

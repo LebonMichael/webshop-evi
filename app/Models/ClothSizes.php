@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Colour extends Model
+class ClothSizes extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -14,6 +14,7 @@ class Colour extends Model
     protected $guarded = ['id'];
 
     public function products(){
-        return $this->belongsToMany(Product::class, 'product_colours');
+        return $this->belongsToMany(Product::class, 'product_cloth_size');
     }
+
 }

@@ -17,15 +17,16 @@ return new class extends Migration
             $table->id();
             $table->integer("size");
             $table->timestamps();
+            $table->softDeletes();
         });
         Schema::create('product_cloth_size', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('cloth_size_id');
+            $table->unsignedBigInteger('cloth_sizes_id');
             $table->timestamps();
-            $table->unique(['product_id','cloth_size_id']);
+            $table->unique(['product_id','cloth_sizes_id']);
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('cloth_size_id')->references('id')->on('cloth_sizes')->onDelete('cascade');
+            $table->foreign('cloth_sizes_id')->references('id')->on('cloth_sizes')->onDelete('cascade');
         });
     }
 

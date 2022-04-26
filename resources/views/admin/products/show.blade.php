@@ -16,16 +16,26 @@
                         <div>
                             <h5 class="card-title text-white">Name Product: {{$product->name}}</h5>
                             <p class="card-text text-white">Gender : {{$product->gender->name}}</p>
-
+                            <p class="card-text text-white">Brand : {{$product->brand->name}}</p>
                             <p class="card-text text-white">
                                 Size :
                                 @if($product->clothSize)
                                     @foreach($product->clothSize as $clothSize)
-                                        <span class="badge rounded-pill bg-primary">{{$clothSize->name}}</span>
+                                        <span class="badge rounded-pill bg-primary">{{$clothSize->size}}</span>
                                     @endforeach
                                 @endif
+                            </p>
+                            <p class="card-text text-white">
+                                Color :
+                                @if($product->colors)
+                                    @foreach($product->colors as $color)
+                                        <i style="color:{{$color->code}}" class="rounded-circle border border-dark fas fa-circle"></i>
+                                    @endforeach
+                                @endif
+                            </p>
                             <p class="card-text my-3"><small
-                                    class="text-muted">{{$product->updated_at->diffForhumans()}}</small></p>
+                                    class="text-muted">{{$product->updated_at->diffForhumans()}}</small>
+                            </p>
                         </div>
 
                     </div>

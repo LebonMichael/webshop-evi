@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('colours', function (Blueprint $table) {
+        Schema::create('colors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug');
@@ -21,14 +21,14 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        Schema::create('product_colours', function (Blueprint $table) {
+        Schema::create('product_colors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('colour_id');
+            $table->unsignedBigInteger('color_id');
             $table->timestamps();
-            $table->unique(['product_id','colour_id']);
+            $table->unique(['product_id','color_id']);
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('colour_id')->references('id')->on('colours')->onDelete('cascade');
+            $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
         });
     }
 
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colours');
+        Schema::dropIfExists('colors');
     }
 };
