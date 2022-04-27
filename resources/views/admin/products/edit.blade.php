@@ -9,74 +9,121 @@
                 <div class="row">
                     <div class="col-8">
                         @include('includes.form_error')
-                        <form action="{{route('users.update', $user->id)}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('products.update', $product->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
-                            <div class="form-group">
-                                <label class="text-white" for="first_name">First Name:</label>
-                                <input value="{{$user->first_name}}" type="text" name="first_name" id="title"
-                                       class="form-control"
-                                       placeholder="{{$user->first_name}}">
+                            <div>
+                                <div class="form-group pe-2">
+                                    <label class="text-white" for="name">Product Name:</label>
+                                    <input type="text" name="name" id="title"
+                                           class="form-control"
+                                           placeholder="First Name..">
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="form-group pe-2 col-6">
+                                    <label class="text-white" for="price">Price: </label>
+                                    <input type="number" step="0.01" value="&euro; {{$product->price}}" name="price" id="price"
+                                           class="form-control"
+                                           placeholder="&euro; {{$product->price}}">
+                                </div>
+                                <div class="form-group pe-2 col-6">
+                                    <label class="text-white" for="price">Stock: </label>
+                                    <input type="number" name="stock" id="stock"
+                                           class="form-control"
+                                           placeholder="Stock">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="last_name">Last Name:</label>
-                                <input value="{{$user->last_name}}" type="text" name="last_name" id="title"
-                                       class="form-control"
-                                       placeholder="{{$user->last_name}}">
+                                <label class="text-white" for="gender_id">Gender: </label>
+                                <select name="gender_id" class="form-control custom-select" >
+                                    @foreach($genders as $gender)
+                                        <option value="{{$gender->id}}">
+                                            {{$gender->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="d-flex">
+                                <div class="form-group pe-2 col-6">
+                                    <label class="text-white" for="brand_id">Brand: </label>
+                                    <select name="brand_id" class="form-control custom-select" >
+                                        @foreach($brands as $brand)
+                                            <option value="{{$brand->id}}">
+                                                {{$brand->name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group pe-2 col-6">
+                                    <label class="text-white" for="productCategory_id">Product Category: </label>
+                                    <select name="productCategory_id" class="form-control custom-select" >
+                                        @foreach($productCategories as $productCategory)
+                                            <option value="{{$productCategory->id}}">
+                                                {{$productCategory->name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="email">E-mail:</label>
-                                <input value="{{$user->email}}" type="text" name="email" id="title"
-                                       class="form-control"
-                                       placeholder="{{$user->email}}">
-                            </div>
-                            <div class="form-group">
-                                <label class="text-white" for="role">Role: (CTRL + CLICK multiple select)</label>
-                                <select name="roles[]" class="form-control custom-select" multiple>
-                                    @foreach($roles as $role)
-                                        <option value="{{$role->id}}"
-                                                @if($user->roles->contains($role->id)) selected @endif>
-                                            {{$role->name}}
+                                <label class="text-white" for="colors[]">Colours: (CTRL + CLICK multiple select)</label>
+                                <select name="colors[]" class="form-control custom-select" multiple>
+                                    @foreach($colors as $color)
+                                        <option value="{{$color->id}}">
+                                            {{$color->name}}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="is_active">Status:</label>
-                                <select name="is_active" class="form-select">
-                                    <option value="1" >
-                                        Active
-                                    </option>
-                                    <option value="0">
-                                        Not Active
-                                    </option>
+                                <label class="text-white" for="shoeSize[]">Shoe Size: (CTRL + CLICK multiple select)</label>
+                                <select name="shoeSize[]" class="form-control custom-select" multiple>
+                                    @foreach($shoeSizes as $shoeSize)
+                                        <option value="{{$shoeSize->id}}">
+                                            {{$shoeSize->size}}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="email">Password:</label>
-                                <input value="" type="password" name="password" id="password"
-                                       class="form-control "
-                                       placeholder="Password...">
+                                <label class="text-white" for="clothSize[]">Cloth Size: (CTRL + CLICK multiple select)</label>
+                                <select name="clothSize[]" class="form-control custom-select" multiple>
+                                    @foreach($clothSizes as $clothSize)
+                                        <option value="{{$clothSize->id}}">
+                                            {{$clothSize->size}}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label class="text-white me-3" for="file">Profile Photo:</label>
+                                <label class="text-white" for="body">Description: </label>
+                                <textarea class="form-control" name="body" id="body" cols="100%" rows="10"
+                                          placeholder="Description..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="text-white me-3" for="file">Product Photo:</label>
                                 <div class="col-lg-12 grid-margin stretch-card">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4 class="card-title">Change Your Profile Photo</h4>
-                                            <input type="file" name="photo_id" class="dropify" />
+                                            <h5 class="card-title">Your Product Picture</h5>
+                                            <input type="file" name="photo_id" class="dropify"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Edit User</button>
+                            <div class="text-center my-3">
+                                <button type="submit" class="btn btn-primary">Create Product</button>
+                            </div>
+
+
                         </form>
                     </div>
                     <div class="col-4">
-                        <p class="text-black">Profile Photo:</p>
+                        <p class="text-white">Product Photo:</p>
                         <img class="img-fluid img-thumbnail bg-black"
-                             src="{{$user->photo ? asset('img/users') . $user->photo->file : 'https://via.placeholder.com/500'}}"
-                             alt="{{$user->name}}">
+                             src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/500'}}"
+                             alt="{{$product->name}}">
                     </div>
                 </div>
 

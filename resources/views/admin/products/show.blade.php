@@ -17,6 +17,7 @@
                             <h5 class="card-title text-white">Name Product: {{$product->name}}</h5>
                             <p class="card-text text-white">Gender : {{$product->gender->name}}</p>
                             <p class="card-text text-white">Brand : {{$product->brand->name}}</p>
+                            <p class="card-text text-white">Category : {{$product->productCategory->name}}</p>
                             <p class="card-text text-white">
                                 Size :
                                 @if($product->clothSize)

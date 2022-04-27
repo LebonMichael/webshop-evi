@@ -92,7 +92,7 @@
                 <div class="col-12 mb-10">
                     <div class="d-flex align-items-center flex-column">
                         <h1 class="fw-normal"> With an outstanding style, only for you</h1>
-                        <h1 class="fs-4 fs-lg-8 fs-md-6 fw-bold">Exclusively designed for you</h1>
+                        <h2 class="fs-4 fs-lg-8 fs-md-6 fw-bold">Exclusively designed for you</h2>
                     </div>
                 </div>
             </div>
@@ -107,17 +107,19 @@
         <div class="container">
             <div class="row g-0">
                 <div class="col-md-6">
-                    <div class="card card-span h-100 text-white"><img class="img-fluid" src="assets/img/gallery/her.png"
+                    <div class="card card-span h-100 text-white"><img class="img-fluid"
+                                                                      src="{{asset('img/gallery/meisjesMain.png')}}"
                                                                       width="790" alt="..."/>
-                        <div class="card-img-overlay d-flex flex-center"><a class="btn btn-lg btn-light" href="#!">For
-                                Her</a></div>
+                        <div class="card-img-overlay d-flex flex-center"><a class="btn btn-lg btn-light"
+                                                                            href="#!">Girls</a></div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card card-span h-100 text-white"><img class="img-fluid" src="assets/img/gallery/him.png"
+                    <div class="card card-span h-100 text-white"><img class="img-fluid"
+                                                                      src="{{asset('img/gallery/JongensMain.png')}}"
                                                                       width="790" alt="..."/>
-                        <div class="card-img-overlay d-flex flex-center"><a class="btn btn-lg btn-light" href="#!">For
-                                Him </a></div>
+                        <div class="card-img-overlay d-flex flex-center"><a class="btn btn-lg btn-light"
+                                                                            href="#!">Boys </a></div>
                     </div>
                 </div>
             </div>
@@ -739,53 +741,29 @@
                         <div class="nav nav-tabs majestic-tabs mb-4 justify-content-center" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="nav-women-tab" data-bs-toggle="tab"
                                     data-bs-target="#nav-women" type="button" role="tab" aria-controls="nav-women"
-                                    aria-selected="true">For Women
+                                    aria-selected="true">For Girls
                             </button>
                             <button class="nav-link" id="nav-men-tab" data-bs-toggle="tab" data-bs-target="#nav-men"
-                                    type="button" role="tab" aria-controls="nav-men" aria-selected="false">For Men
+                                    type="button" role="tab" aria-controls="nav-men" aria-selected="false">For Boys
                             </button>
                         </div>
+
+
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-women" role="tabpanel"
                                  aria-labelledby="nav-women-tab">
                                 <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab-women"
                                     role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="pills-wtshirt-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-wtshirt" type="button" role="tab"
-                                                aria-controls="pills-wtshirt" aria-selected="true">T-Shirt
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-dresses-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-dresses" type="button" role="tab"
-                                                aria-controls="pills-dresses" aria-selected="false">Shirt
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-wshoes-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-wshoes" type="button" role="tab"
-                                                aria-controls="pills-wshoes" aria-selected="false">Shoes
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-wwatch-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-wwatch" type="button" role="tab"
-                                                aria-controls="pills-wwatch" aria-selected="false">Watch
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-wsunglasses-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-wsunglasses" type="button" role="tab"
-                                                aria-controls="pills-wsunglasses" aria-selected="false">Sunglasses
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-wbagpacks-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-wbagpacks" type="button" role="tab"
-                                                aria-controls="pills-wbagpacks" aria-selected="false">Bagpacks
-                                        </button>
-                                    </li>
+                                    @foreach($productCategories as $productCategory)
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="pills-wtshirt-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-{{$productCategory->name}}" type="button" role="tab"
+                                                    aria-controls="pills-wtshirt" aria-selected="true">{{$productCategory->name}}
+                                            </button>
+                                        </li>
+                                    @endforeach
+
+
                                 </ul>
                                 <div class="tab-content" id="pills-tabContentWomen">
                                     <div class="tab-pane fade" id="pills-dresses" role="tabpanel"

@@ -73,7 +73,7 @@
                         </form>
                     </div>
                     <div class="col-4">
-                        <p class="text-black">Profile Photo:</p>
+                        <p class="text-white">Profile Photo:</p>
                         <img class="img-fluid img-thumbnail bg-black"
                              src="{{$user->photo ? asset('img/users') . $user->photo->file : 'https://via.placeholder.com/500'}}"
                              alt="{{$user->name}}">

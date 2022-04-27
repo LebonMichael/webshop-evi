@@ -23,7 +23,6 @@ class AdminPostsController extends Controller
     public function index()
     {
         $posts = Post::with('photo','user','categories')->filter(request(['search']))->paginate(15);
-        Session::flash('user_message', 'No posts found');
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -65,7 +64,7 @@ class AdminPostsController extends Controller
 
         /** de gekozen categoriëen wegschrijven naar de tussentabel category_post**/
         $post->categories()->sync($request->categories, false);
-
+        Session::flash('post_message', 'Post ' . $request->name . ' was created!');
         return redirect()->route('posts.index');
     }
 
@@ -125,6 +124,7 @@ class AdminPostsController extends Controller
         $post->update();
         //categoriëen syncen
         $post->categories()->sync($request->categories,true);
+        Session::flash('post_message', 'Post ' . $request->name . ' was updated!');
         return redirect()->route('posts.index');
     }
 

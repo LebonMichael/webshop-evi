@@ -2,16 +2,16 @@
 @section('content')
 
     <div class="col">
-        @if(session('product_category_message'))
+        @if(session('gender_message'))
             <div class="alert alert-info alert-dismissible">
                 <a href="#" class="btn-close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Info!</strong>  {{session('product_category_message')}}
+                <strong>Info!</strong>  {{session('gender_message')}}
             </div>
         @endif
     </div>
     <div class="row">
         <div class="border border-2 rounded-3 bg-black my-3">
-            <h1 class="text-center text-white">All Product Categories</h1>
+            <h1 class="text-center text-white">All Product Genders</h1>
         </div>
         <table class="table table-striped bg-gradient">
             <thead>
@@ -25,20 +25,20 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($productCategories as $productCategory)
+            @foreach($genders as $gender)
                 <tr>
-                    <td>{{$productCategory->id}}</td>
-                    <td>{{$productCategory->name}}</td>
-                    <td>{{$productCategory->created_at->diffForHumans()}}</td>
-                    <td>{{$productCategory->updated_at->diffForHumans()}}</td>
-                    <td>{{$productCategory->deleted_at}}</td>
+                    <td>{{$gender->id}}</td>
+                    <td>{{$gender->name}}</td>
+                    <td>{{$gender->created_at->diffForHumans()}}</td>
+                    <td>{{$gender->updated_at->diffForHumans()}}</td>
+                    <td>{{$gender->deleted_at}}</td>
                     <td class="d-flex justify-content-center">
                         <a class="btn btn-warning btn-sm m-1"
-                           href="{{route('productCategories.edit', $productCategory->id)}}">Edit</a>
-                        @if($productCategory->deleted_at != null)
-                            <a class="btn btn-success btn-sm m-1" href="{{route('productCategories.restore',$productCategory->id)}}">Restore</a>
+                           href="{{route('genders.edit', $gender->id)}}">Edit</a>
+                        @if($gender->deleted_at != null)
+                            <a class="btn btn-success btn-sm m-1" href="{{route('genders.restore',$gender->id)}}">Restore</a>
                         @else
-                            <form action="{{route('productCategories.destroy', $productCategory->id)}}" method="POST">
+                            <form action="{{route('genders.destroy', $gender->id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm m-1">Delete</button>
@@ -49,7 +49,7 @@
             @endforeach
             </tbody>
         </table>
-        {{$productCategories->links()}}
+        {{$genders->links()}}
     </div>
 
 @endsection

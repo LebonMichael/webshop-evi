@@ -100,7 +100,14 @@ class AdminProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $brands = Brand::all();
+        $colors = Color::all();
+        $genders = Gender::all();
+        $shoeSizes = ShoeSize::all();
+        $clothSizes = ClothSizes::all();
+        $productCategories = ProductCategory::all();
+        $product = Product::findOrFail($id);
+        return view('admin.products.edit', compact('product','brands','colors','genders','shoeSizes','clothSizes','productCategories'));
     }
 
     /**

@@ -48,16 +48,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::get('postCategories/restore/{postCategory}', 'App\Http\Controllers\AdminPostsCategoriesController@restore')->name('postCategories.restore');
 
     Route::resource('products', App\Http\Controllers\AdminProductsController::class);
+
     Route::resource('productCategories', App\Http\Controllers\AdminProductCategoriesController::class);
-    Route::get('productCategories/restore/{productCategory}', 'App\Http\Controllers\AdminBrandsController@restore')->name('productCategories.restore');
+    Route::get('productCategories/restore/{productCategory}', 'App\Http\Controllers\AdminProductCategoriesController@restore')->name('productCategories.restore');
+
     Route::resource('brands', App\Http\Controllers\AdminBrandsController::class);
     Route::get('brands/restore/{brand}', 'App\Http\Controllers\AdminBrandsController@restore')->name('brands.restore');
+
     Route::resource('colors', App\Http\Controllers\AdminColorController::class);
     Route::get('colors/restore/{color}', 'App\Http\Controllers\AdminColorController@restore')->name('colors.restore');
+
     Route::resource('shoe-sizes', App\Http\Controllers\AdminShoeSizeController::class);
     Route::resource('cloth-sizes', App\Http\Controllers\AdminClothSizesController::class);
     Route::get('cloth-size/restore/{cloth-size}', 'App\Http\Controllers\AdminClothSizeController@restore')->name('cloth-size.restore');
+
     Route::resource('genders', App\Http\Controllers\AdminGendersController::class);
+    Route::get('gender/restore/{gender}', 'App\Http\Controllers\AdminClothSizeController@restore')->name('gender.restore');
 
 });
 

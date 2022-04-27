@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class AdminProductCategoriesController extends Controller
 {
@@ -13,7 +16,9 @@ class AdminProductCategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $productCategories = ProductCategory::withTrashed()->paginate(15);
+
+        return view('admin.productCategories.index', compact('productCategories'));
     }
 
     /**
@@ -23,7 +28,8 @@ class AdminProductCategoriesController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('admin.productCategories.create');
     }
 
     /**
@@ -34,7 +40,12 @@ class AdminProductCategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $productCategory = new ProductCategory();
+        $productCategory->name = $request->name;
+        $productCategory->slug = Str::slug($productCategory->name,'-');
+        $productCategory->save();
+        Session::flash('product_category_message','Product Category ' . $request->name . ' was created!');
+        return redirect()->route('productCategories.index');
     }
 
     /**
@@ -56,7 +67,8 @@ class AdminProductCategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $productCategory = ProductCategory::findOrFail($id);
+        return view('admin.productCategories.edit', compact('productCategory'));
     }
 
     /**
@@ -68,7 +80,12 @@ class AdminProductCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $productCategory = ProductCategory::findOrFail($id);
+        $productCategory->name = $request->name;
+        $productCategory->slug = Str::slug($productCategory->name, '-');
+        $productCategory->update();
+        Session::flash('product_category_message', 'Brand ' . $request->name . ' was updated!');
+        return redirect()->route('productCategories.index');
     }
 
     /**
@@ -79,6 +96,17 @@ class AdminProductCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $productCategory = ProductCategory::findOrFail($id);
+        Session::flash('product_category_message', $productCategory->name . ' was deleted!');
+        $productCategory->delete();
+        return redirect()->route('productCategories.index');
+    }
+
+    public function restore($id)
+    {
+        ProductCategory::onlyTrashed()->where('id', $id)->restore();
+        $productCategory = ProductCategory::findOrFail($id);
+        Session::flash('product_category_message', $productCategory->name . ' was restored!');
+        return redirect()->route('productCategories.index');
     }
 }

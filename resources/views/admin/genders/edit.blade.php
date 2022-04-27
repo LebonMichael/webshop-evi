@@ -7,16 +7,16 @@
         <div class="row">
             <div class="col-4 offset-4 img-thumbnail bg-black">
                 @include('includes.form_error')
-                <form action="{{route('productCategories.update', $productCategory->id)}}" method="POST">
+                <form action="{{route('brands.update', $brand->id)}}" method="POST">
                     @csrf
                     @method('PATCH')
                     <div class="form-group ">
-                        <label class="text-white" for="name">Category Name : </label>
-                        <input type="text" name="name" class="form-control" value="{{$productCategory->name}}"
-                               placeholder="Color...">
+                        <label class="text-white" for="name">Brand Name : </label>
+                        <input type="text" name="name" class="form-control" value="{{$brand->name}}"
+                               placeholder="Brand...">
                     </div>
                     <div class="text-center m-2">
-                        <button type="submit" class="btn btn-primary">Update Product Category</button>
+                        <button type="submit" class="btn btn-primary">Update Brand</button>
                     </div>
                 </form>
             </div>
