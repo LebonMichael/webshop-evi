@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,9 @@ class FrontendHomeController extends Controller
      */
     public function index()
     {
-        $productCategories = ProductCategory::all();
-        return view('frontend.home.index', compact('productCategories'));
+        $productCategories = ProductCategory::with('products.photo')->get();
+        $products = Product::with('photo')->get();
+        return view('frontend.home.index', compact('productCategories','products'));
     }
 
     /**

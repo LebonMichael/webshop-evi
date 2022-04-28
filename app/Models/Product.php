@@ -23,7 +23,7 @@ class Product extends Model
         return $this->belongsTo(Gender::class);
     }
     public function photo(){
-        return $this->belongsTo(Photo::class);
+        return $this->belongsTo(Photo::class,'photo_id');
     }
 
 
