@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('content')
     <div class="col">
-        @if(session('user_message'))
+        @if(session('product_message'))
             <div class="alert alert-info alert-dismissible">
                 <a href="#" class="btn-close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Info!</strong>  {{session('user_message')}}
+                <strong>Info!</strong>  {{session('product_message')}}
             </div>
         @endif
     </div>
@@ -17,6 +17,14 @@
                 <input type="text" name="search" class="form-control bg-gray-300 border-0 small"
                        placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
             </form>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a href="{{route('products.index')}}"
+               class="badge badge-primary m-1 p-3 text-black">All</a>
+            @foreach($brands as $brand)
+                <a href="{{route('productsPerBrand', $brand->id)}}"
+                   class="badge badge-primary m-1 p-3 text-black">{{$brand->name}}</a>
+            @endforeach
         </div>
         <div class="col-12 my-3">
             <a href="{{route('products.create')}}" class="btn btn-info">Create Product</a>
@@ -33,6 +41,7 @@
                 <th>Category</th>
                 <th>Price</th>
                 <th>Stock</th>
+                <th>Discount</th>
                 <th>Updated</th>
                 <th>Created</th>
                 <th>Deleted</th>
@@ -47,12 +56,13 @@
                         <img height="62" width="auto" src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}" alt="{{$product->name}}">
                     </td>
                     <td>{{$product->name}}</td>
-                    <td>{{$product->body}}</td>
+                    <td>{{Str::limit($product->body,40,'...')}}</td>
                     <td>{{$product->gender->name}}</td>
                     <td>{{$product->brand->name}}</td>
                     <td>{{$product->productCategory->name}}</td>
-                    <td>{{$product->price}}</td>
+                    <td>&euro; {{$product->price}}</td>
                     <td>{{$product->stock}}</td>
+                    <td>{{$product->discount->percentage}}%</td>
                     <td>{{$product->created_at->diffForHumans()}}</td>
                     <td>{{$product->updated_at->diffForHumans()}}</td>
                     <td>{{$product->deleted_at}}</td>

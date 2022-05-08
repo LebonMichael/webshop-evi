@@ -6,6 +6,7 @@ use App\Http\Requests\UsersRequest;
 use App\Models\Brand;
 use App\Models\ClothSizes;
 use App\Models\Color;
+use App\Models\Discount;
 use App\Models\Gender;
 use App\Models\Photo;
 use App\Models\Product;
@@ -25,8 +26,9 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::with('photo','brand','productCategory','gender','colors','shoeSize','clothSize')->withTrashed()->orderBy('updated_at', 'desc')->filter(request(['search']))->paginate(20);
-        return view('admin.products.index', compact('products'));
+        $products = Product::with('photo','brand','productCategory','gender','colors','discount')->withTrashed()->orderBy('updated_at', 'desc')->filter(request(['search']))->paginate(20);
+        $brands = Brand::all();
+        return view('admin.products.index', compact('products','brands'));
     }
 
     /**
@@ -42,7 +44,8 @@ class AdminProductsController extends Controller
         $shoeSizes = ShoeSize::all();
         $clothSizes = ClothSizes::all();
         $productCategories = ProductCategory::all();
-        return view('admin.products.create', compact('brands','colors','genders','shoeSizes','clothSizes','productCategories'));
+        $discounts = Discount::all();
+        return view('admin.products.create', compact('brands','colors','genders','shoeSizes','clothSizes','productCategories','discounts'));
     }
 
     /**
@@ -58,6 +61,7 @@ class AdminProductsController extends Controller
         $product->body = $request->body;
         $product->price = $request->price;
         $product->stock = $request->stock;
+        $product->discount_id = $request->discount_id;
         $product->brand_id = $request->brand_id;
         $product->gender_id = $request->gender_id;
         $product->product_category_id = $request->productCategory_id;
@@ -74,9 +78,9 @@ class AdminProductsController extends Controller
 
         $product->colors()->sync($request->colors, false);
         $product->shoeSize()->sync($request->shoeSize, false);
-        $product->clothSize()->sync($request->clothSize, false);
+        $product->clothSizes()->sync($request->clothSize, false);
 
-        Session::flash('user_message','Product ' . $request->name . ' was created!');
+        Session::flash('product_message','Product ' . $request->name . ' was created!');
         return redirect('admin/products');
     }
 
@@ -106,8 +110,9 @@ class AdminProductsController extends Controller
         $shoeSizes = ShoeSize::all();
         $clothSizes = ClothSizes::all();
         $productCategories = ProductCategory::all();
+        $discounts = Discount::all();
         $product = Product::findOrFail($id);
-        return view('admin.products.edit', compact('product','brands','colors','genders','shoeSizes','clothSizes','productCategories'));
+        return view('admin.products.edit', compact('product','brands','colors','genders','shoeSizes','clothSizes','productCategories','discounts'));
     }
 
     /**
@@ -119,7 +124,38 @@ class AdminProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->name = $request->name;
+        $product->body = $request->body;
+        $product->price = $request->price;
+        $product->stock = $request->stock;
+        $product->discount_id = $request->discount_id;
+        $product->brand_id = $request->brand_id;
+        $product->gender_id = $request->gender_id;
+        $product->product_category_id = $request->productCategory_id;
+
+        /**photo opslaan**/
+        if($file = $request->file('photo_id')){
+            /** opvragen oude image **/
+            $oldImage = Photo::find($product->photo_id);
+            if($oldImage){
+                unlink(public_path() . '/img/products/' . $oldImage->file);
+                $oldImage->delete();
+            }
+            /**wegschrijven naar de img folder**/
+            $name = time(). $file->getClientOriginalName();
+            $file->move('img/products', $name);
+            /**wegschrijven naar de photo table**/
+            $photo = Photo::create(['file'=>$name]);
+            $product->photo_id = $photo->id;
+        }
+        $product->update();
+        //categoriëen syncen
+        $product->shoeSize()->sync($request->shoeSize,true);
+        $product->clothSizes()->sync($request->clothSize,true);
+        $product->colors()->sync($request->colors,true);
+        Session::flash('product_message', 'Product ' . $request->name . ' was updated!');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -130,6 +166,23 @@ class AdminProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        Session::flash('product_message', $product->name . ' was deleted!');
+        return redirect('/admin/products');
+    }
+
+    public function restore($id)
+    {
+        Product::onlyTrashed()->where('id', $id)->restore();
+        $product = User::findOrFail($id);
+        Session::flash('product_message', $product->name . ' was restored!');
+        return redirect('/admin/products');
+    }
+
+    public function productsPerBrand($id){
+        $brands = Brand::all();
+        $products = Product::with('photo','gender','brand','discount','productCategory')->where('brand_id', $id)->paginate(10);
+        return view('admin.products.index', compact('products','brands'));
     }
 }

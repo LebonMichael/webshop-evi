@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             GenderSeeder::class,
             ColorSeeder::class,
+            DiscountSeeder::class,
 
         ]);
     }

@@ -66,6 +66,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
+                    <a class="nav-link" href="{{route('webshop')}}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Frontend
+                    </a>
 
                     <!--start Users-->
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers"
@@ -156,6 +160,7 @@
                                     <a class="nav-link" href="{{route('productCategories.create')}}">Create Product Category</a>
                                 </nav>
                             </div>
+
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                                data-bs-target="#collapseBrands" aria-expanded="false"
                                aria-controls="collapseBrands">
@@ -183,6 +188,7 @@
                                     <a class="nav-link" href="{{route('colors.create')}}">Create Product Colour</a>
                                 </nav>
                             </div>
+
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                                data-bs-target="#collapseClothSize" aria-expanded="false"
                                aria-controls="collapseClothSize">
@@ -196,6 +202,7 @@
                                     <a class="nav-link" href="{{route('cloth-sizes.create')}}">Create Product Cloth Size</a>
                                 </nav>
                             </div>
+
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
                                data-bs-target="#collapseGenders" aria-expanded="false"
                                aria-controls="collapseGenders">
@@ -207,6 +214,19 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{route('genders.index')}}">All Product Genders</a>
                                     <a class="nav-link" href="{{route('genders.create')}}">Create Product Gender</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#collapseDiscounts" aria-expanded="false"
+                               aria-controls="collapseDiscounts">
+                                Product Discounts
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseDiscounts" aria-labelledby="headingOne"
+                                 data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{route('discounts.index')}}">All Product Discount</a>
+                                    <a class="nav-link" href="{{route('discounts.create')}}">Create Product Discount</a>
                                 </nav>
                             </div>
                         </nav>

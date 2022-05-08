@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\ProductCategory;
+use App\Models\Discount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
-class FrontendHomeController extends Controller
+class AdminDiscountsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,8 @@ class FrontendHomeController extends Controller
      */
     public function index()
     {
-        $categoryCountWomen = 0;
-        $categoryCountMen = 0;
-        $productCategories = ProductCategory::with('products.photo', 'products.gender')->get();
-        $productGirl = Product::where('gender', 'Meisjes');
-        $products = Product::with('photo', 'gender')->get();
-
-        return view('frontend.home.index', compact('productCategories', 'products', 'categoryCountWomen', 'categoryCountMen','productGirl'));
+        $discounts = Discount::withTrashed()->orderBy('percentage', 'ASC')->paginate(15);
+        return view('admin.discounts.index', compact('discounts'));
     }
 
     /**
@@ -31,24 +26,28 @@ class FrontendHomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.discounts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $discount = new Discount();
+        $discount->percentage = $request->percentage;
+        $discount->save();
+        Session::flash('discount_message','Discount ' . $request->percentage . ' was created!');
+        return redirect()->route('discounts.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -59,30 +58,35 @@ class FrontendHomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $discount = Discount::findOrFail($id);
+        return view('admin.discounts.edit', compact('discount'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $discount = Discount::findOrFail($id);
+        $discount->percentage = $request->percentage;
+        $discount->update();
+        Session::flash('discount_message', 'Discount ' . $request->percentage . ' was updated!');
+        return redirect()->route('discounts.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

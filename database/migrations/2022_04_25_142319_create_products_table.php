@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('body');
             $table->integer('price');
             $table->integer('stock');
+            $table->integer('sold')->default(0);
+            $table->integer('discount_id');
             $table->integer('gender_id');
             $table->integer('brand_id');
             $table->integer('product_category_id');

@@ -14067,7 +14067,7 @@ percent:
   label: Percent
   search:
     terms:
-      - discount
+      - discounts
       - fraction
       - proportion
       - rate
@@ -14082,7 +14082,7 @@ percentage:
   label: Percentage
   search:
     terms:
-      - discount
+      - discounts
       - fraction
       - proportion
       - rate
@@ -18523,7 +18523,7 @@ tag:
   label: tag
   search:
     terms:
-      - discount
+      - discounts
       - label
       - price
       - shopping
@@ -18539,7 +18539,7 @@ tags:
   label: tags
   search:
     terms:
-      - discount
+      - discounts
       - label
       - price
       - shopping
@@ -20420,7 +20420,7 @@ user-tag:
   search:
     terms:
       - avatar
-      - discount
+      - discounts
       - label
       - person
       - role

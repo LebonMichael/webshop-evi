@@ -13,6 +13,7 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
+
     public function brand(){
         return $this->belongsTo(Brand::class);
     }
@@ -25,13 +26,16 @@ class Product extends Model
     public function photo(){
         return $this->belongsTo(Photo::class,'photo_id');
     }
+    public function discount(){
+        return $this->belongsTo(Discount::class);
+    }
 
 
 
     public function colors(){
         return $this->belongsToMany(Color::class, 'product_colors');
     }
-    public function clothSize(){
+    public function clothSizes(){
         return $this->belongsToMany(ClothSizes::class, 'product_cloth_size');
     }
     public function shoeSize(){
@@ -49,5 +53,11 @@ class Product extends Model
                     $query->where('name', 'like', '%' . request('search') . '%');
                 });
         }
+    }
+    public function productGenderGirl($products){
+
+        $products = Product::where('gender_id', 1);
+        return $products;
+
     }
 }

@@ -85,7 +85,7 @@ class AdminGendersController extends Controller
         $gender->slug = Str::slug($gender->name, '-');
         $gender->update();
         Session::flash('gender_message', 'Gender ' . $request->name . ' was updated!');
-        return redirect()->route('brands.index');
+        return redirect()->route('genders.index');
     }
 
     /**

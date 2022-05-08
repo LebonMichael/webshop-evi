@@ -20,8 +20,8 @@
                             <p class="card-text text-white">Category : {{$product->productCategory->name}}</p>
                             <p class="card-text text-white">
                                 Size :
-                                @if($product->clothSize)
-                                    @foreach($product->clothSize as $clothSize)
+                                @if($product->clothSizes)
+                                    @foreach($product->clothSizes as $clothSize)
                                         <span class="badge rounded-pill bg-primary">{{$clothSize->size}}</span>
                                     @endforeach
                                 @endif
