@@ -13,8 +13,8 @@ class ClothSizes extends Model
 
     protected $guarded = ['id'];
 
-    public function products(){
-        return $this->belongsToMany(Product::class, 'product_cloth_size');
+    public function productDetails(){
+        return $this->hasMany(Product::class);
     }
 
 }

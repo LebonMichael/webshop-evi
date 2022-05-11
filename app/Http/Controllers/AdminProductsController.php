@@ -8,9 +8,11 @@ use App\Models\ClothSizes;
 use App\Models\Color;
 use App\Models\Discount;
 use App\Models\Gender;
+use App\Models\Image;
 use App\Models\Photo;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductDetails;
 use App\Models\ShoeSize;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,49 +21,30 @@ use Illuminate\Support\Facades\Session;
 
 class AdminProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $products = Product::with('photo','brand','productCategory','gender','colors','discount')->withTrashed()->orderBy('updated_at', 'desc')->filter(request(['search']))->paginate(20);
+        $products = Product::with('photo','brand','productCategory','gender')->withTrashed()->orderBy('updated_at', 'desc')->filter(request(['search']))->paginate(20);
         $brands = Brand::all();
         return view('admin.products.index', compact('products','brands'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $brands = Brand::all();
         $colors = Color::all();
         $genders = Gender::all();
-        $shoeSizes = ShoeSize::all();
         $clothSizes = ClothSizes::all();
         $productCategories = ProductCategory::all();
         $discounts = Discount::all();
-        return view('admin.products.create', compact('brands','colors','genders','shoeSizes','clothSizes','productCategories','discounts'));
+        return view('admin.products.create', compact('brands','colors','genders','clothSizes','productCategories','discounts'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $product = new Product();
         $product->name = $request->name;
         $product->body = $request->body;
-        $product->price = $request->price;
-        $product->stock = $request->stock;
-        $product->discount_id = $request->discount_id;
         $product->brand_id = $request->brand_id;
         $product->gender_id = $request->gender_id;
         $product->product_category_id = $request->productCategory_id;
@@ -76,43 +59,48 @@ class AdminProductsController extends Controller
         }
         $product->save();
 
-        $product->colors()->sync($request->colors, false);
-        $product->shoeSize()->sync($request->shoeSize, false);
-        $product->clothSizes()->sync($request->clothSize, false);
+        $productDetails = new ProductDetails();
+        $productDetails->product_id = $product->id;
+        $productDetails->color_id = $request->color;
+        $productDetails->clothSize_id = $request->clothSize;
+        $productDetails->discount_id = $request->discount_id;
+        $productDetails->stock = $request->stock;
+        $productDetails->price = $request->price;
 
+        $productDetails->save();
+
+        if($request->has('images')){
+            foreach ($request->file('images') as $image){
+                $imageName = time() . $image->getClientOriginalName();
+                $image->move('img/productsDetails/colors', $imageName);
+                Image::create([
+                   'product_details_id' => $productDetails->id,
+                   'image' => $imageName,
+                ]);
+
+            }
+        }
         Session::flash('product_message','Product ' . $request->name . ' was created!');
         return redirect('admin/products');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $product = Product::find($id);
-        return view('admin.products.show', compact('product'));
+        $productDetails = ProductDetails::with('color','clothSize', 'images','discount')->get();
+        return view('admin.products.show', compact('product', 'productDetails'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $brands = Brand::all();
         $colors = Color::all();
         $genders = Gender::all();
-        $shoeSizes = ShoeSize::all();
         $clothSizes = ClothSizes::all();
         $productCategories = ProductCategory::all();
         $discounts = Discount::all();
         $product = Product::findOrFail($id);
-        return view('admin.products.edit', compact('product','brands','colors','genders','shoeSizes','clothSizes','productCategories','discounts'));
+        return view('admin.products.edit', compact('product','brands','colors','genders','clothSizes','productCategories','discounts'));
     }
 
     /**
@@ -185,4 +173,5 @@ class AdminProductsController extends Controller
         $products = Product::with('photo','gender','brand','discount','productCategory')->where('brand_id', $id)->paginate(10);
         return view('admin.products.index', compact('products','brands'));
     }
+
 }

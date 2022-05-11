@@ -29,18 +29,10 @@ class Product extends Model
     public function discount(){
         return $this->belongsTo(Discount::class);
     }
-
-
-
-    public function colors(){
-        return $this->belongsToMany(Color::class, 'product_colors');
+    public function images(){
+        return $this->hasMany(Product::class);
     }
-    public function clothSizes(){
-        return $this->belongsToMany(ClothSizes::class, 'product_cloth_size');
-    }
-    public function shoeSize(){
-        return $this->belongsToMany(ShoeSize::class, 'product_shoe_size');
-    }
+
 
     public function scopeFilter($query, array $filters)
     {

@@ -512,9 +512,10 @@
                                     @foreach($productCategories as $category)
                                         @foreach($products as $product)
                                             @if($product->product_category_id == $category->id)
-                                                @if($product->gender->name == "Meisjes")
+                                                @if($product->gender->name == "Meisjes" && $i++)
+                                                    @php $i=0;  @endphp
                                                     <li class="nav-item p-1" role="presentation">
-                                                        <button class="nav-link @if($categoryCountWomen == 0 ) active @endif"
+                                                        <button class="nav-link @if($i == 0 ) active @endif"
                                                                 id="pills-{{$category->name}}-Women-tab"
                                                                 data-bs-toggle="pill"
                                                                 data-bs-target="#pills-{{$category->name}}-Women"
@@ -523,7 +524,6 @@
                                                                 aria-controls="pills-{{$category->name}}-Women"
                                                                 aria-selected="true">{{$category->name}}
                                                         </button>
-                                                        <p hidden>{{$categoryCountWomen++}}</p>
                                                     </li>
                                                 @endif
                                                 @break

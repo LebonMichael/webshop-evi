@@ -12,46 +12,31 @@
                     <div>
                         <div class="form-group pe-2">
                             <label class="text-white" for="name">Product Name:</label>
-                            <input type="text" name="name" id="title"
+                            <input type="text"
+                                   name="name"
+                                   id="title"
                                    class="form-control"
-                                   placeholder="Product Name..">
+                                   placeholder="Product Name.."
+                            >
                         </div>
                     </div>
                     <div class="d-flex">
-                        <div class="col-6">
-                            <label class="text-white" for="price">Price: </label>
-                            <div class="input-group pe-2">
-                                <span class="input-group-text">&euro;</span>
-                                <input type="number" step="0.05" name="price" id="price" class="form-control" placeholder="Price">
-                            </div>
-                        </div>
-                        <div class="form-group pe-2 col-6">
-                            <label class="text-white" for="price">Stock: </label>
-                            <input type="number" name="stock" id="stock"
-                                   class="form-control"
-                                   placeholder="Stock">
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <div class="col-6">
-                            <label class="text-white" for="discount_id">Discount: </label>
-                            <div class="input-group pe-2">
-                                <select name="discount_id" class="form-control custom-select" >
-                                    @foreach($discounts as $discount)
-                                        <option value="{{$discount->id}}">
-                                            {{$discount->percentage}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <span class="input-group-text">%</span>
-                            </div>
-                        </div>
                         <div class="form-group pe-2 col-6">
                             <label class="text-white" for="gender_id">Gender: </label>
-                            <select name="gender_id" class="form-control custom-select" >
+                            <select name="gender_id" class="form-control custom-select">
                                 @foreach($genders as $gender)
                                     <option value="{{$gender->id}}">
                                         {{$gender->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group pe-2 col-6">
+                            <label class="text-white" for="brand_id">Brand: </label>
+                            <select name="brand_id" class="form-control custom-select">
+                                @foreach($brands as $brand)
+                                    <option value="{{$brand->id}}">
+                                        {{$brand->name}}
                                     </option>
                                 @endforeach
                             </select>
@@ -60,18 +45,8 @@
 
                     <div class="d-flex">
                         <div class="form-group pe-2 col-6">
-                            <label class="text-white" for="brand_id">Brand: </label>
-                            <select name="brand_id" class="form-control custom-select" >
-                                @foreach($brands as $brand)
-                                    <option value="{{$brand->id}}">
-                                        {{$brand->name}}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group pe-2 col-6">
                             <label class="text-white" for="productCategory_id">Product Category: </label>
-                            <select name="productCategory_id" class="form-control custom-select" >
+                            <select name="productCategory_id" class="form-control custom-select">
                                 @foreach($productCategories as $productCategory)
                                     <option value="{{$productCategory->id}}">
                                         {{$productCategory->name}}
@@ -79,36 +54,6 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="text-white" for="colors[]">Colours: (CTRL + CLICK multiple select)</label>
-                        <select name="colors[]" class="form-control custom-select" multiple>
-                            @foreach($colors as $color)
-                                <option value="{{$color->id}}">
-                                    {{$color->name}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="text-white" for="shoeSize[]">Shoe Size: (CTRL + CLICK multiple select)</label>
-                        <select name="shoeSize[]" class="form-control custom-select" multiple>
-                            @foreach($shoeSizes as $shoeSize)
-                                <option value="{{$shoeSize->id}}">
-                                    {{$shoeSize->size}}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="text-white" for="clothSize[]">Cloth Size: (CTRL + CLICK multiple select)</label>
-                        <select name="clothSize[]" class="form-control custom-select" multiple>
-                            @foreach($clothSizes as $clothSize)
-                                <option value="{{$clothSize->id}}">
-                                    {{$clothSize->size}}
-                                </option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="form-group">
                         <label class="text-white" for="body">Description: </label>
@@ -121,7 +66,93 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Your Product Picture</h5>
-                                    <input type="file" name="photo_id" class="dropify"/>
+                                    <input
+                                        type="file"
+                                        name="photo_id"
+                                        class="dropify"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h2 class="text-center text-white my-2">Product Details</h2>
+
+                        <div class="d-flex">
+                            <div class="col-6">
+                                <label class="text-white" for="price">Price: </label>
+                                <div class="input-group pe-2">
+                                    <span class="input-group-text">&euro;</span>
+                                    <input
+                                        type="number"
+                                        step="0.05"
+                                        min="1"
+                                        name="price"
+                                        id="price"
+                                        class="form-control"
+                                        placeholder="Price"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="text-white" for="price">Stock: </label>
+                                <input type="number" name="stock" id="stock"
+                                       class="form-control"
+                                       placeholder="Stock">
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-6">
+                                <label class="text-white" for="discount_id">Discount: </label>
+                                <div class="input-group pe-2">
+                                    <select name="discount_id" class="form-control custom-select">
+                                        @foreach($discounts as $discount)
+                                            <option value="{{$discount->id}}">
+                                                {{$discount->percentage}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="text-white" for="color">Colour:</label>
+                                <select name="color" class="form-control custom-select">
+                                    @foreach($colors as $color)
+                                        <option value="{{$color->id}}">
+                                            {{$color->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="col-6 pe-2">
+                                <label class="text-white" for="color">Size:</label>
+                                <select name="clothSize" class="form-control custom-select">
+                                    @foreach($clothSizes as $clothSize)
+                                        <option value="{{$clothSize->id}}">
+                                            {{$clothSize->size}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="text-white me-3" for="file">Product Color Photos:</label>
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Your Pictures</h5>
+                                        <input
+                                            type="file"
+                                            name="images[]"
+                                            class="form-control"
+                                            accept="image/*"
+                                            multiple
+                                        >
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -133,4 +164,5 @@
                 </form>
             </div>
         </div>
+    </div>
 @endsection

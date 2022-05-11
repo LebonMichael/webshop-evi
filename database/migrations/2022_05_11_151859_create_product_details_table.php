@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Color;
 use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,14 +14,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('product_details', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('body');
-            $table->integer('gender_id');
-            $table->integer('brand_id');
-            $table->integer('product_category_id');
-            $table->unsignedBigInteger('photo_id')->index();
+            $table->foreignIdFor(Product::class);
+            $table->decimal('price',8,2);
+            $table->integer('stock');
+            $table->integer('sold')->default(0);
+            $table->integer("color_id");
+            $table->integer('discount_id');
+            $table->integer('clothSize_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('product_details');
     }
 };

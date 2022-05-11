@@ -39,9 +39,6 @@
                 <th>Gender</th>
                 <th>Brand</th>
                 <th>Category</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Discount</th>
                 <th>Updated</th>
                 <th>Created</th>
                 <th>Deleted</th>
@@ -60,9 +57,6 @@
                     <td>{{$product->gender->name}}</td>
                     <td>{{$product->brand->name}}</td>
                     <td>{{$product->productCategory->name}}</td>
-                    <td>&euro; {{$product->price}}</td>
-                    <td>{{$product->stock}}</td>
-                    <td>{{$product->discount->percentage}}%</td>
                     <td>{{$product->created_at->diffForHumans()}}</td>
                     <td>{{$product->updated_at->diffForHumans()}}</td>
                     <td>{{$product->deleted_at}}</td>

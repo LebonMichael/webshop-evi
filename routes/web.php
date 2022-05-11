@@ -53,6 +53,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::get('products/restore/{product}', 'App\Http\Controllers\AdminProductsController@restore')->name('products.restore');
     Route::get('products/brand/{id}','App\Http\Controllers\AdminProductsController@productsPerBrand')->name('productsPerBrand');
 
+    Route::resource('productsDetails', App\Http\Controllers\AdminProductDetailsController::class);
+
     Route::resource('productCategories', App\Http\Controllers\AdminProductCategoriesController::class);
     Route::get('productCategories/restore/{productCategory}', 'App\Http\Controllers\AdminProductCategoriesController@restore')->name('productCategories.restore');
 

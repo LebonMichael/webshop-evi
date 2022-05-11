@@ -1,32 +1,26 @@
 <?php
 
+use App\Models\Color;
+use App\Models\ProductDetails;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
-        Schema::create('shoe_sizes', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->integer("size");
+            $table->foreignIdFor(ProductDetails::class);
+            $table->string('image');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('shoe_sizes');
+        Schema::dropIfExists('images');
     }
 };
