@@ -16,7 +16,6 @@ return new class extends Migration
     {
         Schema::create('product_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Product::class);
             $table->decimal('price',8,2);
             $table->integer('stock');
             $table->integer('sold')->default(0);
@@ -25,6 +24,15 @@ return new class extends Migration
             $table->integer('clothSize_id');
             $table->timestamps();
             $table->softDeletes();
+        });
+        Schema::create('product_details_colors', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('product_details_id');
+            $table->unsignedBigInteger('color_id');
+            $table->timestamps();
+            $table->unique(['product_details_id', 'color_id']);
+            $table->foreign('product_details_id')->references('id')->on('product_details')->onDelete('cascade');
+            $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
         });
     }
 

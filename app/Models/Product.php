@@ -29,10 +29,14 @@ class Product extends Model
     public function discount(){
         return $this->belongsTo(Discount::class);
     }
-    public function images(){
-        return $this->hasMany(Product::class);
+
+    public function productDetails(){
+        return $this->belongsToMany(Product::class, 'product_details');
     }
 
+    public function colors(){
+        return $this->belongsToMany(Color::class, 'product_colors');
+    }
 
     public function scopeFilter($query, array $filters)
     {

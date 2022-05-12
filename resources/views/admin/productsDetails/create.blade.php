@@ -7,7 +7,7 @@
         <div class="row py-3">
             <div class="col-8 offset-2 img-thumbnail bg-black">
                 @include('includes.form_error')
-                <form action="{{route('productsDetails.store' , $id)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('productDetails.store', $product->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <h2 class="text-center text-white my-2">Product Details</h2>
                     <div class="d-flex">
@@ -49,8 +49,8 @@
                         </div>
                         <div class="col-6">
                             <label class="text-white" for="color">Colour:</label>
-                            <select name="color" class="form-control custom-select">
-                                @foreach($colors as $color)
+                            <select name="color_id" class="form-control custom-select">
+                                @foreach($product->colors as $color)
                                     <option value="{{$color->id}}">
                                         {{$color->name}}
                                     </option>
@@ -88,12 +88,11 @@
                             </div>
                         </div>
                     </div>
-            <div class="text-center my-3">
-                <button type="submit" class="btn btn-primary">Create Product Details</button>
+                    <div class="text-center my-3">
+                        <button type="submit" class="btn btn-primary">Create Product Details</button>
+                    </div>
+                </form>
             </div>
-
-            </form>
         </div>
-    </div>
     </div>
 @endsection

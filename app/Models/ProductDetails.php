@@ -13,8 +13,8 @@ class ProductDetails extends Model
 
     protected $guarded = ['id'];
 
-    public function color(){
-        return $this->belongsTo(Color::class, 'color_id');
+    public function colors(){
+        return $this->belongsToMany(Color::class, 'product_details_colors');
     }
 
     public function clothSize(){
@@ -28,5 +28,6 @@ class ProductDetails extends Model
     public function images(){
         return $this->hasMany(Image::class, 'product_details_id');
     }
+
 
 }

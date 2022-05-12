@@ -40,6 +40,13 @@ class AdminProductsController extends Controller
         return view('admin.products.create', compact('brands','colors','genders','clothSizes','productCategories','discounts'));
     }
 
+    public function createProductDetails($id){
+        $product = Product::findOrFail($id);
+        $discounts = Discount::all();
+        $clothSizes = ClothSizes::all();
+        return view ('admin.productsDetails.create', compact('product','discounts','clothSizes'));
+    }
+
     public function store(Request $request)
     {
         $product = new Product();
@@ -59,9 +66,16 @@ class AdminProductsController extends Controller
         }
         $product->save();
 
+        $product->colors()->sync($request->colors,false);
+
+        Session::flash('product_message','Product ' . $request->name . ' was created!');
+        return redirect(route('productDetails.create', $product->id));
+    }
+
+    public function storeProductDetails(Request $request , $id){
         $productDetails = new ProductDetails();
-        $productDetails->product_id = $product->id;
-        $productDetails->color_id = $request->color;
+        $product = Product::findOrFail($id);
+        $productDetails->color_id = $request->color_id;
         $productDetails->clothSize_id = $request->clothSize;
         $productDetails->discount_id = $request->discount_id;
         $productDetails->stock = $request->stock;
@@ -74,12 +88,15 @@ class AdminProductsController extends Controller
                 $imageName = time() . $image->getClientOriginalName();
                 $image->move('img/productsDetails/colors', $imageName);
                 Image::create([
-                   'product_details_id' => $productDetails->id,
-                   'image' => $imageName,
+                    'product_details_id' => $productDetails->id,
+                    'image' => $imageName,
                 ]);
 
             }
         }
+
+        $productDetails->colors()->sync($request->color_id,false);
+
         Session::flash('product_message','Product ' . $request->name . ' was created!');
         return redirect('admin/products');
     }
@@ -87,7 +104,10 @@ class AdminProductsController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        $productDetails = ProductDetails::with('color','clothSize', 'images','discount')->get();
+        $productDetails = ProductDetails::with('colors','clothSize', 'images','discount')->get();
+
+
+
         return view('admin.products.show', compact('product', 'productDetails'));
     }
 

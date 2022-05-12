@@ -13,7 +13,11 @@ class Color extends Model
 
     protected $guarded = ['id'];
 
+    public function products(){
+        return $this->belongsToMany(Product::class, 'product_colors');
+    }
+
     public function productDetails(){
-        return $this->hasMany(ProductDetails::class);
+        return $this->belongsToMany(ProductDetails::class, 'product_details_colors');
     }
 }
