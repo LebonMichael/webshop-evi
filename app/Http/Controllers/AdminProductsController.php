@@ -75,6 +75,7 @@ class AdminProductsController extends Controller
     public function storeProductDetails(Request $request , $id){
         $productDetails = new ProductDetails();
         $product = Product::findOrFail($id);
+        $productDetails->product_id = $product->id;
         $productDetails->color_id = $request->color_id;
         $productDetails->clothSize_id = $request->clothSize;
         $productDetails->discount_id = $request->discount_id;
@@ -104,7 +105,7 @@ class AdminProductsController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        $productDetails = ProductDetails::with('colors','clothSize', 'images','discount')->get();
+        $productDetails = ProductDetails::where('product_id', $id)->with('colors','clothSize', 'images','discount')->orderBy('clothSize_id')->get();
 
 
 

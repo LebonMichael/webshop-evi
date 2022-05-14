@@ -44,29 +44,7 @@ class AdminProductDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        $productDetails = new ProductDetails();
-        $productDetails->product_id = $product->id;
-        $productDetails->color_id = $request->color;
-        $productDetails->clothSize_id = $request->clothSize;
-        $productDetails->discount_id = $request->discount_id;
-        $productDetails->stock = $request->stock;
-        $productDetails->price = $request->price;
 
-        $productDetails->save();
-
-        if($request->has('images')){
-            foreach ($request->file('images') as $image){
-                $imageName = time() . $image->getClientOriginalName();
-                $image->move('img/productsDetails/colors', $imageName);
-                Image::create([
-                    'product_details_id' => $productDetails->id,
-                    'image' => $imageName,
-                ]);
-
-            }
-        }
-        Session::flash('product_message','Product ' . $request->name . ' was created!');
-        return redirect('admin/products');
     }
 
     /**
@@ -88,7 +66,9 @@ class AdminProductDetailsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $productDetail = ProductDetails::findOrFail($id);
+        $clothSizes = ClothSizes::all();
+        return view('admin.productsDetails.edit', compact('productDetail','clothSizes'));
     }
 
     /**
@@ -100,7 +80,34 @@ class AdminProductDetailsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $productDetail = ProductDetails::findOrFail($id);
+        $productDetail->price = $request->price;
+        $productDetail->stock = $request->stock;
+
+        if($request->has('images')){
+            if($productDetail->images){
+                foreach ($productDetail->images as $image){
+                    $oldImage = $image->image;
+                    unlink('img/productsDetails/colors/' . $oldImage);
+                    $image->delete();
+                };
+            }
+            foreach ($request->file('images') as $image){
+                $imageName = time() . $image->getClientOriginalName();
+                $image->move('img/productsDetails/colors', $imageName);
+                Image::create([
+                    'product_details_id' => $productDetail->id,
+                    'image' => $imageName,
+                ]);
+
+            }
+        }
+
+
+        $productDetail->update();
+
+        return redirect()->route('products.index');
+
     }
 
     /**

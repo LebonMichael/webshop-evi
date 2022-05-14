@@ -22,68 +22,82 @@
                             <p class="card-text text-white">Brand : <span
                                     class="badge rounded-pill bg-primary">{{$product->brand->name}}</span></p>
                             <p class="card-text text-white">Category : {{$product->productCategory->name}}</p>
-
-                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                            <p class="card-text text-white" >Colors:</p>
+                            <ul class="nav nav-pills mb-3" id="pills-tab-colors" role="tablist">
                                 @foreach($product->colors as $color)
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="pills-{{$color->id}}-tab"
-                                                    data-bs-toggle="pill"
-                                                    data-bs-target="#pills-{{$color->id}}" type="button"
-                                                    role="tab"
-                                                    aria-controls="pills-{{$color->id}}"
-                                                    aria-selected="true">
-                                                <i style="color:{{$color->code}}"
-                                                   class="rounded-circle border border-dark fas fa-circle"></i>
-                                            </button>
-                                        </li>
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-{{$color->name}}-tab"
+                                                data-bs-toggle="pill"
+                                                data-bs-target="#pills-{{$color->name}}" type="button"
+                                                role="tab"
+                                                aria-controls="pills-{{$color->name}}"
+                                                aria-selected="true">
+                                            <i style="color:{{$color->code}}"
+                                               class="rounded-circle border border-dark fas fa-circle"></i>
+                                        </button>
+                                    </li>
                                 @endforeach
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
-                                    @foreach($productDetails as $productDetail)
-                                    <div class="tab-pane fade" id="pills-{{$productDetail->color_id}}"
-                                             role="tabpanel"
-                                             aria-labelledby="pills-{{$productDetail->color_id}}-tab">
-                                        @if($color->id === $productDetail->color_id)
-                                        <p class="card-text text-white">Color : {{$color->name}}</p>
-                                        <p class="card-text text-white">
-                                            Size :
-                                            @if($productDetail->clothSize and $productDetail->product_id === $product->id)
-                                                <span
-                                                    class="badge rounded-pill bg-primary">{{$productDetail->clothSize->size}}</span>
-                                            @endif
+                                @foreach($product->colors as $color)
+                                    <div class="tab-pane fade" id="pills-{{$color->name}}"
+                                         role="tabpanel"
+                                         aria-labelledby="pills-{{$color->name}}-tab">
+                                        <p class="card-text text-white" >Sizes:
                                         </p>
-                                        <p class="card-text text-white">Stock : {{$productDetail->stock}} stuk</p>
-                                        <p class="card-text text-white">Price : &euro;{{$productDetail->price}}</p>
-                                        <p class="card-text text-white">Sold : {{$productDetail->sold}}</p>
-                                        <p class="card-text text-white">Percentage
-                                            : {{$productDetail->discount->percentage}}%</p>
-                                        <div class="col-lg-10 offset-lg-1">
-                                            <div class="row row-cols-4">
-                                                @foreach($productDetail->images as $image)
-                                                    <div>
-                                                        <img class="img-fluid m-2 border border-2 rounded"
-                                                             src="{{asset('img/productsDetails/colors') . '/' . $image->image}}"
-                                                             alt="">
-                                                    </div>
+                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                            @foreach($productDetails as $productDetail)
+                                                @if($color->id === $productDetail->color_id)
 
-                                                @endforeach
-                                            </div>
+                                                    <li class="nav-item" role="presentation">
+                                                        <button class="nav-link"
+                                                                id="pills-{{$productDetail->id}}-{{$productDetail->clothSize->size}}-tab"
+                                                                data-bs-toggle="pill"
+                                                                data-bs-target="#pills-{{$productDetail->id}}-{{$productDetail->clothSize->size}}"
+                                                                type="button" role="tab"
+                                                                aria-controls="pills-{{$productDetail->id}}-{{$productDetail->clothSize->size}}"
+                                                                aria-selected="true">{{$productDetail->clothSize->size}}
+                                                        </button>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                        <div class="tab-content" id="pills-tabContent-size">
+                                            @foreach($productDetails as $productDetail)
+                                                @if($color->id === $productDetail->color_id)
+                                                    <div class="tab-pane fade" id="pills-{{$productDetail->id}}-{{$productDetail->clothSize->size}}"
+                                                         role="tabpanel" aria-labelledby="pills-{{$productDetail->id}}-{{$productDetail->clothSize->size}}-tab" tabindex="0">
+                                                        <p class="card-text text-white">Stock : {{$productDetail->stock}} stuk</p>
+                                                        <p class="card-text text-white">Price : &euro;{{$productDetail->price}}</p>
+                                                        <p class="card-text text-white">Sold : {{$productDetail->sold}}</p>
+                                                        <p class="card-text text-white">Percentage
+                                                            : {{$productDetail->discount->percentage}}%</p>
+                                                        <div class="col-lg-10 offset-lg-1">
+                                                            <div class="row row-cols-4">
+                                                                @foreach($productDetail->images as $image)
+                                                                    <div>
+                                                                        <img class="img-fluid m-2 border border-2 rounded"
+                                                                             src="{{asset('img/productsDetails/colors') . '/' . $image->image}}"
+                                                                             alt="">
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 my-3">
+                                                            <a href="{{route('productsDetails.edit', $productDetail->id)}}" class="btn btn-info">Edit ProductDetails</a>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
                                         </div>
-                                        <div class="col-12 my-3">
-                                            <a href="" class="btn btn-info">Edit ProductDetails</a>
-                                        </div>
-                                        <p class="card-text my-3"><small
-                                                class="text-muted">{{$productDetail->updated_at->diffForhumans()}}</small>
-                                        </p>
-                                        @endif
                                     </div>
                                 @endforeach
-                                <div class="col-12 my-3">
-                                    <a href="{{route('productDetails.create', $product->id)}}" class="btn btn-info">Create Product Details</a>
-                                </div>
                             </div>
                         </div>
-
+                        <div class="col-12 my-3">
+                            <a href="{{route('productDetails.create', $product->id)}}" class="btn btn-info">Create Product Details</a>
+                        </div>
                     </div>
                 </div>
             </div>

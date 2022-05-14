@@ -16,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('product_details', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Product::class);
             $table->decimal('price',8,2);
             $table->integer('stock');
             $table->integer('sold')->default(0);
