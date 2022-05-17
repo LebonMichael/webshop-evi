@@ -66,8 +66,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::resource('colors', App\Http\Controllers\AdminColorController::class);
     Route::get('colors/restore/{color}', 'App\Http\Controllers\AdminColorController@restore')->name('colors.restore');
 
-    Route::resource('shoe-sizes', App\Http\Controllers\AdminShoeSizeController::class);
-
     Route::resource('cloth-sizes', App\Http\Controllers\AdminClothSizesController::class);
     Route::get('cloth-size/restore/{cloth-size}', 'App\Http\Controllers\AdminClothSizesController@restore')->name('cloth-size.restore');
 

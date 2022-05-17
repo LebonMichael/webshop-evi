@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\ClothSizes;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductDetails;
 use Illuminate\Http\Request;
 
 class FrontendShopController extends Controller
@@ -21,7 +22,8 @@ class FrontendShopController extends Controller
         $sizes = ClothSizes::all();
         $categories = ProductCategory::all();
         $products = Product::with('photo', 'gender','productCategory','brand')->get();
-        return view('frontend.shop.index', compact('products','categories','brands','sizes'));
+        $productDetails = ProductDetails::with('discount')->orderBy('discount_id', 'DESC')->get();
+        return view('frontend.shop.index', compact('products','categories','brands','sizes','productDetails'));
     }
 
     /**

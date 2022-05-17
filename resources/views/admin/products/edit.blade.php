@@ -22,41 +22,6 @@
                                 </div>
                             </div>
                             <div class="d-flex">
-                                <div class="col-6">
-                                    <label class="text-white" for="price">Price: </label>
-                                    <div class="input-group pe-2">
-                                        <span class="input-group-text">&euro;</span>
-                                        <input
-                                            type="number"
-                                            step="0.05"
-                                            name="price" id="price"
-                                            class="form-control"
-                                            placeholder="Price"
-                                            value="{{$product->price}}"
-                                        >
-                                    </div>
-                                </div>
-                                <div class="form-group pe-2 col-6">
-                                    <label class="text-white" for="price">Stock: </label>
-                                    <input type="number" name="stock" id="stock"
-                                           class="form-control" value="{{$product->stock}}"
-                                           placeholder="{{$product->stock}}">
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <div class="col-6">
-                                    <label class="text-white" for="discount_id">Discount: </label>
-                                    <div class="input-group pe-2">
-                                        <select name="discount_id" class="form-control custom-select" >
-                                            @foreach($discounts as $discount)
-                                                <option value="{{$discount->id}}" @if($product->discount->id == $discount->id) selected @endif >
-                                                    {{$discount->percentage}}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <span class="input-group-text">%</span>
-                                    </div>
-                                </div>
                                 <div class="form-group col-6 pe-2">
                                     <label class="text-white" for="gender_id">Gender: </label>
                                     <select name="gender_id" class="form-control custom-select">
@@ -67,9 +32,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-
-                            <div class="d-flex">
                                 <div class="form-group pe-2 col-6">
                                     <label class="text-white" for="brand_id">Brand: </label>
                                     <select name="brand_id" class="form-control custom-select">
@@ -80,6 +42,8 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
+                            <div class="d-flex">
                                 <div class="form-group pe-2 col-6">
                                     <label class="text-white" for="productCategory_id">Product Category: </label>
                                     <select name="productCategory_id" class="form-control custom-select">
@@ -103,30 +67,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label class="text-white" for="shoeSize[]">Shoe Size: (CTRL + CLICK multiple
-                                    select)</label>
-                                <select name="shoeSize[]" class="form-control custom-select" multiple>
-                                    @foreach($shoeSizes as $shoeSize)
-                                        <option value="{{$shoeSize->id}}"
-                                                @if($product->shoeSize->contains($shoeSize->id)) selected @endif >
-                                            {{$shoeSize->size}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="text-white" for="clothSize[]">Cloth Size: (CTRL + CLICK multiple
-                                    select)</label>
-                                <select name="clothSize[]" class="form-control custom-select" multiple>
-                                    @foreach($clothSizes as $clothSize)
-                                        <option value="{{$clothSize->id}}"
-                                                @if($product->clothSizes->contains($clothSize->id)) selected @endif>
-                                            {{$clothSize->size}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+
                             <div class="form-group">
                                 <label class="text-white" for="body">Description: </label>
                                 <textarea class="form-control" name="body" id="body" cols="100%" rows="10"

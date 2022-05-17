@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductDetails;
 use Illuminate\Http\Request;
 
 class FrontendHomeController extends Controller
@@ -15,13 +16,14 @@ class FrontendHomeController extends Controller
      */
     public function index()
     {
-        $categoryCountWomen = 0;
-        $categoryCountMen = 0;
+        $oldCategory = '';
         $productCategories = ProductCategory::with('products.photo', 'products.gender')->get();
-        $productGirl = Product::where('gender', 'Meisjes');
+        $productGirl = Product::where('gender_id', 1)->orderBy('product_category_id', 'ASC')->with('productCategory','photo')->get();
+        $productBoy = Product::where('gender_id', 2)->orderBy('product_category_id', 'ASC')->with('productCategory','photo')->get();
         $products = Product::with('photo', 'gender')->get();
+        $productDetails = ProductDetails::all();
 
-        return view('frontend.home.index', compact('productCategories', 'products', 'categoryCountWomen', 'categoryCountMen','productGirl'));
+        return view('frontend.home.index', compact('productCategories', 'products', 'oldCategory','productGirl','productBoy','productDetails'));
     }
 
     /**

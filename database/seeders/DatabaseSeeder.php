@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             PostsTableSeeder::class,
             PostCategoriesTableSeeder::class,
             ClothSizeSeeder::class,
-            ShoeSizeSeeder::class,
             ProductCategoriesSeeder::class,
             BrandSeeder::class,
             GenderSeeder::class,

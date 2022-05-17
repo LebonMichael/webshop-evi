@@ -30,4 +30,5 @@ class ProductDetails extends Model
     }
 
 
+
 }

@@ -16,7 +16,6 @@
         <table class="table table-striped bg-gradient">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Discount</th>
                     <th>Created</th>
                     <th>Updated</th>
@@ -27,7 +26,6 @@
             <tbody>
             @foreach($discounts as $discount)
                 <tr>
-                    <td>{{$discount->id}}</td>
                     <td>{{$discount->percentage}}%</td>
                     <td>{{$discount->created_at->diffForHumans()}}</td>
                     <td>{{$discount->updated_at->diffForHumans()}}</td>

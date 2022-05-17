@@ -107,8 +107,6 @@ class AdminProductsController extends Controller
         $product = Product::find($id);
         $productDetails = ProductDetails::where('product_id', $id)->with('colors','clothSize', 'images','discount')->orderBy('clothSize_id')->get();
 
-
-
         return view('admin.products.show', compact('product', 'productDetails'));
     }
 
