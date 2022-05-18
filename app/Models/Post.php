@@ -11,16 +11,23 @@ class Post extends Model
 
     protected $guarded = ['id'];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function categories(){
+
+    public function categories()
+    {
         return $this->belongsToMany(PostCategory::class, 'category_post');
     }
-    public function photo(){
+
+    public function photo()
+    {
         return $this->belongsTo(Photo::class);
     }
-    public function comments(){
+
+    public function comments()
+    {
         return $this->hasMany(PostComment::class);
     }
     /*   public function keywords(){
@@ -28,12 +35,15 @@ class Post extends Model
        }*/
 
     /**searching/filtering**/
-    public function scopeFilter($query, array $filters){
-        //if(isset($filters['search']) == false
-        if($filters['search'] ?? false){ //php 8
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
             $query
-                ->where('title','like', '%' . request('search') . '%')
-                ->orWhere('body','like', '%' . request('search') . '%');
+                ->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('body', 'like', '%' . request('search') . '%')
+                ->orWhereHas('user', function ($query) {
+                    $query->where('first_name', 'like', '%' . request('search') . '%');
+            });
         }
     }
 }

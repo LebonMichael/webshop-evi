@@ -3,14 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\ProductDetails;
-use App\Models\User;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
-class FrontendHomeController extends Controller
+class FrontendPostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,14 +14,9 @@ class FrontendHomeController extends Controller
      */
     public function index()
     {
-        $oldCategory = '';
-        $productGirl = Product::where('gender_id', 1)->orderBy('product_category_id', 'ASC')->with('productCategory','photo')->get();
-        $productBoy = Product::where('gender_id', 2)->orderBy('product_category_id', 'ASC')->with('productCategory','photo')->get();
-        $products = Product::with('photo', 'gender')->get();
-        $productDetails = ProductDetails::with('discount')->get();
-        $posts = Post::with('user.photo','user','categories','photo',)->orderBy('created_at', 'ASC')->get();
-        $users = User::with('photo','roles')->whereHas('posts')->get();
-        return view('frontend.home.index', compact('products', 'oldCategory','productGirl','productBoy','productDetails','posts','users'));
+        $posts = Post::all();
+        $oldCategory = 0;
+        return view('frontend.blogs.index', compact('posts', 'oldCategory'));
     }
 
     /**
@@ -56,9 +46,9 @@ class FrontendHomeController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+
     }
 
     /**
@@ -94,4 +84,6 @@ class FrontendHomeController extends Controller
     {
         //
     }
+
+
 }

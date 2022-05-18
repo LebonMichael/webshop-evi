@@ -1,4 +1,5 @@
-@include('layouts.frontendNav')
+@extends('layouts.frontendNav')
+@section('content')
 <section class="py-11 bg-light-gradient border-bottom border-white border-5">
 
     <!--/.bg-holder-->
@@ -14,7 +15,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- ============================================-->
 <!-- <section> begin ============================-->
@@ -46,7 +46,6 @@
 <!-- <section> close ============================-->
 <!-- ============================================-->
 
-
 <!-- ============================================-->
 <!-- <section> begin Best Deals =================-->
 <section class="py-0">
@@ -65,18 +64,37 @@
                             <div class="row h-100 align-items-center g-2">
                                 @foreach($products as $product)
                                     @if($loop->index < 4)
-                                        <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                                            <div class="card card-span h-100 text-white">
+                                        <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100 ">
+                                            <div class="card card-span h-100 ">
                                                 <img class="img-fluid h-100"
                                                      src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
                                                      alt="..."/>
-                                                <div class="card-img-overlay ps-0"></div>
                                                 <div class="card-body text-center ps-0 bg-200">
                                                     <h5 class="fw-bold text-1000 text-truncate">Flat Hill
                                                         Slingback</h5>
-                                                    <div class="fw-bold"><span
-                                                            class="text-600 me-2 text-decoration-line-through">$200</span><span
-                                                            class="text-primary">$175</span></div>
+                                                    <div class="fw-bold">
+                                                        @foreach($productDetails as $productDetail)
+                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                <span
+                                                                    class="text-primary">
+                                                                    @php
+                                                                        $discountPrice = $productDetail->price/100;
+                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                    @endphp
+                                                                    &euro; {{$discountPrice}}
+                                                            </span>
+                                                                @break
+                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                @break
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                                 <a class="stretched-link" href="#"></a>
                                             </div>
@@ -91,8 +109,8 @@
                             <div class="row h-100 align-items-center g-2">
                                 @foreach($products as $product)
                                     @if($loop->index < 8 && $loop->index > 3)
-                                        <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                                            <div class="card card-span h-100 text-white">
+                                        <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100 ">
+                                            <div class="card card-span h-100">
                                                 <img class="img-fluid h-100"
                                                      src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
                                                      alt="..."/>
@@ -100,9 +118,29 @@
                                                 <div class="card-body text-center ps-0 bg-200">
                                                     <h5 class="fw-bold text-1000 text-truncate">Flat Hill
                                                         Slingback</h5>
-                                                    <div class="fw-bold"><span
-                                                            class="text-600 me-2 text-decoration-line-through">$200</span><span
-                                                            class="text-primary">$175</span></div>
+                                                    <div class="fw-bold">
+                                                        @foreach($productDetails as $productDetail)
+                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                <span
+                                                                    class="text-primary">
+                                                                    @php
+                                                                        $discountPrice = $productDetail->price/100;
+                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                    @endphp
+                                                                    &euro; {{$discountPrice}}
+                                                            </span>
+                                                                @break
+                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                @break
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                                 <a class="stretched-link" href="#"></a>
                                             </div>
@@ -118,7 +156,7 @@
                                 @foreach($products as $product)
                                     @if($loop->index < 12 && $loop->index > 7)
                                         <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                                            <div class="card card-span h-100 text-white">
+                                            <div class="card card-span h-100">
                                                 <img class="img-fluid h-100"
                                                      src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
                                                      alt="..."/>
@@ -126,9 +164,29 @@
                                                 <div class="card-body text-center ps-0 bg-200">
                                                     <h5 class="fw-bold text-1000 text-truncate">Flat Hill
                                                         Slingback</h5>
-                                                    <div class="fw-bold"><span
-                                                            class="text-600 me-2 text-decoration-line-through">$200</span><span
-                                                            class="text-primary">$175</span></div>
+                                                    <div class="fw-bold">
+                                                        @foreach($productDetails as $productDetail)
+                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                <span
+                                                                    class="text-primary">
+                                                                    @php
+                                                                        $discountPrice = $productDetail->price/100;
+                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                    @endphp
+                                                                    &euro; {{$discountPrice}}
+                                                            </span>
+                                                                @break
+                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                @break
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                                 <a class="stretched-link" href="#"></a>
                                             </div>
@@ -160,7 +218,6 @@
 </section>
 <!-- <section> close Best Deals =================-->
 <!-- ============================================-->
-
 
 <!-- ============================================-->
 <!-- <section> begin ============================-->
@@ -251,7 +308,6 @@
 </section>
 <!-- <section> close ============================-->
 <!-- ============================================-->
-
 
 <section class="py-0">
     <div class="container">
@@ -511,7 +567,7 @@
                                 @foreach($productGirl as $product)
                                     @if($product->product_category_id !== $oldCategory)
                                         @php $oldCategory = $product->product_category_id; @endphp
-                                        <li class="nav-item p-1" role="presentation">
+                                        <li class="nav-item p-1 " role="presentation">
                                             <button class="nav-link @if($loop->index == 0) active @endif "
                                                     id="pills-{{$product->productCategory->name}}-Women-tab"
                                                     data-bs-toggle="pill"
@@ -536,11 +592,13 @@
                                              aria-labelledby="pills-{{$product->productCategory->name}}-Women-tab">
                                             <div class="row h-100 align-items-center g-2">
                                                 @foreach($productGirl->where('product_category_id' , $oldCategory)->take(4) as $product)
-                                                    <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                                                        <div class="card card-span h-100 text-white"><img
+                                                    <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100 shadow-lg">
+                                                        <div class="card card-span h-100 text-center">
+                                                            <img
                                                                 class="img-fluid h-100"
                                                                 src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
-                                                                alt="..."/>
+                                                                alt="..."
+                                                            />
                                                             <div class="card-body ps-0 bg-200">
                                                                 <h5 class="fw-bold text-1000 text-truncate">
                                                                     {{$product->name}}</h5>
@@ -551,14 +609,18 @@
                                                                                 class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
                                                                             </span>
                                                                             <span
-                                                                                class="text-primary">&euro;
-                                                                            @php
-                                                                                $discountPrice = $productDetail->price/100;
-                                                                                $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
-                                                                            @endphp
-                                                                                {{$discountPrice}}
-
-                                                                        </span>
+                                                                                class="text-primary">
+                                                                                @php
+                                                                                    $discountPrice = $productDetail->price/100;
+                                                                                    $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                                @endphp
+                                                                                &euro; {{$discountPrice}}
+                                                                            </span>
+                                                                            @break
+                                                                        @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                            <span
+                                                                                class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                            </span>
                                                                             @break
                                                                         @endif
                                                                     @endforeach
@@ -595,7 +657,7 @@
                                         </li>
                                     @endif
                                 @endforeach
-                                    @php $oldCategory = 0 @endphp
+                                @php $oldCategory = 0 @endphp
                             </ul>
 
                             <div class="tab-content" id="pills-tabContentBoy">
@@ -607,11 +669,13 @@
                                              aria-labelledby="pills-{{$product->productCategory->name}}-boy-tab">
                                             <div class="row h-100 align-items-center g-2">
                                                 @foreach($productBoy->where('product_category_id' , $oldCategory)->take(4) as $product)
-                                                    <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                                                        <div class="card card-span h-100 text-white"><img
+                                                    <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100 shadow-lg">
+                                                        <div class="card card-span h-100 text-center">
+                                                            <img
                                                                 class="img-fluid h-100"
                                                                 src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
-                                                                alt="..."/>
+                                                                alt="..."
+                                                            />
                                                             <div class="card-body ps-0 bg-200">
                                                                 <h5 class="fw-bold text-1000 text-truncate">
                                                                     {{$product->name}}
@@ -621,16 +685,20 @@
                                                                         @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
                                                                             <span
                                                                                 class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
-                                                                            </span>
+                                                                </span>
                                                                             <span
-                                                                                class="text-primary">&euro;
-                                                                            @php
-                                                                                $discountPrice = $productDetail->price/100;
-                                                                                $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
-                                                                            @endphp
-                                                                                {{$discountPrice}}
-
-                                                                        </span>
+                                                                                class="text-primary">
+                                                                    @php
+                                                                        $discountPrice = $productDetail->price/100;
+                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                    @endphp
+                                                                    &euro; {{$discountPrice}}
+                                                            </span>
+                                                                            @break
+                                                                        @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                            <span
+                                                                                class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                </span>
                                                                             @break
                                                                         @endif
                                                                     @endforeach
@@ -652,7 +720,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- ============================================-->
 <!-- <section> begin ============================-->
@@ -693,7 +760,6 @@
 <!-- <section> close ============================-->
 <!-- ============================================-->
 
-
 <section>
     <div class="container">
         <div class="row h-100">
@@ -718,8 +784,28 @@
                                                 <div class="card-body text-center ps-0 bg-200">
                                                     <h5 class="fw-bold text-1000 text-truncate">{{$product->name}}</h5>
                                                     <div class="fw-bold"><span
-                                                            class="text-600 me-2 text-decoration-line-through">{{$product->price}}</span><span
-                                                            class="text-primary">$175</span></div>
+                                                        @foreach($productDetails as $productDetail)
+                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                <span
+                                                                    class="text-primary">
+                                                                    @php
+                                                                        $discountPrice = $productDetail->price/100;
+                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                    @endphp
+                                                                    &euro; {{$discountPrice}}
+                                                            </span>
+                                                                @break
+                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                @break
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                                 <a class="stretched-link" href="#"></a>
                                             </div>
@@ -744,8 +830,28 @@
                                                     <h5 class="fw-bold text-1000 text-truncate">Flat Hill
                                                         Slingback</h5>
                                                     <div class="fw-bold"><span
-                                                            class="text-600 me-2 text-decoration-line-through">$200</span><span
-                                                            class="text-primary">$175</span></div>
+                                                        @foreach($productDetails as $productDetail)
+                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                <span
+                                                                    class="text-primary">
+                                                                    @php
+                                                                        $discountPrice = $productDetail->price/100;
+                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                    @endphp
+                                                                    &euro; {{$discountPrice}}
+                                                            </span>
+                                                                @break
+                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                @break
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                                 <a class="stretched-link" href="#"></a>
                                             </div>
@@ -770,8 +876,28 @@
                                                     <h5 class="fw-bold text-1000 text-truncate">Flat Hill
                                                         Slingback</h5>
                                                     <div class="fw-bold"><span
-                                                            class="text-600 me-2 text-decoration-line-through">$200</span><span
-                                                            class="text-primary">$175</span></div>
+                                                        @foreach($productDetails as $productDetail)
+                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                <span
+                                                                    class="text-primary">
+                                                                    @php
+                                                                        $discountPrice = $productDetail->price/100;
+                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                    @endphp
+                                                                    &euro; {{$discountPrice}}
+                                                            </span>
+                                                                @break
+                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                <span
+                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                </span>
+                                                                @break
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                                 <a class="stretched-link" href="#"></a>
                                             </div>
@@ -797,7 +923,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- ============================================-->
 <!-- <section> begin ============================-->
@@ -877,7 +1002,6 @@
 <!-- <section> close ============================-->
 <!-- ============================================-->
 
-
 <!-- ============================================-->
 <!-- <section> begin ============================-->
 <section>
@@ -907,20 +1031,27 @@
 <!-- <section> close ============================-->
 <!-- ============================================-->
 
-
 <!-- ============================================-->
 <!-- <section> begin ============================-->
 <section class="py-0 pb-8">
 
     <div class="container-fluid container-lg">
         <div class="row h-100 g-2 justify-content-center">
+            @foreach($posts->take(3) as $post)
+                @foreach($users->where('id', $post->user_id) as $user)
+                    @php($postUser = $user)
+                @endforeach
             <div class="col-sm-9 col-md-4 mb-3 mb-md-0 h-100">
-                <div class="card card-span text-white h-100"><img class="img-card h-100"
-                                                                  src="assets/img/gallery/shoes-blog-1.png"
-                                                                  alt="..."/>
+                <div class="card card-span h-100">
+                    <img class="img-fluid h-100"
+                         src="{{$post->photo ? asset('img/posts') . $post->photo->file : 'https://via.placeholder.com/400'}}"
+                         alt="..."/>
                     <div class="card-body px-xl-5 px-md-3 pt-0 pb-7">
-                        <div class="d-flex justify-content-between align-items-center bg-100 mt-n5 me-auto"><img
-                                src="assets/img/gallery/author-1.png" width="60" alt="..."/>
+                        <div class="d-flex justify-content-between align-items-center bg-100 mt-n5 me-auto">
+                            <img
+                                 height="60"
+                                 src="{{$user->photo ? asset('img/users') . $user->photo->file : 'https://via.placeholder.com/62'}}"
+                                 alt="..."/>
                             <div class="d-flex flex-1 justify-content-around"><span class="text-900 text-center"><i
                                         data-feather="eye"> </i><span class="text-900 ms-2">35</span></span><span
                                     class="text-900 text-center"><i data-feather="heart"> </i><span
@@ -928,13 +1059,21 @@
                                         data-feather="corner-up-right"> </i><span
                                         class="text-900 ms-2">14</span></span></div>
                         </div>
-                        <h6 class="text-900 mt-3">Kelly Hudson . <span
-                                class="fw-normal">Fashion actiKelly Hudson . </span></h6>
-                        <h3 class="fw-bold text-1000 mt-5 text-truncate">How important are shoes in your style?</h3>
-                        <p class="text-900 mt-3">Is it possible to assess a person just on the basis of their
-                            footwear? Obviously, nobody should criticize, but certainly, shoes say a lot about
-                            someone. It matters for the outsiders that we meet every day...</p><a
-                            class="btn btn-lg text-900 fs-1 px-0 hvr-icon-forward" href="#!" role="button">Read more
+                        <h6 class="text-900 mt-3">{{$user->first_name}} {{$user->last_name}}</h6>
+                        <p>
+                            @foreach($user->roles as $role)
+                                <span class="badge rounded-pill bg-primary">{{$role->name}}</span>
+                            @endforeach
+                        </p>
+                        <p>
+                            @foreach($post->categories as $role)
+                                <span class="badge rounded-pill bg-secondary">{{$role->name}}</span>
+                            @endforeach
+                        </p>
+                        <h3 class="fw-bold text-1000 mt-5 text-truncate">{{$post->title}}</h3>
+                        <p class="text-900 mt-3">{{$post->body}}</p>
+                        <a
+                            class="btn btn-lg text-900 fs-1 px-0 hvr-icon-forward" href="{{route('blogs.post',$post)}}" role="button">Read more
                             <svg class="bi bi-arrow-right-short hover-icon" xmlns="http://www.w3.org/2000/svg"
                                  width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -944,66 +1083,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-9 col-md-4 mb-3 mb-md-0 h-100">
-                <div class="card card-span text-white h-100"><img class="img-card h-100"
-                                                                  src="assets/img/gallery/fashion-blog-2.png"
-                                                                  alt="..."/>
-                    <div class="card-body px-xl-5 px-md-3 pt-0 pb-7">
-                        <div class="d-flex justify-content-between align-items-center bg-100 mt-n5 me-auto"><img
-                                src="assets/img/gallery/author-2.png" width="60" alt="..."/>
-                            <div class="d-flex flex-1 justify-content-around"><span class="text-900 text-center"><i
-                                        data-feather="eye"> </i><span class="text-900 ms-2">35</span></span><span
-                                    class="text-900 text-center"><i data-feather="heart"> </i><span
-                                        class="text-900 ms-2">23</span></span><span class="text-900 text-center"><i
-                                        data-feather="corner-up-right"> </i><span
-                                        class="text-900 ms-2">14</span></span></div>
-                        </div>
-                        <h6 class="text-900 mt-3">Rotondwa Johnny . <span class="fw-normal">Fashion activist </span>
-                        </h6>
-                        <h3 class="fw-bold text-1000 mt-5 text-truncate">Fashion trend forecast for Summer 2021</h3>
-                        <p class="text-900 mt-3">While the fashion industry has had a calm year, this season has
-                            seen some beautiful pieces. Over the previous several weeks, commanding coats, and
-                            elegant face masks have ruled Fashion Weeks...</p><a
-                            class="btn btn-lg text-900 fs-1 px-0 hvr-icon-forward" href="#!" role="button">Read more
-                            <svg class="bi bi-arrow-right-short hover-icon" xmlns="http://www.w3.org/2000/svg"
-                                 width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-9 col-md-4 mb-3 mb-md-0 h-100">
-                <div class="card card-span text-white h-100"><img class="img-card h-100"
-                                                                  src="assets/img/gallery/spring-dress-blog-3.png"
-                                                                  alt="..."/>
-                    <div class="card-body px-xl-5 px-md-3 pt-0 pb-7">
-                        <div class="d-flex justify-content-between align-items-center bg-100 mt-n5 me-auto"><img
-                                src="assets/img/gallery/author-3.png" width="60" alt="..."/>
-                            <div class="d-flex flex-1 justify-content-around"><span class="text-900 text-center"><i
-                                        data-feather="eye"> </i><span class="text-900 ms-2">35</span></span><span
-                                    class="text-900 text-center"><i data-feather="heart"> </i><span
-                                        class="text-900 ms-2">23</span></span><span class="text-900 text-center"><i
-                                        data-feather="corner-up-right"> </i><span
-                                        class="text-900 ms-2">14</span></span></div>
-                        </div>
-                        <h6 class="text-900 mt-3">Martin . <span class="fw-normal">Fashion activist </span></h6>
-                        <h3 class="fw-bold text-1000 mt-5 text-truncate">Spring exclusive collection for Men &amp;
-                            Women</h3>
-                        <p class="text-900 mt-3">Explore the first real-time photographic fashion magazine
-                            NOWFASHION to broadcast exclusive live fashion shows. Some of the most beautiful spring
-                            collection i want to share. See the....</p><a
-                            class="btn btn-lg text-900 fs-1 px-0 hvr-icon-forward" href="#!" role="button">Read more
-                            <svg class="bi bi-arrow-right-short hover-icon" xmlns="http://www.w3.org/2000/svg"
-                                 width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
     <!-- end of .container-->
@@ -1011,7 +1091,6 @@
 </section>
 <!-- <section> close ============================-->
 <!-- ============================================-->
-
 
 <section class="py-11">
     <div class="bg-holder overlay overlay-0"
@@ -1094,7 +1173,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- ============================================-->
 <!-- <section> begin ============================-->
@@ -1189,28 +1267,4 @@
 <!-- <section> close ============================-->
 <!-- ============================================-->
 
-
-</main>
-<!-- ===============================================-->
-<!--    End of Main Content-->
-<!-- ===============================================-->
-
-
-<!-- ===============================================-->
-<!--    JavaScripts-->
-<!-- ===============================================-->
-<script src="{{asset('vendor/@popperjs/popper.min.js')}}"></script>
-<script src="{{asset('vendor/bootstrap/bootstrap.min.js')}}"></script>
-<script src="{{asset('vendor/is/is.min.js')}}"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-<script src="{{asset('vendor/feather-icons/feather.min.js')}}"></script>
-<script>
-    feather.replace();
-</script>
-<script src="{{asset('js/jsfront/theme.js')}}"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800;900&amp;display=swap"
-      rel="stylesheet">
-</body>
-
-</html>
+@endsection

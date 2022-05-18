@@ -12615,7 +12615,7 @@ microblog:
   changes:
     - 5.12.0
     - 5.14.0
-  label: Micro.blog
+  label: Micro.blogs
   search:
     terms: []
   styles:
@@ -15708,7 +15708,7 @@ rss:
   label: rss
   search:
     terms:
-      - blog
+      - blogs
       - feed
       - journal
       - news
@@ -15724,7 +15724,7 @@ rss-square:
   label: RSS Square
   search:
     terms:
-      - blog
+      - blogs
       - feed
       - journal
       - news

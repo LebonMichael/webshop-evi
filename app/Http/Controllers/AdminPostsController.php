@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostsCreateRequest;
-use App\Models\Category;
 use App\Models\Photo;
 use App\Models\Post;
 use App\Models\PostCategory;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -146,5 +144,10 @@ class AdminPostsController extends Controller
         //de posts zelf deleten
         $post->delete();
         return redirect()->route('posts.index');
+    }
+
+    public function post(Post $post){
+
+        return view('frontend.blogs.show',compact('post'));
     }
 }

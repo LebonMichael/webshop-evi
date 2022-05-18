@@ -25,7 +25,7 @@
         <div class="container">
             <a class="navbar-brand d-inline-flex" href="/">
                 <img height="62" class="d-inline-block"
-                     src="assets/img/gallery/eviVermote.jpg"
+                     src="{{asset('img/logos/eviVermote.jpg')}}"
                      alt="logo"/>
             </a>
             <a class="navbar-brand d-inline-flex" href="/">
@@ -39,7 +39,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item px-2"><a class="nav-link fw-medium" href="#collection">Collection</a></li>
                     <li class="nav-item px-2"><a class="nav-link fw-medium" href="#outlet">Outlet</a></li>
-                    <li class="nav-item px-2"><a class="nav-link fw-medium" href="#outlet">Blogs</a></li>
+                    <li class="nav-item px-2"><a class="nav-link fw-medium" href="{{route('blogs.index')}}">Blogs</a></li>
                     <li class="nav-item px-2"><a class="nav-link fw-medium" href="{{route('shop')}}">Shop</a></li>
 
                 </ul>
@@ -84,6 +84,29 @@
         </div>
     </nav>
     <div>
-        @yield('shopPage')
+        @yield('content')
     </div>
+</main>
+<!-- ===============================================-->
+<!--    End of Main Content-->
+<!-- ===============================================-->
 
+
+<!-- ===============================================-->
+<!--    JavaScripts-->
+<!-- ===============================================-->
+<script src="{{asset('vendor/@popperjs/popper.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap/bootstrap.min.js')}}"></script>
+<script src="{{asset('vendor/is/is.min.js')}}"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+<script src="{{asset('vendor/feather-icons/feather.min.js')}}"></script>
+<script>
+    feather.replace();
+</script>
+<script src="{{asset('js/jsfront/theme.js')}}"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet">
+</body>
+
+</html>

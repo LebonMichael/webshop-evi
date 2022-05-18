@@ -23,6 +23,7 @@ class FrontendShopController extends Controller
         $categories = ProductCategory::all();
         $products = Product::with('photo', 'gender','productCategory','brand')->get();
         $productDetails = ProductDetails::with('discount')->orderBy('discount_id', 'DESC')->get();
+
         return view('frontend.shop.index', compact('products','categories','brands','sizes','productDetails'));
     }
 

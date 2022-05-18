@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontendPostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +21,16 @@ Route::get('/', function () {
 });
 Route::get('/', [App\Http\Controllers\FrontendHomeController::class, 'index'])->name('webshop');
 Route::get('/shop', [App\Http\Controllers\FrontendShopController::class, 'index'])->name('shop');
+
 Route::get('/contactformulier', 'App\Http\Controllers\ContactController@create');
 Route::post('/contactformulier', 'App\Http\Controllers\ContactController@store');
+
+/** BLOG **/
+
+Route::resource('blogs', FrontendPostController::class);
+Route::get('blog/{post:slug}','\App\Http\Controllers\AdminPostsController@post')->name('blogs.post');
+
+
 
 Auth::routes(['verify' => true]);
 

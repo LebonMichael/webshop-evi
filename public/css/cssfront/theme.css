@@ -28,7 +28,7 @@
   --bs-white: #FFFEFE;
   --bs-gray: #9E9E9E;
   --bs-gray-dark: #616161;
-  --bs-primary: #FFA15C;
+  --bs-primary: #0d6efd;
   --bs-secondary: #FE7A15;
   --bs-success: #19CC61;
   --bs-info: #00A1FC;
@@ -9620,11 +9620,11 @@ fieldset:disabled .btn {
 }
 
 .bg-primary {
-  background-color: #FFA15C !important;
+  background-color: #0d6efd !important;
 }
 
 .bg-secondary {
-  background-color: #FE7A15 !important;
+  background-color: #6c757d!important;
 }
 
 .bg-success {
