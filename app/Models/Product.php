@@ -50,10 +50,5 @@ class Product extends Model
                 });
         }
     }
-    public function productGenderGirl($products){
 
-        $products = Product::where('gender_id', 1);
-        return $products;
-
-    }
 }

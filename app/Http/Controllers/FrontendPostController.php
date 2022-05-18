@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\PostCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FrontendPostController extends Controller
@@ -14,16 +16,26 @@ class FrontendPostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        $oldCategory = 0;
-        return view('frontend.blogs.index', compact('posts', 'oldCategory'));
+        $posts = Post::with('photo','categories')->paginate(9);
+        $categories = PostCategory::all();
+        $users = User::with('photo','roles')->get();
+        return view('frontend.blogs.index', compact('posts', 'categories','users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function blogsPerCategory($id){
+        $categories = PostCategory::all();
+
+        $users = User::with('photo','roles')->get();
+
+        $posts = Post::with('photo','categories')
+            ->whereHas('categories', function($q) use ($id){
+                $q->where('post_category_id', '=', $id);
+            })->paginate(9);
+
+        return view('frontend.blogs.index', compact('posts', 'categories','users'));
+
+    }
+
     public function create()
     {
         //
@@ -84,6 +96,8 @@ class FrontendPostController extends Controller
     {
         //
     }
+
+
 
 
 }

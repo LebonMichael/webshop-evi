@@ -29,6 +29,7 @@ Route::post('/contactformulier', 'App\Http\Controllers\ContactController@store')
 
 Route::resource('blogs', FrontendPostController::class);
 Route::get('blog/{post:slug}','\App\Http\Controllers\AdminPostsController@post')->name('blogs.post');
+Route::get('blog/category/{id}','\App\Http\Controllers\FrontendPostController@blogsPerCategory')->name('blogsPerCategory');
 
 
 
@@ -43,7 +44,9 @@ Auth::routes(['verify' => true]);
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::resource('users', \App\Http\Controllers\AdminUsersController::class);
     Route::get('users/restore/{user}', 'App\Http\Controllers\AdminUsersController@restore')->name('users.restore');
+
     Route::resource('postComments', \App\Http\Controllers\AdminPostCommentController::class);
+
 
 
 });
