@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/', [App\Http\Controllers\FrontendHomeController::class, 'index'])->name('webshop');
-Route::get('/shop', [App\Http\Controllers\FrontendShopController::class, 'index'])->name('shop');
+Route::resource('shop', \App\Http\Controllers\FrontendShopController::class);
 
 Route::get('/contactformulier', 'App\Http\Controllers\ContactController@create');
 Route::post('/contactformulier', 'App\Http\Controllers\ContactController@store');

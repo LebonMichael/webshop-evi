@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImagesRequest;
 use App\Models\Brand;
 use App\Models\ClothSizes;
 use App\Models\Color;
@@ -85,15 +86,21 @@ class AdminProductDetailsController extends Controller
         $productDetail->price = $request->price;
         $productDetail->stock = $request->stock;
 
-        if($request->has('images')){
+        $request->validate([
+            'image' => 'required',
+            'image.*' => 'mimes:jpeg,jpg,png|max:2048'
+        ]);
+
+        if($request->has('image')){
+            if ($request)
             if($productDetail->images){
                 foreach ($productDetail->images as $image){
                     $oldImage = $image->image;
                     unlink('img/productsDetails/colors/' . $oldImage);
                     $image->delete();
-                };
+                }
             }
-            foreach ($request->file('images') as $image){
+            foreach ($request->file('image') as $image){
                 $imageName = time() . $image->getClientOriginalName();
                 $image->move('img/productsDetails/colors', $imageName);
                 Image::create([

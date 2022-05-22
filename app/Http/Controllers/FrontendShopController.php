@@ -11,11 +11,6 @@ use Illuminate\Http\Request;
 
 class FrontendShopController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $brands = Brand::all();
@@ -27,67 +22,37 @@ class FrontendShopController extends Controller
         return view('frontend.shop.index', compact('products','categories','brands','sizes','productDetails'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $oldColor = 0;
+        $colors = ProductDetails::where('product_id',$id)->whereHas('colors')->orderBy('color_id', 'ASC')->get();
+        $productDetails = ProductDetails::with('images','clothSize')->orderBy('clothSize_id', 'ASC')->where('product_id', $id)->get();
+
+        return view('frontend.shop.show', compact('product','productDetails','colors', 'oldColor'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

@@ -32,8 +32,7 @@
                                    class="form-control"
                                    placeholder="Stock">
                         </div>
-                    </div>
-                    <div class="d-flex">
+                    </div>                    <div class="d-flex">
                         <div class="col-6">
                             <label class="text-white" for="discount_id">Discount: </label>
                             <div class="input-group pe-2">
@@ -79,7 +78,7 @@
                                     <h5 class="card-title">Your Pictures</h5>
                                     <input
                                         type="file"
-                                        name="images[]"
+                                        name="image[]"
                                         class="form-control"
                                         accept="image/*"
                                         multiple

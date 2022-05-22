@@ -80,7 +80,11 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5 class="card-title">Your Product Picture</h5>
-                                            <input type="file" name="photo_id" class="dropify"/>
+                                            <input
+                                                type="file"
+                                                name="photo"
+                                                accept="image/*"
+                                                class="dropify"/>
                                         </div>
                                     </div>
                                 </div>

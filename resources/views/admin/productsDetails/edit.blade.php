@@ -44,7 +44,7 @@
                                                 <h5 class="card-title">Your Pictures</h5>
                                                 <input
                                                     type="file"
-                                                    name="images[]"
+                                                    name="image[]"
                                                     class="form-control"
                                                     accept="image/*"
                                                     multiple
