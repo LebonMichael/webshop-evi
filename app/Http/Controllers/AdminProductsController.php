@@ -40,6 +40,14 @@ class AdminProductsController extends Controller
         return view('admin.products.create', compact('brands','colors','genders','clothSizes','productCategories','discounts'));
     }
 
+    public function createProductDetailsImages($id){
+        $product = Product::findOrFail($id);
+        $images = Image::where('product_id', $id)->get();
+        $oldColor = 0;
+
+        return view ('admin.productsDetails.createImages', compact('product','images','oldColor'));
+    }
+
     public function createProductDetails($id){
         $product = Product::findOrFail($id);
         $discounts = Discount::all();
@@ -75,6 +83,52 @@ class AdminProductsController extends Controller
 
         Session::flash('product_message','Product ' . $request->name . ' was created!');
         return redirect(route('productDetails.create', $product->id));
+    }
+
+    public function storeProductDetailsImages(Request $request , $id){
+
+        $product = Product::findOrFail($id);
+        $color = Color::findorFail($request->color_id);
+        /** photo opslaan **/
+        if ($image = $request->file('image1')) {
+            $imageName = time() . $image->getClientOriginalName();
+            $image->move('img/productsDetails/'. $color->name, $imageName);
+            Image::create([
+                'product_id' => $product->id,
+                'color_id' => $color->id,
+                'image' => $imageName,
+            ]);
+        }
+        if ($image = $request->file('image2')) {
+            $imageName = time() . $image->getClientOriginalName();
+            $image->move('img/productsDetails/'. $color->name, $imageName);
+            Image::create([
+                'product_id' => $product->id,
+                'color_id' => $color->id,
+                'image' => $imageName,
+            ]);
+        }
+        if ($image = $request->file('image3')) {
+            $imageName = time() . $image->getClientOriginalName();
+            $image->move('img/productsDetails/'. $color->name, $imageName);
+            Image::create([
+                'product_id' => $product->id,
+                'color_id' => $color->id,
+                'image' => $imageName,
+            ]);
+        }
+        if ($image = $request->file('image4')) {
+            $imageName = time() . $image->getClientOriginalName();
+            $image->move('img/productsDetails/'. $color->name, $imageName);
+            Image::create([
+                'product_id' => $product->id,
+                'color_id' => $color->id,
+                'image' => $imageName,
+            ]);
+        }
+
+        Session::flash('product_message','Product Detail Images were created!');
+        return redirect('admin/products');
     }
 
     public function storeProductDetails(Request $request , $id){
@@ -119,9 +173,10 @@ class AdminProductsController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        $productDetails = ProductDetails::where('product_id', $id)->with('colors','clothSize', 'images','discount')->orderBy('clothSize_id')->get();
+        $images = Image::where('product_id', $id)->get();
+        $productDetails = ProductDetails::where('product_id', $id)->with('colors','clothSize','discount')->orderBy('clothSize_id')->get();
 
-        return view('admin.products.show', compact('product', 'productDetails'));
+        return view('admin.products.show', compact('product', 'productDetails','images'));
     }
 
     public function edit($id)
@@ -144,12 +199,6 @@ class AdminProductsController extends Controller
         $product->brand_id = $request->brand_id;
         $product->gender_id = $request->gender_id;
         $product->product_category_id = $request->productCategory_id;
-
-        $request->validate([
-            'stock' => 'required|integer|max:255',
-            'price' => 'required|integer|max:255',
-            'photo' => 'required|mimes:jpeg,jpg,png|max:2048',
-        ]);
 
         /**photo opslaan**/
         if($file = $request->file('photo')){

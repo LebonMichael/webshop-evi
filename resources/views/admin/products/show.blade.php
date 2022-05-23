@@ -73,17 +73,6 @@
                                                         <p class="card-text text-white">Sold : {{$productDetail->sold}}</p>
                                                         <p class="card-text text-white">Percentage
                                                             : {{$productDetail->discount->percentage}}%</p>
-                                                        <div class="col-lg-10 offset-lg-1">
-                                                            <div class="row row-cols-4">
-                                                                @foreach($productDetail->images as $image)
-                                                                    <div>
-                                                                        <img class="img-fluid m-2 border border-2 rounded"
-                                                                             src="{{asset('img/productsDetails/colors') . '/' . $image->image}}"
-                                                                             alt="">
-                                                                    </div>
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
                                                         <div class="col-12 my-3">
                                                             <a href="{{route('productsDetails.edit', $productDetail->id)}}" class="btn btn-info">Edit ProductDetails</a>
                                                         </div>
@@ -91,12 +80,27 @@
                                                 @endif
                                             @endforeach
                                         </div>
+                                        <div class="col-lg-10 offset-lg-1">
+                                            <div class="row row-cols-4">
+                                                @foreach($images as $image)
+                                                    @if($image->product_id === $product->id and $image->color_id === $color->id)
+                                                    <div>
+                                                        <img class="img-fluid m-2 border border-2 rounded"
+                                                             src="{{asset('img/productsDetails/') . '/' . $color->name . '/' . $image->image}}"
+                                                             alt="">
+                                                    </div>
+                                                    @endif
+                                                @endforeach
+
+                                            </div>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                         <div class="col-12 my-3">
                             <a href="{{route('productDetails.create', $product->id)}}" class="btn btn-info">Create Product Details</a>
+                            <a href="{{route('productDetailsImages.create', $product->id)}}" class="btn btn-info">Create Color Images</a>
                         </div>
                     </div>
                 </div>

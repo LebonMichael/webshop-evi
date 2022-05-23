@@ -81,6 +81,7 @@
                                         name="image[]"
                                         class="form-control"
                                         accept="image/*"
+                                        class="dropify"
                                         multiple
                                     >
                                 </div>

@@ -66,6 +66,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::get('products/brand/{id}','App\Http\Controllers\AdminProductsController@productsPerBrand')->name('productsPerBrand');
     Route::get('product/{id}/productDetails', 'App\Http\Controllers\AdminProductsController@createProductDetails')->name('productDetails.create');
     Route::post('product/{id}/productDetails/store', 'App\Http\Controllers\AdminProductsController@storeProductDetails')->name('productDetails.store');
+    Route::get('product/{id}/images', 'App\Http\Controllers\AdminProductsController@createProductDetailsImages')->name('productDetailsImages.create');
+    Route::post('product/{id}/images/store', 'App\Http\Controllers\AdminProductsController@storeProductDetailsImages')->name('productDetailsImages.store');
+
 
     Route::resource('productsDetails', App\Http\Controllers\AdminProductDetailsController::class);
 

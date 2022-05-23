@@ -25,10 +25,6 @@ class ProductDetails extends Model
         return $this->belongsTo(Discount::class, 'discount_id');
     }
 
-    public function images(){
-        return $this->hasMany(Image::class, 'product_details_id');
-    }
-
 
 
 }

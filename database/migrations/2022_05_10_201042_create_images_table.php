@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Color;
+use App\Models\Product;
 use App\Models\ProductDetails;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,7 +14,8 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(ProductDetails::class);
+            $table->foreignIdFor(Product::class);
+            $table->foreignIdFor(Color::class);
             $table->string('image');
             $table->timestamps();
         });
