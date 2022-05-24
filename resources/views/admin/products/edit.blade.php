@@ -5,16 +5,16 @@
             <h1 class="text-center text-white">Edit User</h1>
         </div>
         <div class="row py-3">
-            <div class="col-8 offset-2 img-thumbnail bg-black">
+            <div class="col-md-8 offset-md-2 img-thumbnail bg-black">
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-sm-8">
                         @include('includes.form_error')
                         <form action="{{route('products.update', $product->id)}}" method="POST"
                               enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
                             <div>
-                                <div class="form-group pe-2">
+                                <div class="form-group pe-md-2">
                                     <label class="text-white" for="name">Product Name:</label>
                                     <input type="text" name="name" id="title"
                                            class="form-control" value="{{$product->name}}"
@@ -24,7 +24,7 @@
                             <div class="d-flex">
                                 <div class="form-group col-6 pe-2">
                                     <label class="text-white" for="gender_id">Gender: </label>
-                                    <select name="gender_id" class="form-control custom-select">
+                                    <select name="gender_id" class="form-select">
                                         @foreach($genders as $gender)
                                             <option value="{{$gender->id}}" @if($product->gender->id == $gender->id) selected @endif>
                                                 {{$gender->name}}
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group pe-2 col-6">
                                     <label class="text-white" for="brand_id">Brand: </label>
-                                    <select name="brand_id" class="form-control custom-select">
+                                    <select name="brand_id" class="form-select">
                                         @foreach($brands as $brand)
                                             <option value="{{$brand->id}}"  @if($product->brand->id == $brand->id) selected @endif>
                                                 {{$brand->name}}
@@ -46,7 +46,7 @@
                             <div class="d-flex">
                                 <div class="form-group pe-2 col-6">
                                     <label class="text-white" for="productCategory_id">Product Category: </label>
-                                    <select name="productCategory_id" class="form-control custom-select">
+                                    <select name="productCategory_id" class="form-select">
                                         @foreach($productCategories as $productCategory)
                                             <option value="{{$productCategory->id}}"
                                                     @if($product->productCategory->id == $productCategory->id) selected @endif >
@@ -84,7 +84,7 @@
                                                 type="file"
                                                 name="photo"
                                                 accept="image/*"
-                                                class="dropify"/>
+                                                class="dropify "/>
                                         </div>
                                     </div>
                                 </div>
@@ -96,11 +96,13 @@
 
                         </form>
                     </div>
-                    <div class="col-4">
+                    <div class="col-sm-4">
                         <p class="text-white">Product Photo:</p>
-                        <img class="img-fluid img-thumbnail bg-black"
-                             src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/500'}}"
-                             alt="{{$product->name}}">
+                        <div class="text-center">
+                            <img class="img-fluid img-thumbnail bg-black "
+                                 src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/500'}}"
+                                 alt="{{$product->name}}">
+                        </div>
                     </div>
                 </div>
 

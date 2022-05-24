@@ -88,6 +88,7 @@
                                                         <img class="img-fluid m-2 border border-2 rounded"
                                                              src="{{asset('img/productsDetails/') . '/' . $color->name . '/' . $image->image}}"
                                                              alt="">
+                                                        <a href="{{route('productsDetails.edit', $productDetail->id)}}">Edit</a>
                                                     </div>
                                                     @endif
                                                 @endforeach
@@ -100,7 +101,9 @@
                         </div>
                         <div class="col-12 my-3">
                             <a href="{{route('productDetails.create', $product->id)}}" class="btn btn-info">Create Product Details</a>
+
                             <a href="{{route('productDetailsImages.create', $product->id)}}" class="btn btn-info">Create Color Images</a>
+
                         </div>
                     </div>
                 </div>

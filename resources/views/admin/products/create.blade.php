@@ -23,7 +23,7 @@
                     <div class="d-flex">
                         <div class="form-group pe-2 col-6">
                             <label class="text-white" for="gender_id">Gender: </label>
-                            <select name="gender_id" class="form-control custom-select">
+                            <select name="gender_id" class="form-select">
                                 @foreach($genders as $gender)
                                     <option value="{{$gender->id}}">
                                         {{$gender->name}}
@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group pe-2 col-6">
                             <label class="text-white" for="brand_id">Brand: </label>
-                            <select name="brand_id" class="form-control custom-select">
+                            <select name="brand_id" class="form-select">
                                 @foreach($brands as $brand)
                                     <option value="{{$brand->id}}">
                                         {{$brand->name}}
@@ -46,7 +46,7 @@
                     <div class="d-flex">
                         <div class="form-group pe-2 col-6">
                             <label class="text-white" for="productCategory_id">Product Category: </label>
-                            <select name="productCategory_id" class="form-control custom-select">
+                            <select name="productCategory_id" class="form-select">
                                 @foreach($productCategories as $productCategory)
                                     <option value="{{$productCategory->id}}">
                                         {{$productCategory->name}}

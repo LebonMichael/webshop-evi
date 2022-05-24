@@ -42,10 +42,10 @@ class AdminProductsController extends Controller
 
     public function createProductDetailsImages($id){
         $product = Product::findOrFail($id);
-        $images = Image::where('product_id', $id)->get();
-        $oldColor = 0;
+        $images = Image::select('color_id')->where('product_id', $id)->groupBy('color_id')->get();
+        $imageColors = $images->pluck('color_id')->toArray();
 
-        return view ('admin.productsDetails.createImages', compact('product','images','oldColor'));
+        return view ('admin.productsDetails.createImages', compact('product','images','imageColors'));
     }
 
     public function createProductDetails($id){

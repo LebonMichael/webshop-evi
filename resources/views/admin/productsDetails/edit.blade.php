@@ -13,10 +13,10 @@
                               enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
-                            <div class="d-flex">
-                                <div class="col-6">
+                            <div class="d-md-flex">
+                                <div class="col-md-4">
                                     <label class="text-white" for="price">Price: </label>
-                                    <div class="input-group pe-2">
+                                    <div class="input-group pe-md-2">
                                         <span class="input-group-text">&euro;</span>
                                         <input
                                             type="number"
@@ -28,40 +28,25 @@
                                         >
                                     </div>
                                 </div>
-                                <div class="form-group col-6">
+                                <div class="form-group col-md-4">
                                     <label class="text-white" for="price">Stock: </label>
                                     <input type="number" name="stock" id="stock"
                                            class="form-control" value="{{$productDetail->stock}}"
                                            placeholder="{{$productDetail->stock}}">
                                 </div>
-                            </div>
-                            <!-- Button trigger modal -->
-                                <div class="form-group">
-                                    <label class="text-white me-3" for="file">Product Color Photos:</label>
-                                    <div class="col-lg-12 grid-margin stretch-card">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Your Pictures</h5>
-                                                <input
-                                                    type="file"
-                                                    name="image[]"
-                                                    class="form-control"
-                                                    accept="image/*"
-                                                    multiple
-                                                >
-                                            </div>
-                                        </div>
+                                <div class="col-md-4">
+                                    <label class="text-white px-md-2" for="discount_id">Discount: </label>
+                                    <div class="input-group px-md-2">
+                                        <select name="discount_id" class="form-select">
+                                            @foreach($discounts as $discount)
+                                                <option value="{{$discount->id}}"
+                                                        @if($productDetail->discount->id == $discount->id) selected @endif >
+                                                    {{$discount->percentage}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <span class="input-group-text">%</span>
                                     </div>
-                                </div>
-                            <div class="col-lg-10 offset-lg-1">
-                                <div class="row row-cols-4">
-                                    @foreach($productDetail->images as $image)
-                                        <div>
-                                            <img class="img-fluid m-2 border border-2 rounded"
-                                                 src="{{asset('img/productsDetails/colors') . '/' . $image->image}}"
-                                                 alt="">
-                                        </div>
-                                    @endforeach
                                 </div>
                             </div>
                             <div class="text-center my-3">

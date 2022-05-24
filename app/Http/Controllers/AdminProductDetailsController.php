@@ -69,8 +69,8 @@ class AdminProductDetailsController extends Controller
     public function edit($id)
     {
         $productDetail = ProductDetails::findOrFail($id);
-        $clothSizes = ClothSizes::all();
-        return view('admin.productsDetails.edit', compact('productDetail','clothSizes'));
+        $discounts = Discount::all();
+        return view('admin.productsDetails.edit', compact('productDetail','discounts'));
     }
 
     /**
@@ -85,10 +85,12 @@ class AdminProductDetailsController extends Controller
         $productDetail = ProductDetails::findOrFail($id);
         $productDetail->price = $request->price;
         $productDetail->stock = $request->stock;
+        $productDetail->discount_id = $request->discount_id;
 
         $request->validate([
-            'image' => 'required',
-            'image.*' => 'mimes:jpeg,jpg,png|max:2048'
+            'stock' => 'required',
+            'price' => 'required',
+            'discount_id' => 'required|integer',
         ]);
 
         if($request->has('image')){

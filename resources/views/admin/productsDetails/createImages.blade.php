@@ -16,16 +16,11 @@
                             <label class="text-white" for="color">Colour:</label>
                             <select name="color_id" class="form-control custom-select">
                                 @foreach($product->colors as $color)
-                                    @foreach($images as $image)
-                                        @if($image->color_id !== $color->id)
-                                            @if($oldColor !== $color->id)
-                                                @php $oldColor = $color->id @endphp
-                                                <option value="{{$color->id}}">
-                                                    {{$color->name}}
-                                                </option>
-                                            @endif
-                                        @endif
-                                    @endforeach
+                                    @if(!in_array($color->id, $imageColors) )
+                                        <option value="{{$color->id}}">
+                                            {{$color->name}}
+                                        </option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
@@ -39,7 +34,7 @@
                                         <input
                                             type="file"
                                             name="image1"
-                                            class="form-control dropify"
+                                            class="form-control"
                                             accept="image/*"
                                         >
                                     </div>

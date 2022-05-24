@@ -7,7 +7,8 @@
         <div class="row py-3">
             <div class="col-8 offset-2 img-thumbnail bg-black">
                 @include('includes.form_error')
-                <form action="{{route('productDetails.store', $product->id)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{route('productDetails.store', $product->id)}}" method="POST"
+                      enctype="multipart/form-data">
                     @csrf
                     <h2 class="text-center text-white my-2">Product Details</h2>
                     <div class="d-flex">
@@ -32,7 +33,8 @@
                                    class="form-control"
                                    placeholder="Stock">
                         </div>
-                    </div>                    <div class="d-flex">
+                    </div>
+                    <div class="d-flex">
                         <div class="col-6">
                             <label class="text-white" for="discount_id">Discount: </label>
                             <div class="input-group pe-2">
@@ -69,24 +71,6 @@
                             </select>
                         </div>
 
-                    </div>
-                    <div class="form-group">
-                        <label class="text-white me-3" for="file">Product Color Photos:</label>
-                        <div class="col-lg-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Your Pictures</h5>
-                                    <input
-                                        type="file"
-                                        name="image[]"
-                                        class="form-control"
-                                        accept="image/*"
-                                        class="dropify"
-                                        multiple
-                                    >
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="text-center my-3">
                         <button type="submit" class="btn btn-primary">Create Product Details</button>
