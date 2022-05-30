@@ -20,4 +20,8 @@ class Color extends Model
     public function productDetails(){
         return $this->belongsToMany(ProductDetails::class, 'product_details_colors');
     }
+
+    public function colorClothSize($id){
+
+    }
 }

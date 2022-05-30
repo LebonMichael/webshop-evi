@@ -29,7 +29,8 @@
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="pills-{{$color->name}}-tab"
                                                 data-bs-toggle="pill"
-                                                data-bs-target="#pills-{{$color->name}}" type="button"
+                                                data-bs-target="#pills-{{$color->name}}"
+                                                type="button"
                                                 role="tab"
                                                 aria-controls="pills-{{$color->name}}"
                                                 aria-selected="true">
@@ -88,7 +89,7 @@
                                                         <img class="img-fluid m-2 border border-2 rounded"
                                                              src="{{asset('img/productsDetails/') . '/' . $color->name . '/' . $image->image}}"
                                                              alt="">
-                                                        <a href="{{route('productsDetails.edit', $productDetail->id)}}">Edit</a>
+                                                        <a href="{{route('productsDetails.edit', $product->id)}}">Edit</a>
                                                     </div>
                                                     @endif
                                                 @endforeach

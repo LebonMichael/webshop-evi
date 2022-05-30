@@ -48,11 +48,19 @@ class AdminProductsController extends Controller
         return view ('admin.productsDetails.createImages', compact('product','images','imageColors'));
     }
 
+
     public function createProductDetails($id){
         $product = Product::findOrFail($id);
         $discounts = Discount::all();
         $clothSizes = ClothSizes::all();
-        return view ('admin.productsDetails.create', compact('product','discounts','clothSizes'));
+        $productDetails = ProductDetails::select('clothSize_id','color_id')->where('product_id', $id)->get();
+
+
+
+
+
+
+        return view ('admin.productsDetails.create', compact('product','discounts','clothSizes','productDetails'));
     }
 
     public function store(Request $request)
@@ -144,25 +152,9 @@ class AdminProductsController extends Controller
         $request->validate([
             'stock' => 'required|integer|max:255',
             'price' => 'required|integer|max:255',
-            'image' => 'required',
-            'image.*' => 'mimes:jpeg,jpg,png|max:2048'
         ]);
 
         $productDetails->save();
-
-
-
-        if($request->has('image')){
-            foreach ($request->file('image') as $image){
-                $imageName = time() . $image->getClientOriginalName();
-                $image->move('img/productsDetails/colors', $imageName);
-                Image::create([
-                    'product_details_id' => $productDetails->id,
-                    'image' => $imageName,
-                ]);
-
-            }
-        }
 
         $productDetails->colors()->sync($request->color_id,false);
 
