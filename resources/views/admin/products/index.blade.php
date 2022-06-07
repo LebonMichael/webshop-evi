@@ -14,8 +14,20 @@
         </div>
         <div class="border border-2 rounded-3 my-3">
             <form>
-                <input type="text" name="search" class="form-control bg-gray-300 border-0 small"
-                       placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="col-6">
+                    <select name="gender" class="form-select">
+                        @foreach($genders as $gender)
+                            <option value="{{$gender->id}}">
+                                {{$gender->name}}
+                            </option>
+                        @endforeach
+                    </select>
+
+                </div>
+                <div class="row">
+                    <input type="text" name="search" class="form-control bg-gray-300 border-0 small"
+                           placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                </div>
             </form>
         </div>
         <div class="d-flex justify-content-center">

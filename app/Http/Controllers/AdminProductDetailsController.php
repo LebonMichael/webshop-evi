@@ -29,6 +29,11 @@ class AdminProductDetailsController extends Controller
 
     }
 
+    public function chooseColor($id){
+
+
+    }
+
     public function store(Request $request, $id)
     {
 
@@ -90,4 +95,5 @@ class AdminProductDetailsController extends Controller
     {
         //
     }
+
 }

@@ -111,7 +111,6 @@
                         </div>
                     </div>
 
-
                     <div class="text-center my-3">
                         <button type="submit" class="btn btn-primary">Create Product Details</button>
                     </div>

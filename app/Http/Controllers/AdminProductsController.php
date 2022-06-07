@@ -26,7 +26,8 @@ class AdminProductsController extends Controller
     {
         $products = Product::with('photo','brand','productCategory','gender')->withTrashed()->orderBy('updated_at', 'desc')->filter(request(['search']))->paginate(20);
         $brands = Brand::all();
-        return view('admin.products.index', compact('products','brands'));
+        $genders = Gender::all();
+        return view('admin.products.index', compact('products','brands','genders'));
     }
 
     public function create()
@@ -50,15 +51,11 @@ class AdminProductsController extends Controller
 
 
     public function createProductDetails($id){
+
         $product = Product::findOrFail($id);
         $discounts = Discount::all();
         $clothSizes = ClothSizes::all();
         $productDetails = ProductDetails::select('clothSize_id','color_id')->where('product_id', $id)->get();
-
-
-
-
-
 
         return view ('admin.productsDetails.create', compact('product','discounts','clothSizes','productDetails'));
     }
@@ -90,7 +87,15 @@ class AdminProductsController extends Controller
         $product->colors()->sync($request->colors,false);
 
         Session::flash('product_message','Product ' . $request->name . ' was created!');
-        return redirect(route('productDetails.create', $product->id));
+        return view('admin.productsDetails.productColor', compact('product'));
+    }
+
+    public function selectProductColor(Request $request, $id){
+
+        $product = Product::findOrFail($id);
+        $color = Color::findOrFail($request->color_id);
+
+        return redirect(route('productDetails.create',$product->id));
     }
 
     public function storeProductDetailsImages(Request $request , $id){
@@ -232,10 +237,13 @@ class AdminProductsController extends Controller
 
     public function productsPerBrand($id){
         $brands = Brand::all();
+        $genders = Gender::all();
         $products = Product::with('photo','gender','brand','discount','productCategory')
             ->where('brand_id', $id)
             ->paginate(10);
-        return view('admin.products.index', compact('products','brands'));
+        return view('admin.products.index', compact('products','brands','genders'));
     }
+
+
 
 }

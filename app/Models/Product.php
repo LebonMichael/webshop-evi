@@ -42,11 +42,17 @@ class Product extends Model
         if ($filters['search'] ?? false) {
             $query
                 ->where('name', 'like', '%' . request('search') . '%')
-                ->where('price', 'like', '%' . request('search') . '%')
-                ->orWhere('stock', 'like', '%' . request('search') . '%')
-                ->orWhereHas('colors', function ($query) {
+                ->where('body', 'like', '%' . request('search') . '%')
+                ->orWhereHas('gender', function ($query) {
+                    $query->where('name', 'like', '%' . request('search') . '%');
+                })
+                ->orWhereHas('productCategory', function ($query) {
+                    $query->where('name', 'like', '%' . request('search') . '%');
+                })
+                ->orWhereHas('brand', function ($query) {
                     $query->where('name', 'like', '%' . request('search') . '%');
                 });
+
         }
     }
 
