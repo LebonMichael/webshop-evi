@@ -49,15 +49,17 @@ class AdminProductsController extends Controller
         return view ('admin.productsDetails.createImages', compact('product','images','imageColors'));
     }
 
-
-    public function createProductDetails($id){
+    public function createProductDetails($id, $color){
 
         $product = Product::findOrFail($id);
         $discounts = Discount::all();
         $clothSizes = ClothSizes::all();
+        $productColor = Color::where('name', $color)->get();
+
+
         $productDetails = ProductDetails::select('clothSize_id','color_id')->where('product_id', $id)->get();
 
-        return view ('admin.productsDetails.create', compact('product','discounts','clothSizes','productDetails'));
+        return view ('admin.productsDetails.create', compact('product','discounts','clothSizes','productDetails','productColor'));
     }
 
     public function store(Request $request)
@@ -87,15 +89,23 @@ class AdminProductsController extends Controller
         $product->colors()->sync($request->colors,false);
 
         Session::flash('product_message','Product ' . $request->name . ' was created!');
+        return redirect(route('productColor', $product->id));
+    }
+
+    public function selectProductColor($id){
+
+        $product = Product::findOrFail($id);
+
         return view('admin.productsDetails.productColor', compact('product'));
     }
 
-    public function selectProductColor(Request $request, $id){
+    public function selectProductColorStore(Request $request, $id){
 
         $product = Product::findOrFail($id);
         $color = Color::findOrFail($request->color_id);
 
-        return redirect(route('productDetails.create',$product->id));
+
+        return redirect(route('productDetails.create',['id' => $product->id, 'name' => $color->name]));
     }
 
     public function storeProductDetailsImages(Request $request , $id){
@@ -155,8 +165,8 @@ class AdminProductsController extends Controller
         $productDetails->price = $request->price;
 
         $request->validate([
-            'stock' => 'required|integer|max:255',
-            'price' => 'required|integer|max:255',
+            'stock' => 'required|integer',
+            'price' => 'required|integer',
         ]);
 
         $productDetails->save();

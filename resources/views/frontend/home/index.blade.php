@@ -780,11 +780,10 @@
                                                 <img class="img-fluid h-100"
                                                      src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
                                                      alt="..."/>
-                                                <div class="card-img-overlay ps-0"></div>
                                                 <div class="card-body text-center ps-0 bg-200">
                                                     <h5 class="fw-bold text-1000 text-truncate">{{$product->name}}</h5>
                                                     <div class="fw-bold"><span
-                                                        @foreach($productDetails as $productDetail)
+                                                        @foreach($product->productDetails as $productDetail)
                                                             @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
                                                                 <span
                                                                     class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
@@ -807,9 +806,9 @@
                                                         @endforeach
                                                     </div>
                                                 </div>
-                                                <a class="stretched-link" href="#"></a>
                                             </div>
                                         </div>
+                                    </div>
                                     @endif
                                 @endforeach
                             </div>

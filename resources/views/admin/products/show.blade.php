@@ -101,7 +101,7 @@
                             </div>
                         </div>
                         <div class="col-12 my-3">
-                            <a href="{{route('productDetails.create', $product->id)}}" class="btn btn-info">Create Product Details</a>
+                            <a href="{{route('productColor', $product->id)}}" class="btn btn-info">Create Product Details</a>
 
                             <a href="{{route('productDetailsImages.create', $product->id)}}" class="btn btn-info">Create Color Images</a>
 

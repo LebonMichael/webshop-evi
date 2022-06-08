@@ -7,7 +7,7 @@
         <div class="row py-3">
             <div class="col-8 offset-2 img-thumbnail bg-black">
                 @include('includes.form_error')
-                <form action="{{route('productColor', $product->id)}}" method="POST"
+                <form action="{{route('productColorStore', $product->id)}}" method="POST"
                       enctype="multipart/form-data">
                     @csrf
                     <h2 class="text-center text-white my-2">Product Details</h2>
