@@ -5,62 +5,84 @@
             <div class="row">
                 <div class="col-12 justify-content-center">
                     <div class="d-flex justify-content-center mb-7">
-                        <a href="{{route('blogs.index')}}"
-                           class="badge badge-primary m-1 p-3 text-black">All</a>
-                        @foreach($categories as $category)
-                            <a href="{{route('blogsPerCategory', $category->id)}}"
-                               class="badge badge-primary m-1 p-3 text-black">{{$category->name}}</a>
-                        @endforeach
+                        <div class="row row-cols-md-3 row-cols-sm-2">
+                            <a href="{{route('blogs.index')}}"
+                               class="badge badge-primary  fs-lg-3 fs-sm-2 fs-1 p-3 text-black">All
+                                @php $a = 0 @endphp
+                                @foreach($allPost as $post)
+                                    @foreach($post->categories as $postCategory)
+                                            @php $a++ @endphp
+                                    @endforeach
+                                @endforeach
+                                <span class="badge bg-success">{{$a++}}</span>
+                            </a>
+                            @foreach($categories as $category)
+                                <a href="{{route('blogsPerCategory', $category->id)}}"
+                                   class="badge badge-danger fs-lg-3 fs-sm-2 fs-1 my-auto p-3 text-black">{{$category->name}}
+                                    @php $a = 0 @endphp
+                                    @foreach($allPost as $post)
+                                        @foreach($post->categories as $postCategory)
+                                            @if($postCategory->id === $category->id )
+                                                @php $a++ @endphp
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                    <span class="badge bg-success">{{$a++}}</span>
+                                </a>
+                            @endforeach
+                        </div>
+
                     </div>
-                    <div class="row">
+                    <div class="row row-cols-sm-2">
                         @foreach($posts as $post)
                             @foreach($users->where('id', $post->user_id) as $user)
                                 @php($postUser = $user)
                             @endforeach
-                            <div class=" col-sm-9 col-md-4 mb-3 mb-md-0">
-                                <div class="border border-3 rounded rounded-3 card card-span">
+                            <div class="mb-3">
+                                <div class="border border-3 rounded rounded-3 card card-span shadow-sm">
                                     <img class="img-fluid img-thumbnail m-2"
                                          src="{{$post->photo ? asset('img/posts') . $post->photo->file : 'https://via.placeholder.com/400'}}"
                                          alt="..."/>
                                     <div class="card-body px-xl-5 px-md-3 pt-0 pb-7">
-                                        <div
-                                            class="d-flex justify-content-between align-items-center bg-100 mt-n5 me-auto">
+                                        <div class="d-flex justify-content-between align-items-center bg-100 mt-n5 my-3 me-auto">
                                             <img
                                                 height="60"
                                                 src="{{$user->photo ? asset('img/users') . $user->photo->file : 'https://via.placeholder.com/62'}}"
                                                 alt="..."/>
                                             <div class="d-flex flex-1 justify-content-around">
-                                                                            <span class="text-900 text-center">
-                                                                                <i data-feather="eye"> </i>
-                                                                                <span class="text-900 ms-2">
-                                                                                    35
-                                                                                </span>
-                                                                            </span>
+                                                <span class="text-900 text-center">
+                                                    <i data-feather="eye"> </i>
+                                                    <span class="text-900 ms-2">
+                                                        35
+                                                    </span>
+                                                </span>
                                                 <span
                                                     class="text-900 text-center">
-                                                                            <i data-feather="heart"> </i>
-                                                                            <span
-                                                                                class="text-900 ms-2">
-                                                                                23
-                                                                            </span>
-                                                                        </span>
+                                                    <i data-feather="heart"> </i>
+                                                    <span
+                                                        class="text-900 ms-2">
+                                                        23
+                                                    </span>
+                                                </span>
                                                 <span
                                                     class="text-900 text-center">
-                                                                            <i data-feather="corner-up-right"> </i>
-                                                                            <span
-                                                                                class="text-900 ms-2">
-                                                                                14
-                                                                            </span>
-                                                                        </span>
+                                                    <i data-feather="corner-up-right"> </i>
+                                                    <span
+                                                        class="text-900 ms-2">
+                                                        14
+                                                    </span>
+                                                </span>
                                             </div>
                                         </div>
                                         <h6 class="text-900 mt-3">{{$user->first_name}} {{$user->last_name}}</h6>
-                                        <p>
-                                            @foreach($user->roles as $role)
-                                                <span
-                                                    class="badge rounded-pill bg-primary">{{$role->name}}</span>
-                                            @endforeach
-                                        </p>
+                                        <div class="my-5">
+                                            <p>
+                                                @foreach($user->roles as $role)
+                                                    <span
+                                                        class="badge rounded-pill bg-primary">{{$role->name}}</span>
+                                                @endforeach
+                                            </p>
+                                        </div>
                                         <p>
                                             @foreach($post->categories as $role)
                                                 <span

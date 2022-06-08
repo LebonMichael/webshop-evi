@@ -16,23 +16,26 @@ class FrontendPostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('photo','categories')->paginate(9);
+        $posts = Post::with('photo','categories')->paginate(8);
         $categories = PostCategory::all();
+        $allPost = Post::with('categories')->get();
         $users = User::with('photo','roles')->get();
-        return view('frontend.blogs.index', compact('posts', 'categories','users'));
+
+
+        return view('frontend.blogs.index', compact('posts', 'categories','users','allPost'));
     }
 
     public function blogsPerCategory($id){
         $categories = PostCategory::all();
-
         $users = User::with('photo','roles')->get();
+        $allPost = Post::with('categories')->get();
 
         $posts = Post::with('photo','categories')
             ->whereHas('categories', function($q) use ($id){
                 $q->where('post_category_id', '=', $id);
             })->paginate(9);
 
-        return view('frontend.blogs.index', compact('posts', 'categories','users'));
+        return view('frontend.blogs.index', compact('posts', 'categories','users','allPost'));
 
     }
 
