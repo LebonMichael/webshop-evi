@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\ClothSizes;
+use App\Models\Color;
+use App\Models\Image;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductDetails;
@@ -35,11 +37,15 @@ class FrontendShopController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
+        $brand = Brand::all();
+        $images = Image::where('product_id',$id)->orderBy('color_id', 'ASC')->get();
         $oldColor = 0;
         $colors = ProductDetails::where('product_id',$id)->whereHas('colors')->orderBy('color_id', 'ASC')->get();
-        $productDetails = ProductDetails::with('images','clothSize')->orderBy('clothSize_id', 'ASC')->where('product_id', $id)->get();
+        $color = ProductDetails::select('color_id')->where('product_id',$id)->orderBy('color_id', 'ASC')->take(1)->get();
+        $name  = 0;
+        $productDetails = ProductDetails::with('clothSize','colors','discount')->orderBy('clothSize_id', 'ASC')->where('product_id', $id)->where('color_id', $color[0])->get();
 
-        return view('frontend.shop.show', compact('product','productDetails','colors', 'oldColor'));
+        return view('frontend.shop.show', compact('product','productDetails','colors', 'oldColor','images','brand','color','name'));
     }
 
 
@@ -56,5 +62,17 @@ class FrontendShopController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function productsPerColor($id,$name){
+        $product = Product::findOrFail($id);
+        $images = Image::where('product_id',$id)->orderBy('color_id', 'ASC')->get();
+        $brands = Brand::all();
+        $colors = ProductDetails::where('product_id',$id)->get();
+        $color = Color::select('id')->where('name',$name)->get()->toArray();
+        $oldColor = 0;
+        $productDetails = ProductDetails::with('clothSize','colors','discount')->orderBy('clothSize_id', 'ASC')->where('product_id', $id)->where('color_id', $color[0])->get();
+
+        return view('frontend.shop.show', compact('product','colors', 'oldColor','brands','images','productDetails','name'));
     }
 }

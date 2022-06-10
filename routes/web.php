@@ -21,6 +21,7 @@ Route::get('/', function () {
 });
 Route::get('/', [App\Http\Controllers\FrontendHomeController::class, 'index'])->name('webshop');
 Route::resource('shop', \App\Http\Controllers\FrontendShopController::class);
+Route::get('product/color/{id}/{name}','App\Http\Controllers\FrontendShopController@productsPerColor')->name('productsPerColor');
 
 Route::get('/contactformulier', 'App\Http\Controllers\ContactController@create');
 Route::post('/contactformulier', 'App\Http\Controllers\ContactController@store');
@@ -46,6 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('users/restore/{user}', 'App\Http\Controllers\AdminUsersController@restore')->name('users.restore');
 
     Route::resource('postComments', \App\Http\Controllers\AdminPostCommentController::class);
+
 
 
 
