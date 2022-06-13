@@ -18,7 +18,7 @@
 
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top py-3 d-block"
          data-navbar-on-scroll="data-navbar-on-scroll">
         <div class="container">
             <a class="navbar-brand d-inline-flex" href="/">
@@ -36,12 +36,13 @@
             <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item px-2"><a class="nav-link fw-medium" href="#collection">Collection</a></li>
-                    <li class="nav-item px-2"><a class="nav-link fw-medium" href="#outlet">Outlet</a></li>
                     <li class="nav-item px-2"><a class="nav-link fw-medium" href="{{route('blogs.index')}}">Blogs</a></li>
                     <li class="nav-item px-2"><a class="nav-link fw-medium" href="{{route('shop.index')}}">Shop</a></li>
+                    <li class="nav-item px-2"><a class="nav-link fw-medium" href="{{route('contact.index')}}">Contact</a></li>
+
 
                 </ul>
-                <form class="d-flex"><a class="text-1000" href="#!">
+                <form class="d-flex"><a class="text-1000" href="{{route('contact.index')}}">
                         <svg class="feather feather-phone me-3" xmlns="http://www.w3.org/2000/svg" width="16"
                              height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                              stroke-linecap="round" stroke-linejoin="round">
@@ -86,9 +87,10 @@
 <!--    Main Content-->
 <!-- ===============================================-->
 <main class="main" id="top">
-    <div>
+    <div class="container-fluid">
         @yield('content')
     </div>
+
     <!-- <section> close ============================-->
     <!-- ============================================-->
 

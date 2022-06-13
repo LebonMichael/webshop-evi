@@ -34,7 +34,7 @@
                                         <input
                                             type="file"
                                             name="image1"
-                                            class="form-control"
+                                            class="form-control dropify"
                                             accept="image/*"
                                         >
                                     </div>

@@ -111,7 +111,7 @@
 
                                     <div>
                                         <a href="{{route('shop.show', $product->id)}}">
-                                            <div style="height: 32.25rem"
+                                            <div style="height: auto"
                                                  class="m-2 p-3 text-center border border-2 rounded-3 border-black">
                                                 <img class="img-fluid rounded-3"
                                                      src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"

@@ -23,8 +23,9 @@ Route::get('/', [App\Http\Controllers\FrontendHomeController::class, 'index'])->
 Route::resource('shop', \App\Http\Controllers\FrontendShopController::class);
 Route::get('product/color/{id}/{name}','App\Http\Controllers\FrontendShopController@productsPerColor')->name('productsPerColor');
 
-Route::get('/contactformulier', 'App\Http\Controllers\ContactController@create');
-Route::post('/contactformulier', 'App\Http\Controllers\ContactController@store');
+/** Contact Frontend **/
+Route::resource('contact', \App\Http\Controllers\ContactController::class);
+
 
 /** BLOG **/
 

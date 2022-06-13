@@ -120,11 +120,6 @@
                                         @endif
 
                                     </div>
-                                    @if($details->stock >= 1)
-                                        <span class="text-success">
-                                            Nu besteld, dinsdag in huis
-                                        </span>
-                                    @endif
                                     <div class="py-2">
                                         <p><span class="pe-1"><i class="fa-solid fa-check text-success"></i></span>Inclusief verzendkosten, verstuurd door Webshop-Evi.com</p>
                                         <p><span class="pe-1"><i class="fa-solid fa-check text-success"></i></span>30 dagen bedenktijd en gratis retourneren</p>
