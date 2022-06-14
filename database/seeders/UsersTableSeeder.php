@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -27,6 +28,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt(12345678),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'remember_token' => Str::random(10)
         ]);
         DB::table('users')->insert([
             'is_active' => 1,
@@ -38,6 +40,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt(12345678),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'remember_token' => Str::random(10)
         ]);
         DB::table('users')->insert([
             'is_active' => 1,
@@ -49,6 +52,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt(12345678),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'remember_token' => Str::random(10)
         ]);
 
         User::factory()->count(50)->create();

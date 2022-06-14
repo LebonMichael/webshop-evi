@@ -60,6 +60,8 @@ class User extends Authenticatable implements MustVerifyEmail
         foreach ($this->roles as $role) {
             if ($role->name == 'Administrator' && $this->is_active == 1) {
                 return true;
+            }elseif($role->name == 'Owner' && $this->is_active == 1){
+                return true;
             }
         }
     }

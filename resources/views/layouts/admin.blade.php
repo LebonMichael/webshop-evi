@@ -37,8 +37,7 @@
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Settings</a></li>
-                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                <li><a class="dropdown-item" href="{{route('users.settings', Auth::user()->id)}}">Settings</a></li>
                 <li>
                     <hr class="dropdown-divider"/>
                 </li>
@@ -71,6 +70,7 @@
                         Frontend
                     </a>
 
+                @if(Auth::user()->isAdmin())
                     <!--start Users-->
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers"
                        aria-expanded="false" aria-controls="collapseUsers">
@@ -87,8 +87,7 @@
                     </div>
                     <!--end users-->
 
-
-                    <!--start posts-->
+                <!--start posts-->
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePosts"
                        aria-expanded="false" aria-controls="collapsePosts">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -111,8 +110,10 @@
                             <div class="collapse" id="collapsePostCategories" aria-labelledby="headingOne"
                                  data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{route('postCategories.index')}}">All PostCategories</a>
-                                    <a class="nav-link" href="{{route('postCategories.create')}}">Create PostCategory</a>
+                                    <a class="nav-link" href="{{route('postCategories.index')}}">All
+                                        PostCategories</a>
+                                    <a class="nav-link" href="{{route('postCategories.create')}}">Create
+                                        PostCategory</a>
                                 </nav>
                             </div>
 
@@ -126,7 +127,8 @@
                                  data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{route('postComments.index')}}">All Post Comments</a>
-                                    <a class="nav-link" href="{{route('postComments.create')}}">Create Post Comment</a>
+                                    <a class="nav-link" href="{{route('postComments.create')}}">Create Post
+                                        Comment</a>
                                 </nav>
                             </div>
                         </nav>
@@ -134,7 +136,8 @@
                     <!-- end posts-->
 
                     <!--start products-->
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProducts"
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                       data-bs-target="#collapseProducts"
                        aria-expanded="false" aria-controls="collapseProducts">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Products
@@ -156,8 +159,10 @@
                             <div class="collapse" id="collapseProductCategories" aria-labelledby="headingOne"
                                  data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{route('productCategories.index')}}">All Product Categories Sizes</a>
-                                    <a class="nav-link" href="{{route('productCategories.create')}}">Create Product Category</a>
+                                    <a class="nav-link" href="{{route('productCategories.index')}}">All Product
+                                        Categories Sizes</a>
+                                    <a class="nav-link" href="{{route('productCategories.create')}}">Create Product
+                                        Category</a>
                                 </nav>
                             </div>
 
@@ -198,8 +203,10 @@
                             <div class="collapse" id="collapseClothSize" aria-labelledby="headingOne"
                                  data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="{{route('cloth-sizes.index')}}">All Product Cloth Sizes</a>
-                                    <a class="nav-link" href="{{route('cloth-sizes.create')}}">Create Product Cloth Size</a>
+                                    <a class="nav-link" href="{{route('cloth-sizes.index')}}">All Product Cloth
+                                        Sizes</a>
+                                    <a class="nav-link" href="{{route('cloth-sizes.create')}}">Create Product Cloth
+                                        Size</a>
                                 </nav>
                             </div>
 
@@ -226,12 +233,14 @@
                                  data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="{{route('discounts.index')}}">All Product Discount</a>
-                                    <a class="nav-link" href="{{route('discounts.create')}}">Create Product Discount</a>
+                                    <a class="nav-link" href="{{route('discounts.create')}}">Create Product
+                                        Discount</a>
                                 </nav>
                             </div>
                         </nav>
                     </div>
                     <!-- end products-->
+                    @endif
 
                     <div class="sb-sidenav-menu-heading">Addons</div>
                     <a class="nav-link" href="charts.html">

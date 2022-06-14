@@ -23,7 +23,7 @@ Route::get('/', [App\Http\Controllers\FrontendHomeController::class, 'index'])->
 Route::resource('shop', \App\Http\Controllers\FrontendShopController::class);
 Route::get('product/color/{id}/{name}','App\Http\Controllers\FrontendShopController@productsPerColor')->name('productsPerColor');
 
-/** Contact Frontend **/
+/** MailContact Frontend **/
 Route::resource('contact', \App\Http\Controllers\ContactController::class);
 
 
@@ -36,8 +36,6 @@ Route::get('blog/category/{id}','\App\Http\Controllers\FrontendPostController@bl
 
 
 Auth::routes(['verify' => true]);
-
-
 
 /** Backend Routes **/
 
@@ -60,6 +58,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('homebackend');
 
     Route::resource('posts', App\Http\Controllers\AdminPostsController::class);
+
+    Route::get('users/settings/{user}', 'App\Http\Controllers\AdminUsersController@changeSettings')->name('users.settings');
+    Route::patch('users/settings/{user}/update', 'App\Http\Controllers\AdminUsersController@settingsUpdate')->name('users.settingsUpdate');
 
     Route::resource('postCategories', App\Http\Controllers\AdminPostsCategoriesController::class);
     Route::get('postCategories/restore/{postCategory}', 'App\Http\Controllers\AdminPostsCategoriesController@restore')->name('postCategories.restore');

@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 
 class FrontendShopController extends Controller
 {
+
+
     public function index()
     {
         $brands = Brand::all();

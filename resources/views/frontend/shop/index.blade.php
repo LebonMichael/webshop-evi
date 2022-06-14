@@ -4,10 +4,10 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 offset-lg-2">
+            <div class="col-lg-10 offset-lg-1">
                 <div class="row">
                     <!--START FILTER-->
-                    <div class="col-md-3 border-2 border-danger">
+                    <div class="col-sm-3">
                         <section id="filterShop">
                             <div class="mt-5">
                                 <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -104,9 +104,9 @@
                     <!--STOP FILTER-->
 
                     <!--START ITEMS-->
-                    <div class="col-sm-9 mx-auto">
+                    <div class="col-sm-6 mx-auto">
                         <section id="productList">
-                            <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2 mt-5">
+                            <div class="row row-cols-md-3 row-cols-sm-2 mt-5">
                                 @foreach($products as $product)
 
                                     <div>
@@ -163,7 +163,6 @@
                                                             @endif
                                                         @endforeach
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </a>
@@ -173,6 +172,103 @@
                         </section>
                     </div>
                     <!--STOP ITEMS-->
+
+                    <!--START SHOPPING CART-->
+                    <div class="col-sm-3">
+                        <section id="shoppingCart">
+                            <div class="mt-5">
+                                <div class="accordion" id="accordionPanelsStayOpenExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                                                    aria-controls="panelsStayOpen-collapseOne">
+                                                Categories
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
+                                             aria-labelledby="panelsStayOpen-headingOne">
+                                            <div class="accordion-body">
+                                                <form action="">
+                                                    @csrf
+                                                    @foreach($categories as $category)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio"
+                                                                   value="{{$category->id}}" name="flexRadioDefaul"
+                                                                   id="flexRadioDefault{{$category->id}}">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                {{$category->name}}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                                    aria-controls="panelsStayOpen-collapseTwo">
+                                                Brands
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                                             aria-labelledby="panelsStayOpen-headingTwo">
+                                            <div class="accordion-body">
+                                                <form action="">
+                                                    @csrf
+                                                    @foreach($brands as $brand)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   value="{{$brand->id}}" name="flexRadioDefaul"
+                                                                   id="flexRadioDefault{{$brand->id}}">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                {{$brand->name}}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="panelsStayOpen-heading3">
+                                            <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse3"
+                                                    aria-expanded="false" aria-controls="panelsStayOpen-collapse3">
+                                                Size
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapse3" class="accordion-collapse collapse"
+                                             aria-labelledby="panelsStayOpen-heading3">
+                                            <div class="accordion-body">
+                                                <form action="">
+                                                    @csrf
+                                                    @foreach($sizes as $size)
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   value="{{$size->id}}" name="flexRadioDefaul"
+                                                                   id="flexRadioDefault{{$size->id}}">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                {{$size->size}}
+                                                            </label>
+                                                        </div>
+                                                    @endforeach
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <!--STOP SHOPPING CART-->
                 </div>
             </div>
         </div>

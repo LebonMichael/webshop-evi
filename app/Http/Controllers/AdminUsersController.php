@@ -10,16 +10,13 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
 
     public function index()
     {
@@ -28,23 +25,12 @@ class AdminUsersController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $roles = Role::all();
         return view('admin.users.create', compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(UsersRequest $request)
     {
         $user = new User();
@@ -68,12 +54,6 @@ class AdminUsersController extends Controller
         return redirect('admin/users');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = User::findOrFail($id);
@@ -85,6 +65,56 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
         $roles = Role::all();
         return view('admin.users.edit', compact('user', 'roles'));
+    }
+
+    public function changeSettings($id)
+    {
+        if (Auth::user()->id == $id){
+            $user = User::findOrFail($id);
+            $roles = Role::all();
+            return view('admin.users.changeSettings', compact('user', 'roles'));
+        }else{
+           return redirect('admin');
+        }
+
+    }
+
+    public function settingsUpdate(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if (trim($request->password) == '') {
+            $input = $request->except('password');
+        } else {
+            $password = $user->password;
+            $password1 = Crypt::decrypt($password);
+            if ($user->password === $request->old_password){
+                $input = $request->all;
+                $input['password'] = Hash::make($request['password']);
+            }
+
+        }
+        dd();
+
+        /** opvragen oude image **/
+        $oldImage = Photo::find($user->photo_id);
+        if($oldImage){
+            //fysisch verwijderen uit img directory
+            unlink(public_path() . '/img/users' . $oldImage->file);
+            //oude image uit de tabel photos verwijderen
+            $oldImage->delete();
+        }
+        /** photo overschrijven **/
+        if ($file = $request->file('photo_id')) {
+            $name = time() . $file->getClientOriginalName();
+            $file->move('img/users', $name);
+            $photo = Photo::create(['file' => $name]);
+            $user->photo_id = $input['photo_id'] = $photo->id;
+        }
+        $user->update($input);
+
+        Session::flash('user_message','User ' . $request->name . ' was updated!');
+        return view(route('users.settings', Auth::user()->id));
     }
 
     public function update(UsersEditRequest $request, $id)

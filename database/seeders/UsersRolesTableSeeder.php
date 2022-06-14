@@ -18,13 +18,13 @@ class UsersRolesTableSeeder extends Seeder
     {
         $roles = Role::all();
         User::all()->each(function ($user) use ($roles){
-            if($user['id'] == 1 ){
-                $user->roles()->sync([1,2,3,4,5]);
-            }elseif($user['id'] == 2){
-                $user->roles()->sync([1,2,3,4,5]);
+            if($user['id'] === 1 ){
+                $user->roles()->sync([1,2]);
+            }elseif($user['id'] === 2){
+                $user->roles()->sync([1,2]);
             }else{
                 $user->roles()->attach(
-                    $roles->random(rand(1,5))->pluck('id')->toArray()
+                    $roles->random(rand(3,5))->pluck('id')->toArray()
                 );
             }
         });

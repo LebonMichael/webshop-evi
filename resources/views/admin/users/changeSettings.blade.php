@@ -6,10 +6,16 @@
         </div>
         <div class="row py-3">
             <div class="col-8 offset-2 img-thumbnail bg-black">
+                @if(session('user_message'))
+                    <div class="alert alert-info alert-dismissible">
+                        <a href="#" class="btn-close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Info!</strong>  {{session('user_message')}}
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-8">
                         @include('includes.form_error')
-                        <form action="{{route('users.update', Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('users.settingsUpdate', Auth::user()->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
                             <div class="form-group">
@@ -31,17 +37,6 @@
                                        placeholder="{{$user->email}}">
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="role">Role: (CTRL + CLICK multiple select)</label>
-                                <select name="roles[]" class="form-control custom-select" multiple>
-                                    @foreach($roles as $role)
-                                        <option value="{{$role->id}}"
-                                                @if($user->roles->contains($role->id)) selected @endif>
-                                            {{$role->name}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label class="text-white" for="is_active">Status:</label>
                                 <select name="is_active" class="form-select">
                                     <option value="1" >
@@ -53,7 +48,13 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="email">Password:</label>
+                                <label class="text-white" for="email">Old password:</label>
+                                <input value="" type="password" name="old_password" id="password"
+                                       class="form-control "
+                                       placeholder="Password...">
+                            </div>
+                            <div class="form-group">
+                                <label class="text-white" for="email">New password:</label>
                                 <input value="" type="password" name="password" id="password"
                                        class="form-control "
                                        placeholder="Password...">
