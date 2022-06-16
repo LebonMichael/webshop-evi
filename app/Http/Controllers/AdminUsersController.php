@@ -21,7 +21,7 @@ class AdminUsersController extends Controller
     public function index()
     {
 
-        $users = User::with('photo','roles')->withTrashed()->orderBy('updated_at', 'desc')->filter(request(['search']))->paginate(20);
+        $users = User::with('photo', 'roles')->withTrashed()->orderBy('updated_at', 'desc')->filter(request(['search']))->paginate(20);
         return view('admin.users.index', compact('users'));
     }
 
@@ -50,7 +50,7 @@ class AdminUsersController extends Controller
         $user->save();
 
         $user->roles()->sync($request->roles, false);
-        Session::flash('user_message','User ' . $request->name . ' was created!');
+        Session::flash('user_message', 'User ' . $request->name . ' was created!');
         return redirect('admin/users');
     }
 
@@ -69,12 +69,12 @@ class AdminUsersController extends Controller
 
     public function changeSettings($id)
     {
-        if (Auth::user()->id == $id){
+        if (Auth::user()->id == $id) {
             $user = User::findOrFail($id);
             $roles = Role::all();
             return view('admin.users.changeSettings', compact('user', 'roles'));
-        }else{
-           return redirect('admin');
+        } else {
+            return redirect('admin');
         }
 
     }
@@ -86,19 +86,13 @@ class AdminUsersController extends Controller
         if (trim($request->password) == '') {
             $input = $request->except('password');
         } else {
-            $password = $user->password;
-            $password1 = Crypt::decrypt($password);
-            if ($user->password === $request->old_password){
-                $input = $request->all;
-                $input['password'] = Hash::make($request['password']);
-            }
-
+            $input = $request->all;
+            $input['password'] = Hash::make($request['password']);
         }
-        dd();
 
         /** opvragen oude image **/
         $oldImage = Photo::find($user->photo_id);
-        if($oldImage){
+        if ($oldImage) {
             //fysisch verwijderen uit img directory
             unlink(public_path() . '/img/users' . $oldImage->file);
             //oude image uit de tabel photos verwijderen
@@ -113,8 +107,15 @@ class AdminUsersController extends Controller
         }
         $user->update($input);
 
-        Session::flash('user_message','User ' . $request->name . ' was updated!');
-        return view(route('users.settings', Auth::user()->id));
+        Session::flash('user_message', 'User ' . $request->name . ' was updated!');
+
+        if (Auth::user()->id == $id) {
+            $user = User::findOrFail($id);
+            $roles = Role::all();
+            return view('admin.users.changeSettings', compact('user', 'roles'));
+        } else {
+            return redirect('admin');
+        }
     }
 
     public function update(UsersEditRequest $request, $id)
@@ -128,7 +129,7 @@ class AdminUsersController extends Controller
         }
         /** opvragen oude image **/
         $oldImage = Photo::find($user->photo_id);
-        if($oldImage){
+        if ($oldImage) {
             //fysisch verwijderen uit img directory
             unlink(public_path() . '/img/users' . $oldImage->file);
             //oude image uit de tabel photos verwijderen
@@ -145,7 +146,7 @@ class AdminUsersController extends Controller
 
         /** Wegschrijven tussentabel met de nieuwe rollen **/
         $user->roles()->sync($request->roles, true);
-        Session::flash('user_message','User ' . $request->name . ' was updated!');
+        Session::flash('user_message', 'User ' . $request->name . ' was updated!');
         return redirect('admin/users');
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\ClothSizes;
 use App\Models\Color;
 use App\Models\Image;
@@ -10,6 +11,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class FrontendShopController extends Controller
 {
@@ -24,6 +26,33 @@ class FrontendShopController extends Controller
         $productDetails = ProductDetails::with('discount')->orderBy('discount_id', 'DESC')->get();
 
         return view('frontend.shop.index', compact('products','categories','brands','sizes','productDetails'));
+    }
+
+    public function addToCart($id){
+        $product = ProductDetails::with('colors')->where('id',$id)->first();
+        $oldCart = Session::has('cart') ? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->add($product, $id);
+        Session::put('cart', $cart);
+        return redirect()->back();
+
+    }
+
+    public function removeFromCart($id){
+        $product = ProductDetails::with('colors')->where('id',$id)->first();
+        $oldCart = Session::has('cart') ? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->remove($product, $id);
+        Session::put('cart', $cart);
+        return redirect()->back();
+    }
+
+    public function removeAllFromCart($id){
+        $oldCart = Session::has('cart') ? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+        Session::put('cart', $cart);
+        return redirect()->back();
     }
 
     public function create()

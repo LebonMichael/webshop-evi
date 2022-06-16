@@ -21,7 +21,10 @@ Route::get('/', function () {
 });
 Route::get('/', [App\Http\Controllers\FrontendHomeController::class, 'index'])->name('webshop');
 Route::resource('shop', \App\Http\Controllers\FrontendShopController::class);
-Route::get('product/color/{id}/{name}','App\Http\Controllers\FrontendShopController@productsPerColor')->name('productsPerColor');
+Route::get('/addToCart/{id}', 'App\Http\Controllers\FrontendShopController@addToCart')->name('addToCart');
+Route::get('/removeFromCart/{id}', 'App\Http\Controllers\FrontendShopController@removeFromCart')->name('removeFromCart');
+Route::get('/removeAllFromCart/{id}', 'App\Http\Controllers\FrontendShopController@removeAllFromCart')->name('removeAllFromCart');
+Route::get('product/color/{id}/{name}', 'App\Http\Controllers\FrontendShopController@productsPerColor')->name('productsPerColor');
 
 /** MailContact Frontend **/
 Route::resource('contact', \App\Http\Controllers\ContactController::class);
@@ -30,9 +33,8 @@ Route::resource('contact', \App\Http\Controllers\ContactController::class);
 /** BLOG **/
 
 Route::resource('blogs', FrontendPostController::class);
-Route::get('blog/{post:slug}','\App\Http\Controllers\AdminPostsController@post')->name('blogs.post');
-Route::get('blog/category/{id}','\App\Http\Controllers\FrontendPostController@blogsPerCategory')->name('blogsPerCategory');
-
+Route::get('blog/{post:slug}', '\App\Http\Controllers\AdminPostsController@post')->name('blogs.post');
+Route::get('blog/category/{id}', '\App\Http\Controllers\FrontendPostController@blogsPerCategory')->name('blogsPerCategory');
 
 
 Auth::routes(['verify' => true]);
@@ -46,8 +48,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('users/restore/{user}', 'App\Http\Controllers\AdminUsersController@restore')->name('users.restore');
 
     Route::resource('postComments', \App\Http\Controllers\AdminPostCommentController::class);
-
-
 
 
 });
@@ -67,7 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
 
     Route::resource('products', App\Http\Controllers\AdminProductsController::class);
     Route::get('products/restore/{product}', 'App\Http\Controllers\AdminProductsController@restore')->name('products.restore');
-    Route::get('products/brand/{id}','App\Http\Controllers\AdminProductsController@productsPerBrand')->name('productsPerBrand');
+    Route::get('products/brand/{id}', 'App\Http\Controllers\AdminProductsController@productsPerBrand')->name('productsPerBrand');
     Route::get('product/{id}/colors', 'App\Http\Controllers\AdminProductsController@selectProductColor')->name('productColor');
     Route::post('product/{id}/colors/store', 'App\Http\Controllers\AdminProductsController@selectProductColorStore')->name('productColorStore');
     Route::get('product/{id}/productDetails/{name}', 'App\Http\Controllers\AdminProductsController@createProductDetails')->name('productDetails.create');

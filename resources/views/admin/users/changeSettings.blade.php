@@ -8,7 +8,7 @@
             <div class="col-8 offset-2 img-thumbnail bg-black">
                 @if(session('user_message'))
                     <div class="alert alert-info alert-dismissible">
-                        <a href="#" class="btn-close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <a href="{{route('users.settings', Auth::user()->id)}}" class="btn-close" data-dismiss="alert" aria-label="close"></a>
                         <strong>Info!</strong>  {{session('user_message')}}
                     </div>
                 @endif
@@ -48,13 +48,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="email">Old password:</label>
-                                <input value="" type="password" name="old_password" id="password"
-                                       class="form-control "
-                                       placeholder="Password...">
-                            </div>
-                            <div class="form-group">
-                                <label class="text-white" for="email">New password:</label>
+                                <label class="text-white" for="email">Password:</label>
                                 <input value="" type="password" name="password" id="password"
                                        class="form-control "
                                        placeholder="Password...">
@@ -70,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Edit User</button>
+                            <button type="submit" class="btn btn-primary my-2">Edit User</button>
                         </form>
                     </div>
                     <div class="col-4">
