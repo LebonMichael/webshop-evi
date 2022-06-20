@@ -145,39 +145,83 @@
                                                aria-label="Aantel">
                                     </div>
                                     <div class="d-flex ">
-                                        <div class="text-center mx-auto"><a class="btn btn-outline-dark mt-auto"
-                                                                            href="{{route('removeFromCart',$details->id)}}"><i
-                                                    class="fas fa-minus-square text-warning"></i></a></div>
-                                        <div class="text-center mx-auto"><a class="btn btn-outline-dark mt-auto"
-                                                                    href="{{route('removeAllFromCart',$details->id)}}"><i
-                                                    class="fas fa-trash text-danger"></i></a></div>
-                                        <div class="text-center mx-auto"><a class="btn btn-outline-dark mt-auto"
-                                                                    href="{{route('addToCart',$details->id)}}"><i
-                                                    class="fas fa-plus-square text-success"></i></a></div>
-                                    </div>
+                                        @if(Session::has('cart'))
+                                            @php
+                                                $oldCart = Session::get('cart')->products;
+                                                $controleCart = 0;
+                                                $cart = '';
+                                                foreach($oldCart as $cart){
+                                                    if ($cart['product_id'] == $details->id){
+                                                       $controleCart =  1;
+                                                    }
+                                                }
+                                            @endphp
+                                            @if($controleCart ===  1)
+                                                <div class="text-center mx-auto"><a class="btn btn-outline-dark mt-auto"
+                                                                                    href="{{route('removeFromCart',$details->id)}}"><i
+                                                            class="fas fa-minus-square text-warning"></i></a></div>
+                                                <div class="text-center mx-auto">
+                                                    <a
+                                                        class="btn btn-outline-dark mt-auto"
+                                                        href="{{route('removeAllFromCart',$details->id)}}">
+                                                        <i class="fas fa-trash text-danger"></i>
+                                                    </a>
+                                                </div>
+                                                @php
+                                                    $controleCart = 0;
+                                                @endphp
+                                            @endif
+                                        @endif
+                                        @if(Session::has('cart'))
+                                            @php $controleCarts = Session::get('cart')->products;
+                                                $enoughStock = 1;
+                                                foreach($controleCarts as $controleCart ){
+                                                    if ($controleCart['product_id'] == $details->id){
+                                                        if ($controleCart['stock'] >= 1 ){
+                                                         $enoughStock = 1;
+                                                        }else{
+                                                            $enoughStock = 0;
+                                                        }
+                                                    }
+                                                }
+                                            @endphp
+                                            @if($enoughStock === 1)
+                                                <div class="text-center mx-auto"><a class="btn btn-outline-dark mt-auto"
+                                                                                    href="{{route('addToCart',$details->id)}}"><i
+                                                            class="fas fa-plus-square text-success"></i></a></div>
+                                            @endif
+                                        @else
+                                            <div class="text-center mx-auto">
+                                                <a class="btn btn-outline-dark mt-auto"
+                                                   href="{{route('addToCart',$details->id)}}">
+                                                    <i class="fas fa-plus-square text-success"></i>
+                                                </a>
+                                            </div>
+                                        @endif
 
+
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 border border-2 border-black mb-2 h-100">
-                    <div class=" bg-grey rounded-2 text-center mt-3">
+                <div class="col-lg-2 border border-2 border-black rounded-2 shadow-lg mb-2 h-100">
+                    <div class="text-center mt-3">
                         <p class="pt-3">Total products
-                            ({{Session::has('cart') ? Session::get('cart')->totalQuantity: '0'}})</p>
-                        <p class="fw-bold"> &euro;{{Session::has('cart') ? Session::get('cart')->totalPrice: '0'}}</p>
+                            ({{Session::has('cart') ? Session::get('cart')->totalQuantity : '0'}})</p>
+                        <p class="fw-bold"> &euro;{{Session::has('cart') ? Session::get('cart')->totalPrice + 4.99 : '0'}}</p>
                         <p>Verzendingskosten</p>
                         <p class="fw-bold">&euro;{{Session::has('cart') ? 4.99 : '0'}}</p>
-                        <hr>
                         <p>Totaal</p>
                         <p>&euro;{{Session::has('cart') ? Session::get('cart')->totalPrice + 4.99 : '0'}}</p>
                         <div class="row mb-3">
                             <div>
-                                <a href="#" class="btn mx-auto btn-outline-primary">Betalen</a>
+                                <a href="#" class="btn mx-auto btn-outline-primary">Winkelkar</a>
                             </div>
                             <p class="my-3">of</p>
                             <div>
-                                <a href="#"
+                                <a href="{{route('shop.index')}}"
                                    class="btn mb-3 mx-auto rounded btn-outline-success">Verder
                                     winkelen
                                 </a>

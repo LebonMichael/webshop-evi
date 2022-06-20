@@ -43,6 +43,11 @@ class FrontendShopController extends Controller
         $oldCart = Session::has('cart') ? Session::get('cart'):null;
         $cart = new Cart($oldCart);
         $cart->remove($product, $id);
+        foreach ($cart->products as $productControl){
+            if ($productControl['quantity'] === 0){
+                $cart->removeItem($id);
+            }
+        }
         Session::put('cart', $cart);
         return redirect()->back();
     }
@@ -52,6 +57,9 @@ class FrontendShopController extends Controller
         $cart = new Cart($oldCart);
         $cart->removeItem($id);
         Session::put('cart', $cart);
+        if (empty(Session::get('cart')->products)){
+            Session::remove('cart');
+        }
         return redirect()->back();
     }
 

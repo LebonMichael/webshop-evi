@@ -174,29 +174,20 @@
         </div>
         <!--STOP PRODUCTEN-->
 
-        <div class="col-lg-2 border border-2 border-black mb-2 h-100">
-            <div class=" bg-grey rounded-2 text-center mt-3">
-                <p class="pt-3">Total products ({{Session::has('cart') ? Session::get('cart')->totalQuantity: '0'}})</p>
-                <p class="fw-bold"> &euro;{{Session::has('cart') ? Session::get('cart')->totalPrice: '0'}}</p>
+        <div class="col-lg-2 border border-2 border-black rounded-2 shadow-lg mb-2 h-100">
+            <div class="text-center mt-3">
+                <p class="pt-3">Total products
+                    ({{Session::has('cart') ? Session::get('cart')->totalQuantity : '0'}})</p>
+                <p class="fw-bold"> &euro;{{Session::has('cart') ? Session::get('cart')->totalPrice + 4.99 : '0'}}</p>
                 <p>Verzendingskosten</p>
-                <p class="fw-bold">&euro;4.99</p>
-                <hr>
+                <p class="fw-bold">&euro;{{Session::has('cart') ? 4.99 : '0'}}</p>
                 <p>Totaal</p>
-                <p v-if="totaalBedrag <= 0">&euro; 0</p>
-                <p v-else class="fw-bold"> &euro;</p>
+                <p>&euro;{{Session::has('cart') ? Session::get('cart')->totalPrice + 4.99 : '0'}}</p>
                 <div class="row mb-3">
                     <div>
-                        <a href="#" class="btn mx-auto btn-outline-primary" >Betalen</a>
-                    </div>
-                    <p class="my-3">of</p>
-                    <div>
-                        <a href="#"
-                           class="btn mb-3 mx-auto rounded btn-outline-success">Verder
-                            winkelen
-                        </a>
+                        <a href="#" class="btn mx-auto btn-outline-primary">Winkelkar</a>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 @endsection

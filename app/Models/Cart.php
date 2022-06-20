@@ -40,43 +40,51 @@ class Cart extends Model
             'product_discountPrice' =>$discountPrice,
             'product_body' => $product->body,
             'productDetails' => $product,
+            'stock' => $product->stock,
+            'sendprice' => 4.99,
         ];
         if ($this->products) {
             if (array_key_exists($product_id, $this->products)) {
                 $shopItems = $this->products[$product_id];
             }
         }
-        $shopItems['quantity']++;
-        $shopItems['product_id'] = $product_id;
-        $shopItems['product_name'] = Product::findOrFail($product_id);
-        $shopItems['product_discount'] = $product->discount->percentage;
-        $shopItems['product_price'] = $product->price;
-        if ($product->discount->percentage === 0) {
-            $shopItems['product_discountPrice'] = $product->price;
-        } else {
-            $discountPrice = $product->price / 100;
-            $discountPrice = $discountPrice * (100 - $product->discount->percentage);
+        if($shopItems['stock'] >= 1){
+            $shopItems['quantity']++;
+            $shopItems['product_id'] = $product_id;
+            $shopItems['product_name'] = Product::findOrFail($product_id);
+            $shopItems['product_discount'] = $product->discount->percentage;
+            $shopItems['product_price'] = $discountPrice;
             $shopItems['product_discountPrice'] = $discountPrice;
+            $shopItems['product_body'] = $product->body;
+            $shopItems['stock']--;
+            $this->totalQuantity++;
+            $this->totalPrice += $discountPrice;
+            $this->products[$product_id] = $shopItems;
         }
 
-        $shopItems['product_body'] = $product->body;
-        $this->totalQuantity++;
-        $this->totalPrice += $product->price;
-        $this->products[$product_id] = $shopItems;
+
     }
 
     public function remove($product, $product_id)
     {
+        if ($product->discount->percentage === 0) {
+            $discountPrice = $product->price;
+        } else {
+            $discountPrice = $product->price / 100;
+            $discountPrice = $discountPrice * (100 - $product->discount->percentage);
+        }
+
         $shopItems = [
             'quantity' => 0,
             'product_id' => 0,
             'product_name' => Product::findOrFail($product_id),
             'productDiscount' => $product->discount,
             'product_price' => $product->price,
+            'product_discountPrice' =>$discountPrice,
             'product_body' => $product->body,
             'productDetails' => $product,
+            'stock' => $product->stock,
         ];
-        dd($shopItems);
         if ($this->products) {
             if (array_key_exists($product_id, $this->products)) {
                 $shopItems = $this->products[$product_id];
@@ -86,9 +94,11 @@ class Cart extends Model
         $shopItems['product_id'] = $product_id;
         $shopItems['product_name'] = Product::findOrFail($product_id);
         $shopItems['product_price'] = $product->price;
+        $shopItems['product_discountPrice'] = $discountPrice;
         $shopItems['product_body'] = $product->body;
+        $shopItems['stock']++;
         $this->totalQuantity--;
-        $this->totalPrice -= $product->price;
+        $this->totalPrice -= $discountPrice;
         $this->products[$product_id] = $shopItems;
     }
 
