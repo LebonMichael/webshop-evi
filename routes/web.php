@@ -25,6 +25,7 @@ Route::get('/addToCart/{id}', 'App\Http\Controllers\FrontendShopController@addTo
 Route::get('/removeFromCart/{id}', 'App\Http\Controllers\FrontendShopController@removeFromCart')->name('removeFromCart');
 Route::get('/removeAllFromCart/{id}', 'App\Http\Controllers\FrontendShopController@removeAllFromCart')->name('removeAllFromCart');
 Route::get('product/color/{id}/{name}', 'App\Http\Controllers\FrontendShopController@productsPerColor')->name('productsPerColor');
+Route::get('cart','App\Http\Controllers\FrontendShopController@shoppingCart')->name('shoppingCart');
 
 /** MailContact Frontend **/
 Route::resource('contact', \App\Http\Controllers\ContactController::class);
@@ -55,6 +56,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 /** Only when you are verified and active **/
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], function () {
+    Route::get('checkout','App\Http\Controllers\FrontendShopController@checkout')->name('checkout');
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('homebackend');
 
     Route::resource('posts', App\Http\Controllers\AdminPostsController::class);

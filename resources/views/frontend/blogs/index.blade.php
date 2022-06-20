@@ -1,8 +1,9 @@
 @extends('layouts.frontendNav')
 @section('content')
-    <section class="py-11 bg-light-gradient border-bottom border-white border-5">
+    <section class="py-5 bg-light-gradient border-bottom border-white border-5">
         <div class="container">
             <div class="row">
+                <h1 class="text-center my-5">Blogs</h1>
                 <div class="col-12 justify-content-center">
                     <div class="d-flex justify-content-center mb-7">
                         <div class="row row-cols-md-3 row-cols-sm-2">

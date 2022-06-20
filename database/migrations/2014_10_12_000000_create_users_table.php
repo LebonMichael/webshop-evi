@@ -20,8 +20,13 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('street')->nullable();
+            $table->integer('street_number')->nullable();
+            $table->string('city')->nullable();
+            $table->integer('zip_code')->nullable();
+            $table->string('country')->nullable();
             $table->integer('photo_id')->default(0);
-            $table->integer('userDetail_id')->default(0);
             $table->string('password')->nullable()->default('NULL');
             $table->rememberToken();
             $table->timestamps();

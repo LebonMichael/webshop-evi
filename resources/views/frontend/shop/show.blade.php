@@ -140,10 +140,6 @@
                                                 ook ’s avonds in huis</p>
                                         </div>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <input type="number" name="count" min="0" max="5" class="form-control"
-                                               aria-label="Aantel">
-                                    </div>
                                     <div class="d-flex ">
                                         @if(Session::has('cart'))
                                             @php
@@ -210,19 +206,19 @@
                     <div class="text-center mt-3">
                         <p class="pt-3">Total products
                             ({{Session::has('cart') ? Session::get('cart')->totalQuantity : '0'}})</p>
-                        <p class="fw-bold"> &euro;{{Session::has('cart') ? Session::get('cart')->totalPrice + 4.99 : '0'}}</p>
+                        <p class="fw-bold"> &euro;{{Session::has('cart') ? Session::get('cart')->totalPrice : '0'}}</p>
                         <p>Verzendingskosten</p>
                         <p class="fw-bold">&euro;{{Session::has('cart') ? 4.99 : '0'}}</p>
                         <p>Totaal</p>
                         <p>&euro;{{Session::has('cart') ? Session::get('cart')->totalPrice + 4.99 : '0'}}</p>
                         <div class="row mb-3">
                             <div>
-                                <a href="#" class="btn mx-auto btn-outline-primary">Winkelkar</a>
+                                <a href="{{route('shoppingCart')}}" class="btn btn-primary btn-sm m-1">Winkelkar</a>
                             </div>
                             <p class="my-3">of</p>
                             <div>
                                 <a href="{{route('shop.index')}}"
-                                   class="btn mb-3 mx-auto rounded btn-outline-success">Verder
+                                   class="btn btn-success btn-sm m-1">Verder
                                     winkelen
                                 </a>
                             </div>

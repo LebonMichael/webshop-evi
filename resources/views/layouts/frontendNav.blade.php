@@ -37,7 +37,6 @@
             </button>
             <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item px-2"><a class="nav-link fw-medium" href="#collection">Collection</a></li>
                     <li class="nav-item px-2"><a class="nav-link fw-medium" href="{{route('blogs.index')}}">Blogs</a>
                     </li>
                     <li class="nav-item px-2"><a class="nav-link fw-medium" href="{{route('shop.index')}}">Shop</a></li>
@@ -46,17 +45,17 @@
 
 
                 </ul>
-                <div class="justify-content-between">
-                    <a href="{{route('contact.index')}}">
+                <div>
+                    <a class="mx-2" href="{{route('contact.index')}}">
                         <i class="fa-solid fa-phone"></i>
                     </a>
-                    <a href="#!">
+                    <a class="mx-2" href="{{route('shoppingCart')}}">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a>
-                    <a href="{{route('homebackend')}}">
+                    <a class="mx-2" href="{{route('homebackend')}}">
                         <i class="fa-solid fa-person"></i>
                     </a>
-                    <a href="#!">
+                    <a class="mx-2" href="#!">
                         <i class="fa-solid fa-heart"></i>
                     </a>
                 </div>

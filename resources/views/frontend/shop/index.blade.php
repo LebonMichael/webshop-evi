@@ -1,7 +1,8 @@
 @extends('layouts.frontendNav')
 @section('content')
 
-    <div class="row px-4 px-lg-5 mt-5">
+    <div class="row">
+        <h1 class="text-center my-5">Shop</h1>
         <!--START FILTER-->
         <div class="col-lg-3">
             <section id="filterShop" class="p-0 mb-lg-0 mb-3">
@@ -185,7 +186,7 @@
                 <p>&euro;{{Session::has('cart') ? Session::get('cart')->totalPrice + 4.99 : '0'}}</p>
                 <div class="row mb-3">
                     <div>
-                        <a href="#" class="btn mx-auto btn-outline-primary">Winkelkar</a>
+                        <a href="{{route('shoppingCart')}}" class="btn btn-primary btn-sm m-1">Winkelkar</a>
                     </div>
                 </div>
         </div>

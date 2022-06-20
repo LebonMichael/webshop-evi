@@ -12,11 +12,6 @@
                     @csrf
                     <h2 class="text-center text-white my-2">Product Details</h2>
 
-                    <p>{{$productColor[0]['id']}}</p>
-
-
-
-
                     <div class="d-flex">
                         <div class="col-6">
                             <label class="text-white" for="price">Price: </label>

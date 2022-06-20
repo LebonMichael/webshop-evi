@@ -34,14 +34,16 @@ class Cart extends Model
         $shopItems = [
             'quantity' => 0,
             'product_id' => 0,
-            'product_name' => Product::findOrFail($product_id),
-            'productDiscount' => $product->discount,
+            'product_name' => Product::findOrFail($product_id)->name,
+            'product' => Product::findOrFail($product_id),
+            'productDiscount' => $product->discount->percentage,
             'product_price' => $product->price,
             'product_discountPrice' =>$discountPrice,
             'product_body' => $product->body,
             'productDetails' => $product,
+            'color' => $product->colors,
+            'gender' => Product::findOrFail($product_id)->gender->name,
             'stock' => $product->stock,
-            'sendprice' => 4.99,
         ];
         if ($this->products) {
             if (array_key_exists($product_id, $this->products)) {
@@ -51,18 +53,15 @@ class Cart extends Model
         if($shopItems['stock'] >= 1){
             $shopItems['quantity']++;
             $shopItems['product_id'] = $product_id;
-            $shopItems['product_name'] = Product::findOrFail($product_id);
             $shopItems['product_discount'] = $product->discount->percentage;
             $shopItems['product_price'] = $discountPrice;
             $shopItems['product_discountPrice'] = $discountPrice;
-            $shopItems['product_body'] = $product->body;
+            $shopItems['product_body'] = Product::findOrFail($product_id)->body;
             $shopItems['stock']--;
             $this->totalQuantity++;
             $this->totalPrice += $discountPrice;
             $this->products[$product_id] = $shopItems;
         }
-
-
     }
 
     public function remove($product, $product_id)
@@ -77,12 +76,15 @@ class Cart extends Model
         $shopItems = [
             'quantity' => 0,
             'product_id' => 0,
-            'product_name' => Product::findOrFail($product_id),
+            'product' => Product::findOrFail($product_id),
+            'product_name' => Product::findOrFail($product_id)->name,
             'productDiscount' => $product->discount,
             'product_price' => $product->price,
             'product_discountPrice' =>$discountPrice,
-            'product_body' => $product->body,
+            'product_body' => $product->description,
             'productDetails' => $product,
+            'color' => $product->colors,
+            'gender' => Product::findOrFail($product_id)->gender->name,
             'stock' => $product->stock,
         ];
         if ($this->products) {
