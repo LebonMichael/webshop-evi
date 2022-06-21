@@ -176,7 +176,7 @@
                                             @php $controleCarts = Session::get('cart')->products;
                                                 $enoughStock = 1;
                                                 foreach($controleCarts as $controleCart ){
-                                                    if ($controleCart['product_id'] == $details->id){
+                                                    if ($controleCart['productDetails']->id == $details->id){
                                                         if ($controleCart['stock'] >= 1 ){
                                                          $enoughStock = 1;
                                                         }else{

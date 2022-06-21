@@ -45,16 +45,58 @@
 
 
                 </ul>
-                <div>
+                <div class="d-flex">
                     <a class="mx-2" href="{{route('contact.index')}}">
                         <i class="fa-solid fa-phone"></i>
                     </a>
                     <a class="mx-2" href="{{route('shoppingCart')}}">
                         <i class="fa-solid fa-cart-shopping"></i>
                     </a>
-                    <a class="mx-2" href="{{route('homebackend')}}">
-                        <i class="fa-solid fa-person"></i>
-                    </a>
+
+                    <div class="dropdown">
+                        <a class="mx-2  dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                           aria-expanded="false" href="#">
+                            @if(Auth::user())
+
+                                <i class="text-success fa-solid fa-person"></i>
+                            @else
+                                <i class="text-danger fa-solid fa-person"></i>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @if(Auth::user())
+                                <li>
+                                    <a class="dropdown-item" href="{{route('homebackend')}}">Account</a>
+                                </li>
+                                <li>
+
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                                        <i class="mdi mdi-logout text-primary"></i>{{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endif
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    </li>
+                                @endif
+
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                            @endguest
+                        </ul>
+                    </div>
+
+
                     <a class="mx-2" href="#!">
                         <i class="fa-solid fa-heart"></i>
                     </a>
@@ -149,19 +191,16 @@
             <div class="row flex-center my-3">
                 <div class="col-md-6 order-1 order-md-0">
                     <p class="my-2 text-1000 text-center text-md-start"> Made with&nbsp;
-                        <svg class="bi bi-suit-heart-fill" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
-                             fill="#EB6453" viewBox="0 0 16 16">
-                            <path
-                                d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"></path>
-                        </svg>&nbsp;by&nbsp;<a class="text-800" href="https://themewagon.com/"
-                                               target="_blank">Bonkie </a>
+                        <i class="text-danger fa-solid fa-heart"></i>
+                        &nbsp;by&nbsp;Bonkie
                     </p>
                 </div>
                 <div class="col-md-6">
-                    <div class="text-center text-md-end"><a href="#!"><span class="me-4" data-feather="facebook"></span></a><a
-                            href="#!"> <span class="me-4" data-feather="instagram"></span></a><a href="#!"> <span
-                                class="me-4" data-feather="youtube"></span></a><a href="#!"> <span class="me-4"
-                                                                                                   data-feather="twitter"></span></a>
+                    <div class="text-center text-md-end">
+                        <a href="https://www.facebook.com/"><i class="fs-2 mx-1 fa-brands fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fs-2 mx-1 fa-brands fa-instagram"></i></a>
+                        <a href="https://www.twitter.com/"><i class="fs-2 mx-1 fa-brands fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/"><i class="fs-2 mx-1 fa-brands fa-youtube"></i></a>
                     </div>
                 </div>
             </div>

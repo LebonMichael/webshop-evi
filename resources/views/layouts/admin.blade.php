@@ -60,13 +60,12 @@
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">Core</div>
                     <a class="nav-link" href="{{route('homebackend')}}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
                     <a class="nav-link" href="{{route('webshop')}}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                         Frontend
                     </a>
 
@@ -241,15 +240,9 @@
                     </div>
                     <!-- end products-->
                     @endif
-
-                    <div class="sb-sidenav-menu-heading">Addons</div>
-                    <a class="nav-link" href="charts.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        Charts
-                    </a>
-                    <a class="nav-link" href="tables.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Tables
+                    <a class="nav-link" href="{{route('users.settings', Auth::user()->id)}}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
+                        Settings
                     </a>
                 </div>
             </div>
@@ -266,65 +259,63 @@
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
-                <div class="row">
-                    <div class="col-xl-3 col-md-6">
+                <div class="row row-cols-4">
+                    <div>
                         <div class="card bg-primary text-white mb-4">
-                            <div class="card-body">Primary Card</div>
+                            <div class="card-body d-flex justify-content-between fs-5">
+                                <div>
+                                    <p class="m-0" >Aantal Producten</p>
+                                </div>
+                                <div>
+{{--                                    ({{$productsTotal}})--}}
+                                </div>
+                            </div>
+                            @if(Auth::user()->isAdmin())
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
+                                <a class="small text-white stretched-link" href="{{route('products.index')}}">View Producten</a>
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
+                            @endif
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div>
                         <div class="card bg-warning text-white mb-4">
-                            <div class="card-body">Warning Card</div>
+                            <div class="card-body d-flex justify-content-between fs-5">
+                                <div>
+                                    <p class="m-0" >Aantal Users</p>
+                                </div>
+                                <div>
+{{--                                    ({{$usersTotal}})--}}
+                                </div>
+                            </div>
+                            @if(Auth::user()->isAdmin())
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
+                                <a class="small text-white stretched-link" href="{{route('users.index')}}">View Users</a>
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
+                            @endif
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div>
                         <div class="card bg-success text-white mb-4">
                             <div class="card-body">Success Card</div>
+                            @if(Auth::user()->isAdmin())
                             <div class="card-footer d-flex align-items-center justify-content-between">
                                 <a class="small text-white stretched-link" href="#">View Details</a>
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
+                                @endif
                         </div>
                     </div>
-                    <div class="col-xl-3 col-md-6">
+                    <div>
                         <div class="card bg-danger text-white mb-4">
                             <div class="card-body">Danger Card</div>
+                            @if(Auth::user()->isAdmin())
                             <div class="card-footer d-flex align-items-center justify-content-between">
                                 <a class="small text-white stretched-link" href="#">View Details</a>
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-area me-1"></i>
-                                Area Chart Example
-                            </div>
-                            <div class="card-body">
-                                <canvas id="myAreaChart" width="100%" height="40"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-bar me-1"></i>
-                                Bar Chart Example
-                            </div>
-                            <div class="card-body">
-                                <canvas id="myBarChart" width="100%" height="40"></canvas>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

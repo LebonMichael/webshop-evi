@@ -34,7 +34,7 @@
                         </div>
 
                     </div>
-                    <div class="row row-cols-sm-2">
+                    <div class="row row-cols-md-3 row-cols-sm-2">
                         @foreach($posts as $post)
                             @foreach($users->where('id', $post->user_id) as $user)
                                 @php($postUser = $user)
@@ -42,7 +42,7 @@
                             <div class="mb-3">
                                 <div class="border border-3 rounded rounded-3 card card-span shadow-sm">
                                     <img class="img-fluid img-thumbnail m-2"
-                                         src="{{$post->photo ? asset('img/posts') . $post->photo->file : 'https://via.placeholder.com/400'}}"
+                                         src="{{$post->photo ? asset('img/posts') . $post->photo->file : 'https://via.placeholder.com/200'}}"
                                          alt="..."/>
                                     <div class="card-body px-xl-5 px-md-3 pt-0 pb-7">
                                         <div class="d-flex justify-content-between align-items-center bg-100 mt-n5 my-3 me-auto">

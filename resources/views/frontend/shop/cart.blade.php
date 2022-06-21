@@ -15,8 +15,8 @@
                                         aria-controls="panelsStayOpen-collapse-{{$product['productDetails']->id}}">
                                     <img class="me-2" height="62" width="auto"
                                          src="{{$product['product']->photo ? asset('img/products') . $product['product']->photo->file : 'https://via.placeholder.com/62'}}"
-                                         alt="{{$product['product_name']}}">
-                                    {{$product['product_name']}}
+                                         alt=" {{$product['product']->name}}">
+                                    {{$product['product']->name}}
                                     ({{$product['quantity']}})
 
                                 </button>
@@ -34,13 +34,14 @@
                                             <th scope="col">Maat</th>
                                             <th scope="col">Prijs/st</th>
                                             <th scope="col">Aantal</th>
+                                            <th scope="col">Add/Remove</th>
                                             <th scope="col">Totaal</th>
                                             <th scope="col">Acties</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>{{$product['product_name']}}</td>
+                                            <td>{{$product['product']->name}}</td>
                                             <td>
                                                 @foreach($product['color'] as $color)
                                                     {{$color->name}}
@@ -49,8 +50,59 @@
                                             <td>{{$product['gender']}}</td>
                                             <td>{{$product['productDetails']->clothSize->size}}</td>
                                             <td>&euro;{{$product['product_price']}}</td>
+                                            <td>{{$product['quantity']}}</td>
                                             <td>
-                                                {{$product['quantity']}}
+                                                <div class="d-flex">
+                                                    @if(Session::has('cart'))
+                                                        @php
+                                                            $oldCart = Session::get('cart')->products;
+                                                            $controleCart = 0;
+                                                            $cart = '';
+                                                            foreach($oldCart as $cart){
+
+                                                                if ($cart['productDetails']->id === $product['productDetails']->id){
+                                                                   $controleCart =  1;
+
+                                                                }
+                                                            }
+                                                        @endphp
+                                                        @if($controleCart ===  1)
+                                                            <div class="text-center"><a class="btn-sm mt-auto"
+                                                                                        href="{{route('removeFromCart',$product['productDetails']->id)}}"><i
+                                                                        class="fas fa-minus-square text-warning"></i></a></div>
+                                                            @php
+                                                                $controleCart = 0;
+                                                            @endphp
+                                                        @endif
+                                                    @endif
+
+                                                    @if(Session::has('cart'))
+                                                        @php $controleCarts = Session::get('cart')->products;
+                                                $enoughStock = 1;
+                                                foreach($controleCarts as $controleCart ){
+                                                    if ($controleCart['productDetails']->id == $product['productDetails']->id){
+                                                        if ($controleCart['stock'] >= 1 ){
+                                                         $enoughStock = 1;
+                                                        }else{
+                                                            $enoughStock = 0;
+                                                        }
+                                                    }
+                                                }
+                                                        @endphp
+                                                        @if($enoughStock === 1)
+                                                            <div class="text-center"><a class="btn-sm mt-auto"
+                                                                                        href="{{route('addToCart',$product['productDetails']->id)}}"><i
+                                                                        class="fas fa-plus-square text-success"></i></a></div>
+                                                        @endif
+                                                    @else
+                                                        <div class="text-center">
+                                                            <a class="btn btn-outline-dark mt-auto"
+                                                               href="{{route('addToCart',$details->id)}}">
+                                                                <i class="fas fa-plus-square text-success"></i>
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </div>
                                             </td>
                                             <td>
                                                 @php

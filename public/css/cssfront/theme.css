@@ -7010,7 +7010,7 @@ fieldset:disabled .btn {
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
   width: 64px;
-  height: auto;
+  height: 10px;
   padding: 0;
   margin-right: 3px;
   margin-left: 3px;

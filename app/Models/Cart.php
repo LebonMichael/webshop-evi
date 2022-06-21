@@ -24,6 +24,7 @@ class Cart extends Model
 
     public function add($product, $product_id)
     {
+        $id = $product->product_id;
 
         if ($product->discount->percentage === 0) {
             $discountPrice = $product->price;
@@ -32,18 +33,19 @@ class Cart extends Model
             $discountPrice = $discountPrice * (100 - $product->discount->percentage);
              }
 
+
         $shopItems = [
             'quantity' => 0,
             'product_id' => 0,
-            'product_name' => Product::findOrFail($product_id)->name,
-            'product' => Product::findOrFail($product_id),
+
+            'product' => Product::findOrFail($id),
             'productDiscount' => $product->discount->percentage,
             'product_price' => $product->price,
             'product_discountPrice' =>$discountPrice,
             'product_body' => $product->body,
-            'productDetails' => $product,
+            'productDetails' => ProductDetails::findOrFail($product_id),
             'color' => $product->colors,
-            'gender' => Product::findOrFail($product_id)->gender->name,
+            'gender' => Product::findOrFail($id)->gender->name,
             'stock' => $product->stock,
         ];
         if ($this->products) {
@@ -53,11 +55,11 @@ class Cart extends Model
         }
         if($shopItems['stock'] >= 1){
             $shopItems['quantity']++;
-            $shopItems['product_id'] = $product_id;
+            $shopItems['product_id'] = $id;
             $shopItems['product_discount'] = $product->discount->percentage;
             $shopItems['product_price'] = $discountPrice;
             $shopItems['product_discountPrice'] = $discountPrice;
-            $shopItems['product_body'] = Product::findOrFail($product_id)->body;
+            $shopItems['product_body'] = Product::findOrFail($id)->body;
             $shopItems['stock']--;
             $this->totalQuantity++;
             $this->totalPrice += $discountPrice;
@@ -67,6 +69,8 @@ class Cart extends Model
 
     public function remove($product, $product_id)
     {
+        $id = $product->product_id;
+
         if ($product->discount->percentage === 0) {
             $discountPrice = $product->price;
         } else {
@@ -77,15 +81,14 @@ class Cart extends Model
         $shopItems = [
             'quantity' => 0,
             'product_id' => 0,
-            'product' => Product::findOrFail($product_id),
-            'product_name' => Product::findOrFail($product_id)->name,
+            'product' => Product::findOrFail($id)->with('photo'),
             'productDiscount' => $product->discount,
             'product_price' => $product->price,
             'product_discountPrice' =>$discountPrice,
             'product_body' => $product->description,
-            'productDetails' => $product,
+            'productDetails' => ProductDetails::findOrFail($product_id)->with('clothsize'),
             'color' => $product->colors,
-            'gender' => Product::findOrFail($product_id)->gender->name,
+            'gender' => Product::findOrFail($id)->gender->name,
             'stock' => $product->stock,
         ];
         if ($this->products) {
@@ -94,8 +97,7 @@ class Cart extends Model
             }
         }
         $shopItems['quantity']--;
-        $shopItems['product_id'] = $product_id;
-        $shopItems['product_name'] = Product::findOrFail($product_id);
+        $shopItems['product_id'] = $id;
         $shopItems['product_price'] = $product->price;
         $shopItems['product_discountPrice'] = $discountPrice;
         $shopItems['product_body'] = $product->body;

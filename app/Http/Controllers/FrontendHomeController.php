@@ -23,10 +23,11 @@ class FrontendHomeController extends Controller
         $productGirl = Product::where('gender_id', 1)->orderBy('product_category_id', 'ASC')->with('productCategory','photo')->get();
         $productBoy = Product::where('gender_id', 2)->orderBy('product_category_id', 'ASC')->with('productCategory','photo')->get();
         $products = Product::with('photo', 'gender','productDetails')->get();
+        $newArrivals = Product::with('productCategory','photo')->orderBy('created_at', 'DESC')->get();
         $productDetails = ProductDetails::with('discount')->get();
         $posts = Post::with('user.photo','user','categories','photo',)->orderBy('created_at', 'ASC')->get();
         $users = User::with('photo','roles')->whereHas('posts')->get();
-        return view('frontend.home.index', compact('products', 'oldCategory','productGirl','productBoy','productDetails','posts','users'));
+        return view('frontend.home.index', compact('products', 'oldCategory','productGirl','productBoy','productDetails','posts','users','newArrivals'));
     }
 
     /**

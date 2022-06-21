@@ -12,24 +12,6 @@
         <div class="border border-2 rounded-3 bg-black my-3">
             <h1 class="text-center text-white">All Products</h1>
         </div>
-        <div class="border border-2 rounded-3 my-3">
-            <form>
-                <div class="col-6">
-                    <select name="gender" class="form-select">
-                        @foreach($genders as $gender)
-                            <option value="{{$gender->id}}">
-                                {{$gender->name}}
-                            </option>
-                        @endforeach
-                    </select>
-
-                </div>
-                <div class="row">
-                    <input type="text" name="search" class="form-control bg-gray-300 border-0 small"
-                           placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                </div>
-            </form>
-        </div>
         <div class="d-flex justify-content-center">
             <a href="{{route('products.index')}}"
                class="badge badge-primary m-1 p-3 text-black">All</a>
@@ -37,6 +19,14 @@
                 <a href="{{route('productsPerBrand', $brand->id)}}"
                    class="badge badge-primary m-1 p-3 text-black">{{$brand->name}}</a>
             @endforeach
+        </div>
+        <div class="border border-2 rounded-3 my-3">
+            <form>
+                <div class="row">
+                    <input type="text" name="search" class="form-control bg-gray-300 border-0 small"
+                           placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                </div>
+            </form>
         </div>
         <div class="col-12 my-3">
             <a href="{{route('products.create')}}" class="btn btn-info">Create Product</a>

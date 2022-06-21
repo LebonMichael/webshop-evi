@@ -76,10 +76,9 @@ class FrontendShopController extends Controller
 
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        dd(Session::get('cart'));
 
 
-        $cart->add($product, $product->product_id);
+        $cart->add($product, $id);
         Session::put('cart', $cart);
 
 

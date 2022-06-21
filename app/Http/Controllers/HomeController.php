@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,9 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::with(['photo']);
-        $id = Auth::user()->id;
-        $mainUser = User::findOrFail($id);
-        return view('admin.index', compact('users','mainUser'));
+        $productsTotal = Product::all()->count();
+        $usersTotal = User::all()->count();
+
+        return view('admin.index', compact('productsTotal','usersTotal'));
     }
 }

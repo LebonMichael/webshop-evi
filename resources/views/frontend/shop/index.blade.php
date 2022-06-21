@@ -133,6 +133,14 @@
                                                         </span>
                                         </p>
                                     </div>
+                                    <div class="my-3">
+                                        <p class="m-0 fw-bold">Kleuren</p>
+                                        @foreach($product->colors as $color)
+                                            <i style="color:{{$color->code}}"
+                                               class="rounded-circle border border-dark fas fa-circle">
+                                            </i>
+                                        @endforeach
+                                    </div>
                                     <div>
                                         <p>{{Str::limit($product->body,100,'...')}}</p>
                                     </div>
