@@ -24,6 +24,7 @@ class Cart extends Model
 
     public function add($product, $product_id)
     {
+
         if ($product->discount->percentage === 0) {
             $discountPrice = $product->price;
              } else {

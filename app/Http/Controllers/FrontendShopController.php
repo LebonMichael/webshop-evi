@@ -73,10 +73,16 @@ class FrontendShopController extends Controller
     public function addToCart($id)
     {
         $product = ProductDetails::with('colors')->where('id', $id)->first();
+
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->add($product, $id);
+        dd(Session::get('cart'));
+
+
+        $cart->add($product, $product->product_id);
         Session::put('cart', $cart);
+
+
         return redirect()->back();
 
     }

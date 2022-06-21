@@ -13,9 +13,9 @@
                              alt="{{$product->name}}">
                     </div>
                     <div class="row row-cols-4">
-                        @foreach($productDetails as $test)
+                        @foreach($productDetails as $productDetail)
                             @foreach($images as $image)
-                                @if($image->product_id === $product->id and $image->color_id === $test->color_id)
+                                @if($image->product_id === $product->id and $image->color_id === $productDetail->color_id)
                                     <div>
                                         <a class="border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             <img class="img-fluid m-2 border border-2 rounded"
@@ -149,8 +149,10 @@
                                                 $controleCart = 0;
                                                 $cart = '';
                                                 foreach($oldCart as $cart){
-                                                    if ($cart['product_id'] == $details->id){
+
+                                                    if ($cart['productDetails']->id === $details->id){
                                                        $controleCart =  1;
+
                                                     }
                                                 }
                                             @endphp
