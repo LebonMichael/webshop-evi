@@ -26,7 +26,7 @@ class FrontendShopController extends Controller
         $sizes = ClothSizes::all();
         $categories = ProductCategory::all();
         $products = Product::with('photo', 'gender', 'productCategory', 'brand')->get();
-        $productDetails = ProductDetails::with('discount')->orderBy('discount_id', 'DESC')->get();
+        $productDetails = ProductDetails::with('discount','colors')->orderBy('discount_id', 'DESC')->get();
 
         return view('frontend.shop.index', compact('products', 'categories', 'brands', 'sizes', 'productDetails'));
     }
@@ -131,6 +131,7 @@ class FrontendShopController extends Controller
         $color = ProductDetails::select('color_id')->where('product_id', $id)->orderBy('color_id', 'ASC')->take(1)->get();
         $name = 0;
         $productDetails = ProductDetails::with('clothSize', 'colors', 'discount')->orderBy('clothSize_id', 'ASC')->where('product_id', $id)->where('color_id', $color[0])->get();
+
 
         return view('frontend.shop.show', compact('product', 'productDetails', 'colors', 'oldColor', 'images', 'brand', 'color', 'name'));
     }

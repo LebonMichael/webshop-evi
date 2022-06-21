@@ -83,6 +83,13 @@
                         <p class="fw-bold">
                             &euro;{{Session::has('cart') ? Session::get('cart')->totalPrice + 4.99 : '0'}}</p>
                     </div>
+                        <div class="text-center mb-md-10 mb-3">
+                            <a class="btn btn-info btn-sm m-1" href="{{route('checkout')}}">Checkout</a>
+                            <a href="{{route('shop.index')}}"
+                               class="btn btn-success btn-sm m-1">Verder
+                                winkelen
+                            </a>
+                        </div>
                 @else
                     <div class="text-center my-3">
                         <h3 class="text-danger">Winkelkar is leeg!</h3>
@@ -92,13 +99,6 @@
                         </a>
                     </div>
                 @endif
-            </div>
-            <div class="text-center mb-md-10 mb-3">
-                <a class="btn btn-info btn-sm m-1" href="{{route('checkout')}}">Checkout</a>
-                <a href="{{route('shop.index')}}"
-                   class="btn btn-success btn-sm m-1">Verder
-                    winkelen
-                </a>
             </div>
         </div>
 

@@ -107,7 +107,8 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top img-fluid"  src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
+                            <img class="card-img-top img-fluid"
+                                 src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
                                  alt="{{$product->name}}">
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -164,8 +165,21 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto"
-                                    href="{{route('shop.show', $product->id)}}">View product</a>
+                                @php
+                                    foreach($productDetails as $productDetail){
+                                         if($productDetail->product_id === $product->id ){
+                                             foreach($productDetail->colors as $color){
+                                                 $name = $color->name;
+                                             }
+                                         }
+                                    }
+
+
+                                @endphp
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto"
+                                       href="{{route('productsPerColor', ['id' => $product->id, 'name' => $name])}}">View
+                                        product</a>
                                 </div>
                             </div>
                         </div>
@@ -175,6 +189,7 @@
         </div>
         <!--STOP PRODUCTEN-->
 
+        <!--START CART-->
         <div class="col-lg-2 border border-2 border-black rounded-2 shadow-lg mb-2 h-100">
             <div class="text-center mt-3">
                 <p class="pt-3">Total products
@@ -189,6 +204,7 @@
                         <a href="{{route('shoppingCart')}}" class="btn btn-primary btn-sm m-1">Winkelkar</a>
                     </div>
                 </div>
+            </div>
         </div>
-    </div>
+        <!--STOP CART-->
 @endsection

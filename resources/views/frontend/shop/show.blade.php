@@ -7,8 +7,10 @@
                 <div class="col-6">
                     <h1>{{$product->name}}</h1>
                     <p><span>Merk:{{$product->brand->name}}</span></p>
-                    <div>
-                        <img src="" alt="">
+                    <div class="text-center">
+                        <img
+                             src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
+                             alt="{{$product->name}}">
                     </div>
                     <div class="row row-cols-4">
                         @foreach($productDetails as $test)
@@ -43,9 +45,9 @@
                                     ...
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Close
                                     </button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
                         </div>
