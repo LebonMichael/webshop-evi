@@ -8,6 +8,7 @@ use App\Models\ClothSizes;
 use App\Models\Color;
 use App\Models\Image;
 use App\Models\Order;
+use App\Models\OrderAdress;
 use App\Models\OrderDetails;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -48,6 +49,20 @@ class FrontendShopController extends Controller
 
         return view('frontend.shop.checkout', compact('user'));
 
+    }
+
+    public function orderAdress(Request $request){
+
+        $orderAdress = new OrderAdress();
+        $orderAdress->street = $request->street;
+        $orderAdress->street_number = $request->street_number;
+        $orderAdress->city = $request->city;
+        $orderAdress->zip_code = $request->zip_code;
+        $orderAdress->country = $request->country;
+
+        Session::put('orderAdress', $orderAdress);
+
+        return redirect(route('mollie.payment'));
     }
 
     public function thanksPage(){

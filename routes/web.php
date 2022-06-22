@@ -27,6 +27,8 @@ Route::get('/removeFromCart/{id}', 'App\Http\Controllers\FrontendShopController@
 Route::get('/removeAllFromCart/{id}', 'App\Http\Controllers\FrontendShopController@removeAllFromCart')->name('removeAllFromCart');
 Route::get('product/color/{id}/{name}', 'App\Http\Controllers\FrontendShopController@productsPerColor')->name('productsPerColor');
 Route::get('cart','App\Http\Controllers\FrontendShopController@shoppingCart')->name('shoppingCart');
+Route::post('orderAdress','App\Http\Controllers\FrontendShopController@orderAdress')->name('orderAdress');
+
 Route::get('thanks','App\Http\Controllers\FrontendShopController@thanksPage')->name('thanksPage');
 
 /** MailContact Frontend **/
