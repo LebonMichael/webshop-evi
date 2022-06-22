@@ -8,7 +8,7 @@ use App\Models\ClothSizes;
 use App\Models\Color;
 use App\Models\Image;
 use App\Models\Order;
-use App\Models\OrderList;
+use App\Models\OrderDetails;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductDetails;
@@ -25,50 +25,36 @@ class FrontendShopController extends Controller
         $brands = Brand::all();
         $sizes = ClothSizes::all();
         $categories = ProductCategory::all();
-        $products = Product::with('photo', 'gender', 'productCategory', 'brand')->get();
-        $productDetails = ProductDetails::with('discount','colors')->orderBy('discount_id', 'DESC')->get();
+        $products = Product::with('photo', 'gender', 'productCategory', 'brand','colors')->get();
+        $productDetails = ProductDetails::with('discount', 'colors')->orderBy('discount_id', 'DESC')->get();
 
         return view('frontend.shop.index', compact('products', 'categories', 'brands', 'sizes', 'productDetails'));
     }
 
     public function shoppingCart()
     {
-
         if (Session::has('cart')) {
             $shoppingCarts = Session::get('cart')->products;
-
-
-           /*foreach ($shoppingCarts as $shoppingCart) {*/
-      /*          $orderList = new OrderList();
-                $orderList->product_details = $shoppingCart['productDetails']->id;
-                $orderList->product_name = $shoppingCart['product_name']->name;
-                $orderList->client_number = Auth::user()->id;
-                $orderList->user_first_name = Auth::user()->first_name;
-                $orderList->user_last_name = Auth::user()->last_name;
-                $orderList->product_price = $shoppingCart['product_price'];
-                $orderList->aantal = $shoppingCart['quantity'];
-                $orderList->total_price = $shoppingCart['quantity'] * $shoppingCart['product_price'];*/
-//            }
-
-        }else{
+        } else {
             $shoppingCarts = '';
         }
-
-
-        return view('frontend.shop.cart',compact('shoppingCarts'));
+        return view('frontend.shop.cart', compact('shoppingCarts'));
     }
 
-    public function checkout(){
+    public function checkout()
+    {
 
-       $user = Auth::user();
+        $user = Auth::user();
 
-       return view('frontend.shop.checkout',compact('user'));
-
-    }
-
-    public function paying(){
+        return view('frontend.shop.checkout', compact('user'));
 
     }
+
+    public function thanksPage(){
+
+        return view('frontend.shop.thanksPage');
+    }
+
 
     public function addToCart($id)
     {

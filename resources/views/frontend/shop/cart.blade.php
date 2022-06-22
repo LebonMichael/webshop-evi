@@ -34,7 +34,7 @@
                                             <th scope="col">Maat</th>
                                             <th scope="col">Prijs/st</th>
                                             <th scope="col">Aantal</th>
-                                            <th scope="col">Add/Remove</th>
+                                            <th scope="col">Remove/Add</th>
                                             <th scope="col">Totaal</th>
                                             <th scope="col">Acties</th>
                                         </tr>

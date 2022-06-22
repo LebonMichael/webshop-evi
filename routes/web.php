@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MollieController;
 use App\Http\Controllers\FrontendPostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::get('/removeFromCart/{id}', 'App\Http\Controllers\FrontendShopController@
 Route::get('/removeAllFromCart/{id}', 'App\Http\Controllers\FrontendShopController@removeAllFromCart')->name('removeAllFromCart');
 Route::get('product/color/{id}/{name}', 'App\Http\Controllers\FrontendShopController@productsPerColor')->name('productsPerColor');
 Route::get('cart','App\Http\Controllers\FrontendShopController@shoppingCart')->name('shoppingCart');
+Route::get('thanks','App\Http\Controllers\FrontendShopController@thanksPage')->name('thanksPage');
 
 /** MailContact Frontend **/
 Route::resource('contact', \App\Http\Controllers\ContactController::class);
@@ -36,6 +38,10 @@ Route::resource('contact', \App\Http\Controllers\ContactController::class);
 Route::resource('blogs', FrontendPostController::class);
 Route::get('blog/{post:slug}', '\App\Http\Controllers\AdminPostsController@post')->name('blogs.post');
 Route::get('blog/category/{id}', '\App\Http\Controllers\FrontendPostController@blogsPerCategory')->name('blogsPerCategory');
+
+/** Mollie **/
+Route::get('mollie-payment',[MollieController::Class,'preparePayment'])->name('mollie.payment');
+Route::get('payment-success',[MollieController::Class, 'paymentSuccess'])->name('payment.success');
 
 
 Auth::routes(['verify' => true]);

@@ -49,7 +49,7 @@
 
                     </div>
                     <div class="text-center">
-                        <a href="#"
+                        <a href="{{route('mollie.payment')}}"
                            class="btn btn-success btn-sm m-1">Betalen
                         </a>
                     </div>

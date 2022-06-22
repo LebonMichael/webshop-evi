@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('orderList_id');
+            $table->string('order_mollie_id');
+            $table->integer('user_id');
+            $table->bigInteger('total_amount');
             $table->string('payed');
             $table->timestamps();
         });
