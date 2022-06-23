@@ -53,6 +53,11 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 MOLLIE_KEY=test_s5cSRg8NRzV7cB2nreHQmywbSne4ub
 
+Users om in te loggen
+    - lebontje45@hotmail.com / 12345678 / Admin
+    - evi_vermote@hotmail.com / 12345678 / Owner
+    - dylan@hotmail.com / 12345678 / Member
+
 
 Trello link: https://trello.com/invite/b/UnJBWBsb/d8d204c83838fa6b78a13f8ad46b2170/webshop-evi
 
