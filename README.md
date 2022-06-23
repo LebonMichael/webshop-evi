@@ -52,3 +52,10 @@ MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
 MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 MOLLIE_KEY=test_s5cSRg8NRzV7cB2nreHQmywbSne4ub
+
+
+Trello link: https://trello.com/invite/b/UnJBWBsb/d8d204c83838fa6b78a13f8ad46b2170/webshop-evi
+
+Alle documenten zitten in de map Eindwerk Documenten
+
+Groetjes Michael

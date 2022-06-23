@@ -327,186 +327,108 @@
     </section>
     <!-- <section> New Arrivals ============================-->
 
+    <!-- <section> shop by categorgy ============================-->
     <section id="categoryWomen_Men">
         <div class="container">
             <div class="row h-100">
                 <div class="col-lg-7 mx-auto text-center mb-6">
                     <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Shop By Category</h5>
                 </div>
-                <div class="col-12">
-                    <nav>
-                        <div class="nav nav-tabs majestic-tabs mb-4 justify-content-center" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-women-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-women" type="button" role="tab" aria-controls="nav-women"
-                                    aria-selected="true">For Girls
-                            </button>
-                            <button class="nav-link" id="nav-boy-tab" data-bs-toggle="tab" data-bs-target="#nav-boy"
-                                    type="button" role="tab" aria-controls="nav-boy" aria-selected="false">For Boys
-                            </button>
-                        </div>
-                        <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-women" role="tabpanel"
-                                 aria-labelledby="nav-women-tab">
-                                <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab-women"
-                                    role="tablist">
-                                    @foreach($productGirl as $product)
-                                        @if($product->product_category_id !== $oldCategory)
-                                            @php $oldCategory = $product->product_category_id; @endphp
-                                            <li class="nav-item p-1 " role="presentation">
-                                                <button class="nav-link @if($loop->index == 0) active @endif "
-                                                        id="pills-{{$product->productCategory->name}}-Women-tab"
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+
+                        <ul class="nav nav-pills justify-content-center  mb-3" id="pills-tab-gender" role="tablist">
+                            <li class="nav-item mx-3" role="presentation">
+                                <button class="nav-link active" id="pills-Meisjes-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-Meisjes" type="button" role="tab"
+                                        aria-controls="pills-Meisjes"
+                                        aria-selected="true">Meisjes
+                                </button>
+                            </li>
+                            <li class="nav-item mx-3" role="presentation">
+                                <button class="nav-link " id="pills-Jongens-tab" data-bs-toggle="pill"
+                                        data-bs-target="#pills-Jongens" type="button" role="tab"
+                                        aria-controls="pills-Jongens"
+                                        aria-selected="true">Jongens
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!--meisjes-->
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-Meisjes" role="tabpanel"
+                                 aria-labelledby="pills-Meisjes-tab">
+
+                                <ul class="nav nav-pills mb-3" id="pills-tab-categories" role="tablist">
+                                    @php $category = 0; @endphp
+                                    @foreach($productGirls as $productGirl)
+                                        @if($productGirl->productCategory->id !== $category)
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link "
+                                                        id="pills-{{$productGirl->productCategory->name}}-tab"
                                                         data-bs-toggle="pill"
-                                                        data-bs-target="#pills-{{$product->productCategory->name}}-Women"
-                                                        type="button"
-                                                        role="tab"
-                                                        aria-controls="pills-{{$product->productCategory->name}}-Women"
-                                                        aria-selected="true">{{$product->productCategory->name}}
+                                                        data-bs-target="#pills-{{$productGirl->productCategory->name}}"
+                                                        type="button" role="tab"
+                                                        aria-controls="pills-{{$productGirl->productCategory->name}}"
+                                                        aria-selected="true">{{$productGirl->productCategory->name}}
                                                 </button>
                                             </li>
                                         @endif
+                                        @php $category = $productGirl->productCategory->id; @endphp
                                     @endforeach
-                                    @php $oldCategory = 0 @endphp
                                 </ul>
 
-                                <div class="tab-content" id="pills-tabContentGirl">
-                                    @foreach($productGirl as $product)
-                                        @if($product->product_category_id !== $oldCategory)
-                                            @php $oldCategory = $product->product_category_id;@endphp
-                                            <div class="tab-pane fade @if($loop->index == 0 ) active show @endif"
-                                                 id="pills-{{$product->productCategory->name}}-Women" role="tabpanel"
-                                                 aria-labelledby="pills-{{$product->productCategory->name}}-Women-tab">
-                                                <div class="row h-100 align-items-center g-2">
-                                                    @foreach($productGirl->where('product_category_id' , $oldCategory)->take(4) as $product)
-                                                        <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100 shadow-lg">
-                                                            <div class="card card-span h-100 text-center">
-                                                                <img
-                                                                    class="img-fluid h-100"
-                                                                    src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
-                                                                    alt="..."
-                                                                />
-                                                                <div class="card-body ps-0 bg-200">
-                                                                    <h5 class="fw-bold text-1000 text-truncate">
-                                                                        {{$product->name}}</h5>
-                                                                    <div class="fw-bold">
-                                                                        @foreach($productDetails as $productDetail)
-                                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
-                                                                                <span
-                                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
-                                                                            </span>
-                                                                                <span
-                                                                                    class="text-primary">
-                                                                                @php
-                                                                                    $discountPrice = $productDetail->price/100;
-                                                                                    $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
-                                                                                @endphp
-                                                                                &euro; {{$discountPrice}}
-                                                                            </span>
-                                                                                @break
-                                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
-                                                                                <span
-                                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
-                                                                            </span>
-                                                                                @break
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </div>
-                                                                </div>
-                                                                <a class="stretched-link" href="#"></a>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
+                                <div class="tab-content" id="pills-tabContent-Meisjes">
+                                    @php $category = 0; @endphp
+                                    @foreach($productGirls as $productGirl)
+                                        @if($productGirl->productCategory->id === $category)
+                                            <div class="tab-pane fade show " id="pills-{{$productGirl->productCategory->name}}" role="tabpanel"
+                                                 aria-labelledby="pills-{{$productGirl->productCategory->name}}-tab">
+
+
+                                                ...
                                             </div>
                                         @endif
+                                        @php $category = $productGirl->productCategory->id; @endphp
                                     @endforeach
                                 </div>
-                            </div>
 
-                            <div class="tab-pane fade show " id="nav-boy" role="tabpanel"
-                                 aria-labelledby="nav-boy-tab">
-                                <ul class="nav nav-pills justify-content-center mb-5" id="pills-tab-boy"
-                                    role="tablist">
-                                    @foreach($productBoy as $product)
-                                        @if($product->product_category_id !== $oldCategory)
-                                            @php $oldCategory = $product->product_category_id; @endphp
-                                            <li class="nav-item p-1" role="presentation">
-                                                <button class="nav-link @if($loop->index == 0 ) active @endif"
-                                                        id="pills-{{$product->productCategory->name}}-boy-tab"
-                                                        data-bs-toggle="pill"
-                                                        data-bs-target="#pills-{{$product->productCategory->name}}-boy"
-                                                        type="button"
-                                                        role="tab"
-                                                        aria-controls="pills-{{$product->productCategory->name}}-boy"
-                                                        aria-selected="true">{{$product->productCategory->name}}
-                                                </button>
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                    @php $oldCategory = 0 @endphp
-                                </ul>
 
-                                <div class="tab-content" id="pills-tabContentBoy">
-                                    @foreach($productBoy as $product)
-                                        @if($product->product_category_id !== $oldCategory)
-                                            @php $oldCategory = $product->product_category_id; @endphp
-                                            <div class="tab-pane fade @if($loop->index == 0 ) active show @endif"
-                                                 id="pills-{{$product->productCategory->name}}-boy" role="tabpanel"
-                                                 aria-labelledby="pills-{{$product->productCategory->name}}-boy-tab">
-                                                <div class="row h-100 align-items-center g-2">
-                                                    @foreach($productBoy->where('product_category_id' , $oldCategory)->take(4) as $product)
-                                                        <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100 shadow-lg">
-                                                            <div class="card card-span h-100 text-center">
-                                                                <img
-                                                                    class="img-fluid h-100"
-                                                                    src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
-                                                                    alt="..."
-                                                                />
-                                                                <div class="card-body ps-0 bg-200">
-                                                                    <h5 class="fw-bold text-1000 text-truncate">
-                                                                        {{$product->name}}
-                                                                    </h5>
-                                                                    <div class="fw-bold">
-                                                                        @foreach($productDetails as $productDetail)
-                                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
-                                                                                <span
-                                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
-                                                                </span>
-                                                                                <span
-                                                                                    class="text-primary">
-                                                                    @php
-                                                                        $discountPrice = $productDetail->price/100;
-                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
-                                                                    @endphp
-                                                                    &euro; {{$discountPrice}}
-                                                            </span>
-                                                                                @break
-                                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
-                                                                                <span
-                                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
-                                                                </span>
-                                                                                @break
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </div>
-                                                                </div>
-                                                                <a class="stretched-link" href="#"></a>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                </div>
                             </div>
                         </div>
-                    </nav>
+                        <!--meisjes end-->
+
+<!--                        <div class="tab-content" id="pills-tabContent-Jongens">
+                            <div class="tab-pane fade show" id="pills-Jongens" role="tabpanel"
+                                 aria-labelledby="pills-Jongens-tab">
+
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                                                data-bs-target="#pills-home" type="button" role="tab"
+                                                aria-controls="pills-home" aria-selected="true">Home
+                                        </button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent-t">
+                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                         aria-labelledby="pills-home-tab">...
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>-->
+
+
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- <section> shop by categorgy ============================-->
 
-    <!-- ============================================-->
+
     <!-- <section> begin ============================-->
     <section class="py-0" id="collection">
 
@@ -514,19 +436,19 @@
             <div class="row h-100 gx-2">
                 <div class="col-md-6">
                     <div class="card card-span h-100 text-white"><img class="card-img h-100"
-                                                                      src="assets/img/gallery/urban.png" alt="..."/>
+                                                                      src="{{asset('img/gallery/Collection-Boy.jpg')}}" alt="..."/>
                         <div class="card-img-overlay bg-dark-gradient">
                             <div class="p-5 p-md-2 p-xl-5">
                                 <h1 class="fs-md-4 fs-lg-7 text-light">Urban Stories </h1>
                                 <h5 class="fs-2 text-light">collection</h5>
                             </div>
                         </div>
-                        <a class="stretched-link" href="#!"></a>
+                        <a class="stretched-link" href="{{route('shop.index')}}"></a>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card card-span h-100 text-white"><img class="card-img h-100"
-                                                                      src="assets/img/gallery/country.png" alt="..."/>
+                                                                      src="{{asset('img/gallery/Collection-Girl.jpg')}}" alt="..."/>
                         <div class="card-img-overlay bg-dark-gradient">
                             <div
                                 class="p-5 p-md-2 p-xl-5 d-flex flex-column flex-end-center align-items-baseline h-100">
@@ -534,7 +456,7 @@
                                 <h5 class="fs-2 text-light">collection</h5>
                             </div>
                         </div>
-                        <a class="stretched-link" href="#!"></a>
+                        <a class="stretched-link" href="{{route('shop.index')}}"></a>
                     </div>
                 </div>
             </div>
@@ -543,9 +465,9 @@
 
     </section>
     <!-- <section> close ============================-->
-    <!-- ============================================-->
 
-    <section>
+    <!-- <section> bestsellers ============================-->
+    <section id="bestSellers">
         <div class="container">
             <div class="row h-100">
                 <div class="col-lg-7 mx-auto text-center mb-6">
@@ -707,10 +629,10 @@
         </div>
         </div>
     </section>
+    <!-- <section> bestsellers ============================-->
 
-    <!-- ============================================-->
-    <!-- <section> begin ============================-->
-    <section class="py-0" id="outlet">
+    <!-- <section> summer ============================-->
+    <section class="py-5" id="outlet">
 
         <div class="container">
             <div class="row h-100 g-0">
@@ -723,57 +645,52 @@
                                 <h1 class="fs-md-4 fs-lg-7 text-light">Summer of '21 </h1>
                             </div>
                         </div>
-                        <a class="stretched-link" href="#!"></a>
                     </div>
                 </div>
                 <div class="col-md-6 h-100">
                     <div class="row h-100 g-0">
                         <div class="col-md-6 h-100">
                             <div class="card card-span h-100 text-white"><img class="card-img h-100"
-                                                                              src="assets/img/gallery/sunglasses.png"
+                                                                              src="{{asset('img/gallery/summer-1.jpg')}}"
                                                                               alt="..."/>
-                                <div class="card-img-overlay bg-dark-gradient rounded-0">
+                                <div class="card-img-overlay p-1 bg-dark-gradient rounded-0">
                                     <div class="p-5 p-xl-5 p-md-0">
-                                        <h3 class="text-light">Sunglasses</h3>
+                                        <h3 class="text-primary tex">Short</h3>
                                     </div>
                                 </div>
-                                <a class="stretched-link" href="#!"></a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card card-span h-100 text-white"><img class="card-img h-100"
-                                                                              src="assets/img/gallery/footwear.png"
+                                                                              src="{{asset('img/gallery/summer-2.jpg')}}"
                                                                               alt="..."/>
-                                <div class="card-img-overlay bg-dark-gradient rounded-0">
+                                <div class="card-img-overlay p-1 bg-dark-gradient rounded-0">
                                     <div class="p-5 p-xl-5 p-md-0">
-                                        <h3 class="text-light">Footwear</h3>
+                                        <h3 class="text-primary">Rokje</h3>
                                     </div>
                                 </div>
-                                <a class="stretched-link" href="#!"></a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card card-span h-100 text-white"><img class="card-img h-100"
-                                                                              src="assets/img/gallery/hat-black-border.png"
+                                                                              src="{{asset('img/gallery/summer-3.jpg')}}"
                                                                               alt="..."/>
-                                <div class="card-img-overlay bg-dark-gradient rounded-0">
+                                <div class="card-img-overlay p-1 bg-dark-gradient rounded-0">
                                     <div class="p-5 p-xl-5 p-md-0">
-                                        <h3 class="text-light">Hat</h3>
+                                        <h3 class="text-primary">T-shirt</h3>
                                     </div>
                                 </div>
-                                <a class="stretched-link" href="#!"></a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card card-span h-100 text-white"><img class="card-img h-100"
-                                                                              src="assets/img/gallery/watches.png"
+                                                                              src="{{asset('img/gallery/summer-4.jpg')}}"
                                                                               alt="..."/>
-                                <div class="card-img-overlay bg-dark-gradient rounded-0">
+                                <div class="card-img-overlay p-1 bg-dark-gradient rounded-0">
                                     <div class="p-5 p-xl-5 p-md-0">
-                                        <h3 class="text-light">Watches</h3>
+                                        <h3 class="text-primary">Kleedjes</h3>
                                     </div>
                                 </div>
-                                <a class="stretched-link" href="#!"> </a>
                             </div>
                         </div>
                     </div>
@@ -783,41 +700,10 @@
         <!-- end of .container-->
 
     </section>
-    <!-- <section> close ============================-->
-    <!-- ============================================-->
+    <!-- <section> summer ============================-->
 
-    <!-- ============================================-->
-    <!-- <section> begin ============================-->
-    <section>
-
-        <div class="container">
-            <div class="row h-100 g-0">
-                <div class="col-md-6">
-                    <div class="bg-300 p-4 h-100 d-flex flex-column justify-content-center">
-                        <h1 class="fw-semi-bold lh-sm fs-4 fs-lg-5 fs-xl-6">Gentle Formal Looks </h1>
-                        <p class="mb-5 fs-1">We provide the top formal apparel package to make your job look confident
-                            and comfortable. Stay connect.</p>
-                        <div class="d-grid gap-2 d-md-block"><a class="btn btn-lg btn-dark" href="#!" role="button">Explore
-                                Collection</a></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card card-span h-100 text-white"><img class="card-img h-100"
-                                                                      src="assets/img/gallery/sharp-dress.png"
-                                                                      alt="..."/><a class="stretched-link"
-                                                                                    href="#!"></a></div>
-                </div>
-            </div>
-        </div>
-        <!-- end of .container-->
-
-    </section>
-    <!-- <section> close ============================-->
-    <!-- ============================================-->
-
-    <!-- ============================================-->
-    <!-- <section> begin ============================-->
-    <section class="py-0 pb-8">
+    <!-- <section> blog ============================-->
+    <section class="py-5 pb-8">
 
         <div class="container-fluid container-lg">
             <div class="row h-100 g-2 justify-content-center">
@@ -877,4 +763,5 @@
         <!-- end of .container-->
 
     </section>
+    <!-- <section> blog ============================-->
 @endsection

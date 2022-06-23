@@ -26,8 +26,11 @@ class FrontendShopController extends Controller
         $brands = Brand::all();
         $sizes = ClothSizes::all();
         $categories = ProductCategory::all();
-        $products = Product::with('photo', 'gender', 'productCategory', 'brand','colors')->get();
+        $products = Product::with('photo', 'gender', 'productCategory', 'brand', 'colors')->paginate(9);
         $productDetails = ProductDetails::with('discount', 'colors')->orderBy('discount_id', 'DESC')->get();
+
+
+
 
         return view('frontend.shop.index', compact('products', 'categories', 'brands', 'sizes', 'productDetails'));
     }
@@ -51,7 +54,8 @@ class FrontendShopController extends Controller
 
     }
 
-    public function orderAdress(Request $request){
+    public function orderAdress(Request $request)
+    {
 
         $orderAdress = new OrderAdress();
         $orderAdress->street = $request->street;
@@ -65,7 +69,8 @@ class FrontendShopController extends Controller
         return redirect(route('mollie.payment'));
     }
 
-    public function thanksPage(){
+    public function thanksPage()
+    {
 
         return view('frontend.shop.thanksPage');
     }
