@@ -41,11 +41,15 @@
                 <li>
                     <hr class="dropdown-divider"/>
                 </li>
+                <li><a class="dropdown-item" href="{{route('orders.index')}}">Orders</a></li>
+                <li>
+                    <hr class="dropdown-divider"/>
+                </li>
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
-                        <i class="mdi mdi-logout me-2 text-primary"></i>{{ __('Logout') }}
+                        <i class="mdi mdi-logout text-primary"></i>{{ __('Logout') }}
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
@@ -86,7 +90,7 @@
                     </div>
                     <!--end users-->
 
-                <!--start posts-->
+                    <!--start posts-->
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePosts"
                        aria-expanded="false" aria-controls="collapsePosts">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -239,7 +243,15 @@
                         </nav>
                     </div>
                     <!-- end products-->
-                    @endif
+                @endif
+
+                <!--start orders-->
+                    <a class="nav-link" href="{{route('orders.index')}}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-wallet"></i></div>
+                        Orders
+                    </a>
+                    <!--end orders-->
+
                     <a class="nav-link" href="{{route('users.settings', Auth::user()->id)}}">
                         <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
                         Settings
@@ -261,60 +273,78 @@
                 </ol>
                 <div class="row row-cols-4">
                     <div>
-                        <div class="card bg-primary text-white mb-4">
+                        <div class="card bg-warning text-white mb-4">
                             <div class="card-body d-flex justify-content-between fs-5">
                                 <div>
-                                    <p class="m-0" >Aantal Producten</p>
+                                    <p class="m-0">Aantal Users</p>
                                 </div>
                                 <div>
-{{--                                    ({{$productsTotal}})--}}
+                                    ({{$user}})
                                 </div>
                             </div>
                             @if(Auth::user()->isAdmin())
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="{{route('products.index')}}">View Producten</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="{{route('users.index')}}">View
+                                        Users</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
                             @endif
                         </div>
                     </div>
                     <div>
-                        <div class="card bg-warning text-white mb-4">
+                        <div class="card bg-primary text-white mb-4">
                             <div class="card-body d-flex justify-content-between fs-5">
                                 <div>
-                                    <p class="m-0" >Aantal Users</p>
+                                    <p class="m-0">Aantal Producten</p>
                                 </div>
                                 <div>
-{{--                                    ({{$usersTotal}})--}}
+                                   ({{$product}})
                                 </div>
                             </div>
                             @if(Auth::user()->isAdmin())
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="{{route('users.index')}}">View Users</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                            </div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="{{route('products.index')}}">View
+                                        Producten</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
                             @endif
                         </div>
                     </div>
                     <div>
                         <div class="card bg-success text-white mb-4">
-                            <div class="card-body">Success Card</div>
-                            @if(Auth::user()->isAdmin())
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            <div class="card-body d-flex justify-content-between fs-5">
+                                <div>
+                                    <p class="m-0">Aantal Orders</p>
+                                </div>
+                                <div>
+                                    ({{$order}})
+                                </div>
                             </div>
-                                @endif
+                            @if(Auth::user()->isAdmin())
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="{{route('orders.index')}}">View
+                                        Orders</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div>
                         <div class="card bg-danger text-white mb-4">
-                            <div class="card-body">Danger Card</div>
-                            @if(Auth::user()->isAdmin())
-                            <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
-                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            <div class="card-body d-flex justify-content-between fs-5">
+                                <div>
+                                    <p class="m-0">Aantal Posts</p>
+                                </div>
+                                <div>
+                                    ({{$post}})
+                                </div>
                             </div>
+                            @if(Auth::user()->isAdmin())
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link" href="{{route('posts.index')}}">View
+                                        Posts</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
                             @endif
                         </div>
                     </div>

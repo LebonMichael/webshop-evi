@@ -13,7 +13,6 @@ use App\Models\Photo;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductDetails;
-use App\Models\ShoeSize;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

@@ -9,8 +9,8 @@
                     <p><span>Merk:{{$product->brand->name}}</span></p>
                     <div class="text-center">
                         <img
-                             src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
-                             alt="{{$product->name}}">
+                            src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
+                            alt="{{$product->name}}">
                     </div>
                     <div class="row row-cols-4">
                         @foreach($productDetails as $productDetail)
@@ -177,29 +177,29 @@
                                                 $enoughStock = 1;
                                                 foreach($controleCarts as $controleCart ){
                                                     if ($controleCart['productDetails']->id == $details->id){
-                                                        if ($controleCart['stock'] >= 1 ){
-                                                         $enoughStock = 1;
-                                                        }else{
-                                                            $enoughStock = 0;
-                                                        }
+                                                        $enoughStock = $controleCart['stock'];
+
                                                     }
                                                 }
                                             @endphp
-                                            @if($enoughStock === 1)
+                                            @if($enoughStock >= 1)
                                                 <div class="text-center mx-auto"><a class="btn btn-outline-dark mt-auto"
                                                                                     href="{{route('addToCart',$details->id)}}"><i
                                                             class="fas fa-plus-square text-success"></i></a></div>
                                             @endif
                                         @else
-                                            <div class="text-center mx-auto">
-                                                <a class="btn btn-outline-dark mt-auto"
-                                                   href="{{route('addToCart',$details->id)}}">
-                                                    <i class="fas fa-plus-square text-success"></i>
-                                                </a>
-                                            </div>
+                                            @if($details->stock === 0)
+                                                    <p>Sorry out of order</p>
+
+                                            @else
+                                                <div class="text-center mx-auto">
+                                                    <a class="btn btn-outline-dark mt-auto"
+                                                       href="{{route('addToCart',$details->id)}}">
+                                                        <i class="fas fa-plus-square text-success"></i>
+                                                    </a>
+                                                </div>
+                                            @endif
                                         @endif
-
-
                                     </div>
                                 </div>
                             @endforeach

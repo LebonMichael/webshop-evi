@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderAdress;
 use App\Models\OrderDetails;
+use App\Models\ProductDetails;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Mollie\Laravel\Facades\Mollie;
@@ -29,7 +30,7 @@ class MollieController extends Controller
         $payment = Mollie::api()->payments()->create([
             'amount' => [
                 'currency' => 'EUR', // Type of currency you want to send
-                'value' => number_format(Session::get('cart')->totalPrice, 2, '.', '') // You must send the correct number of decimals, thus we enforce the use of strings
+                'value' => number_format(Session::get('cart')->totalPrice + 4.99, 2, '.', '') // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             'description' => 'Payment By codehunger',
             'redirectUrl' => route('payment.success'), // after the payment completion where you to redirect
@@ -63,7 +64,7 @@ class MollieController extends Controller
             $orderDetails->order_mollie_id = Session::get('payment')->id;
             $orderDetails->order_id = $order->id;
             $orderDetails->product_details_id = $product['product_id'];
-            $orderDetails->client_number = $product['product']->id;
+            $orderDetails->client_number = Auth::user()->id;
             $orderDetails->user_name = Auth::user()->first_name . " " . Auth::user()->last_name;
             $orderDetails->product_name = $product['product']->name;
             $orderDetails->product_price = $product['product_price'];
@@ -71,6 +72,13 @@ class MollieController extends Controller
             $orderDetails->total_price = $product['quantity'] * $product['product_price'];
 
             $orderDetails->save();
+
+
+            $productDetails = ProductDetails::findOrFail($product['product_id']);
+            $productDetails->stock = $productDetails->stock - $product['quantity'];
+            $productDetails->sold = $productDetails->sold + $product['quantity'];
+
+            $productDetails->update();
         }
 
         $orderAdress = new OrderAdress();

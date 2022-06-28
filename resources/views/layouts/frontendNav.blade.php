@@ -69,6 +69,9 @@
                                     <a class="dropdown-item" href="{{route('homebackend')}}">Account</a>
                                 </li>
                                 <li>
+                                    <a class="dropdown-item" href="{{route('orders.index')}}">Orders</a>
+                                </li>
+                                <li>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

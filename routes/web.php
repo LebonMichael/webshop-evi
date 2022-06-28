@@ -58,22 +58,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::resource('postComments', \App\Http\Controllers\AdminPostCommentController::class);
 
-
-});
-
-/** Only when you are verified and active **/
-
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], function () {
-    Route::get('checkout','App\Http\Controllers\FrontendShopController@checkout')->name('checkout');
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('homebackend');
-
     Route::resource('posts', App\Http\Controllers\AdminPostsController::class);
-
-    Route::get('users/settings/{user}', 'App\Http\Controllers\AdminUsersController@changeSettings')->name('users.settings');
-    Route::patch('users/settings/{user}/update', 'App\Http\Controllers\AdminUsersController@settingsUpdate')->name('users.settingsUpdate');
-
-    Route::resource('postCategories', App\Http\Controllers\AdminPostsCategoriesController::class);
-    Route::get('postCategories/restore/{postCategory}', 'App\Http\Controllers\AdminPostsCategoriesController@restore')->name('postCategories.restore');
 
     Route::resource('products', App\Http\Controllers\AdminProductsController::class);
     Route::get('products/restore/{product}', 'App\Http\Controllers\AdminProductsController@restore')->name('products.restore');
@@ -84,7 +69,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
     Route::post('product/{id}/productDetails/store', 'App\Http\Controllers\AdminProductsController@storeProductDetails')->name('productDetails.store');
     Route::get('product/{id}/images', 'App\Http\Controllers\AdminProductsController@createProductDetailsImages')->name('productDetailsImages.create');
     Route::post('product/{id}/images/store', 'App\Http\Controllers\AdminProductsController@storeProductDetailsImages')->name('productDetailsImages.store');
-
 
     Route::resource('productsDetails', App\Http\Controllers\AdminProductDetailsController::class);
 
@@ -105,6 +89,26 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], functi
 
     Route::resource('discounts', App\Http\Controllers\AdminDiscountsController::class);
     Route::get('discounts/restore/{discounts}', 'App\Http\Controllers\AdminDiscountsController@restore')->name('discounts.restore');
+
+    Route::resource('postCategories', App\Http\Controllers\AdminPostsCategoriesController::class);
+    Route::get('postCategories/restore/{postCategory}', 'App\Http\Controllers\AdminPostsCategoriesController@restore')->name('postCategories.restore');
+
+});
+
+/** Only when you are verified and active **/
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], function () {
+
+    Route::get('checkout','App\Http\Controllers\FrontendShopController@checkout')->name('checkout');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('homebackend');
+
+    Route::get('users/settings/{user}', 'App\Http\Controllers\AdminUsersController@changeSettings')->name('users.settings');
+    Route::patch('users/settings/{user}/update', 'App\Http\Controllers\AdminUsersController@settingsUpdate')->name('users.settingsUpdate');
+
+    Route::resource('orders', App\Http\Controllers\AdminOrderController::class);
+    Route::get('orderList', 'App\Http\Controllers\AdminOrderController@index_user')->name('index.user');
+
+
 
 });
 

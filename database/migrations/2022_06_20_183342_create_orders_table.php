@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('order_mollie_id');
             $table->integer('user_id');
-            $table->bigInteger('total_amount');
+            $table->decimal('total_amount',8,2);
             $table->string('payed');
             $table->timestamps();
         });

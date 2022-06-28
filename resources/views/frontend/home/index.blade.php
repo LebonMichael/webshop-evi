@@ -27,7 +27,7 @@
                                                                       src="{{asset('img/gallery/meisjesMain.png')}}"
                                                                       width="790" alt="..."/>
                         <div class="card-img-overlay d-flex flex-center"><a class="btn btn-lg btn-light"
-                                                                            href="#nav-women">Girls</a></div>
+                                                                            href="#categoryWomen_Men">Girls</a></div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -35,7 +35,7 @@
                                                                       src="{{asset('img/gallery/JongensMain.png')}}"
                                                                       width="790" alt="..."/>
                         <div class="card-img-overlay d-flex flex-center"><a class="btn btn-lg btn-light"
-                                                                            href="#nav-boy">Boys</a></div>
+                                                                            href="#categoryWomen_Men">Boys</a></div>
                     </div>
                 </div>
             </div>
@@ -58,10 +58,10 @@
 
                             <div class="carousel-item active"
                                  data-bs-interval="10000">
-                                <div class="row h-100 align-items-center g-2">
+                                <div class="row row-cols-md-4 row-cols-2 h-100 align-items-center g-2">
                                     @foreach($products as $product)
                                         @if($loop->index < 4)
-                                            <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100 ">
+                                            <div class="mb-3 mb-md-0 h-100 ">
                                                 <div class="card card-span h-100 ">
                                                     <img class="img-fluid h-100"
                                                          src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
@@ -93,7 +93,20 @@
                                                             @endforeach
                                                         </div>
                                                     </div>
-                                                    <a class="stretched-link" href="#"></a>
+                                                    @php
+                                                        foreach($productDetails as $productDetail){
+                                                             if($productDetail->product_id === $product->id ){
+                                                                 foreach($productDetail->colors as $color){
+                                                                     $name = $color->name;
+                                                                 }
+                                                             }
+                                                        }
+
+
+                                                    @endphp
+                                                    <a class="stretched-link"
+                                                       href="{{route('productsPerColor', ['id' => $product->id, 'name' => $name])}}"></a>
+
                                                 </div>
                                             </div>
                                         @endif
@@ -103,10 +116,10 @@
 
                             <div class="carousel-item"
                                  data-bs-interval="10000">
-                                <div class="row h-100 align-items-center g-2">
+                                <div class="row row-cols-md-4 row-cols-2 h-100 align-items-center g-2">
                                     @foreach($products as $product)
                                         @if($loop->index < 8 && $loop->index > 3)
-                                            <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100 ">
+                                            <div class=" mb-3 mb-md-0 h-100 ">
                                                 <div class="card card-span h-100">
                                                     <img class="img-fluid h-100"
                                                          src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
@@ -139,7 +152,20 @@
                                                             @endforeach
                                                         </div>
                                                     </div>
-                                                    <a class="stretched-link" href="#"></a>
+                                                    @php
+                                                        foreach($productDetails as $productDetail){
+                                                             if($productDetail->product_id === $product->id ){
+                                                                 foreach($productDetail->colors as $color){
+                                                                     $name = $color->name;
+                                                                 }
+                                                             }
+                                                        }
+
+
+                                                    @endphp
+                                                    <a class="stretched-link"
+                                                       href="{{route('productsPerColor', ['id' => $product->id, 'name' => $name])}}"></a>
+
                                                 </div>
                                             </div>
                                         @endif
@@ -149,10 +175,10 @@
 
                             <div class="carousel-item"
                                  data-bs-interval="10000">
-                                <div class="row h-100 align-items-center g-2">
+                                <div class="row row-cols-md-4 row-cols-2 h-100 align-items-center g-2">
                                     @foreach($products as $product)
                                         @if($loop->index < 12 && $loop->index > 7)
-                                            <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
+                                            <div class=" mb-3 mb-md-0 h-100">
                                                 <div class="card card-span h-100">
                                                     <img class="img-fluid h-100"
                                                          src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
@@ -185,7 +211,20 @@
                                                             @endforeach
                                                         </div>
                                                     </div>
-                                                    <a class="stretched-link" href="#"></a>
+                                                    @php
+                                                        foreach($productDetails as $productDetail){
+                                                             if($productDetail->product_id === $product->id ){
+                                                                 foreach($productDetail->colors as $color){
+                                                                     $name = $color->name;
+                                                                 }
+                                                             }
+                                                        }
+
+
+                                                    @endphp
+                                                    <a class="stretched-link"
+                                                       href="{{route('productsPerColor', ['id' => $product->id, 'name' => $name])}}"></a>
+
                                                 </div>
                                             </div>
                                         @endif
@@ -298,7 +337,7 @@
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <div class="row row-cols-4">
+                                <div class="row row-cols-md-4 row-cols-2">
                                     @foreach($newArrivals as $newArrival)
                                         @if($loop->index < 8 && $loop->index > 3)
                                             <img class="p-1 "
@@ -309,7 +348,7 @@
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <div class="row row-cols-4">
+                                <div class="row row-cols-md-4 row-cols-2">
                                     @foreach($newArrivals as $newArrival)
                                         @if($loop->index < 12 && $loop->index > 7)
                                             <img class="p-1 "
@@ -354,8 +393,9 @@
                             </li>
                         </ul>
 
-                        <!--meisjes-->
+
                         <div class="tab-content" id="pills-tabContent">
+                            <!--meisjes-->
                             <div class="tab-pane fade show active" id="pills-Meisjes" role="tabpanel"
                                  aria-labelledby="pills-Meisjes-tab">
 
@@ -364,12 +404,12 @@
                                     @foreach($productGirls as $productGirl)
                                         @if($productGirl->productCategory->id !== $category)
                                             <li class="nav-item" role="presentation">
-                                                <button class="nav-link "
-                                                        id="pills-{{$productGirl->productCategory->name}}-tab"
+                                                <button class="nav-link @if($loop->index === 0) active @endif "
+                                                        id="pills-meisjes-{{$productGirl->productCategory->name}}-tab"
                                                         data-bs-toggle="pill"
-                                                        data-bs-target="#pills-{{$productGirl->productCategory->name}}"
+                                                        data-bs-target="#pills-meisjes-{{$productGirl->productCategory->name}}"
                                                         type="button" role="tab"
-                                                        aria-controls="pills-{{$productGirl->productCategory->name}}"
+                                                        aria-controls="pills-meisjes-{{$productGirl->productCategory->name}}"
                                                         aria-selected="true">{{$productGirl->productCategory->name}}
                                                 </button>
                                             </li>
@@ -381,49 +421,192 @@
                                 <div class="tab-content" id="pills-tabContent-Meisjes">
                                     @php $category = 0; @endphp
                                     @foreach($productGirls as $productGirl)
-                                        @if($productGirl->productCategory->id === $category)
-                                            <div class="tab-pane fade show " id="pills-{{$productGirl->productCategory->name}}" role="tabpanel"
-                                                 aria-labelledby="pills-{{$productGirl->productCategory->name}}-tab">
+                                        @if($productGirl->productCategory->id !== $category)
+                                            @php $category = $productGirl->productCategory->id; @endphp
+                                            <div class="tab-pane fade show @if($loop->index === 0) active @endif "
+                                                 id="pills-meisjes-{{$productGirl->productCategory->name}}"
+                                                 role="tabpanel"
+                                                 aria-labelledby="pills-meisjes-{{$productGirl->productCategory->name}}-tab">
+                                                <div class="row row-cols-md-4 row-cols-2">
+                                                    @php $count = 1; @endphp
+                                                    @foreach($productGirls as $product)
+                                                        @if($product->productCategory->id === $category )
+
+                                                            @if($count <= 4)
+                                                                @php $count++; @endphp
+                                                                <div>
+                                                                    <div class="card m-2 card-span h-100">
+                                                                        <img class="img-fluid h-100"
+                                                                             src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
+                                                                             alt="..."/>
+                                                                        <div class="card-img-overlay ps-0"></div>
+                                                                        <div class="card-body text-center ps-0 bg-200">
+                                                                            <h5 class="fw-bold text-1000 text-truncate">
+                                                                                Flat Hill
+                                                                                Slingback</h5>
+                                                                            <div class="fw-bold">
+                                                                                @foreach($productDetails as $productDetail)
+                                                                                    @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
+                                                                                        <span
+                                                                                            class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
+                                                                                    </span>
+                                                                                        <span
+                                                                                            class="text-primary">
+                                                                                        @php
+                                                                                            $discountPrice = $productDetail->price/100;
+                                                                                            $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                                        @endphp
+                                                                                        &euro; {{$discountPrice}}
+                                                                                    </span>
+                                                                                        @break
+                                                                                    @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                                        <span
+                                                                                            class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                                    </span>
+                                                                                        @break
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </div>
+                                                                        </div>
+                                                                        @php
+                                                                            foreach($productDetails as $productDetail){
+                                                                                 if($productDetail->product_id === $product->id ){
+                                                                                     foreach($productDetail->colors as $color){
+                                                                                         $name = $color->name;
+                                                                                     }
+                                                                                 }
+                                                                            }
 
 
-                                                ...
+                                                                        @endphp
+                                                                        <a class="stretched-link"
+                                                                           href="{{route('productsPerColor', ['id' => $product->id, 'name' => $name])}}"></a>
+
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+
+                                                        @elseif($product->productCategory->id !== $category)
+                                                            @php $count = 1; @endphp
+                                                        @endif
+                                                    @endforeach
+                                                </div>
                                             </div>
                                         @endif
-                                        @php $category = $productGirl->productCategory->id; @endphp
                                     @endforeach
                                 </div>
-
-
                             </div>
-                        </div>
-                        <!--meisjes end-->
+                            <!--meisjes end-->
 
-<!--                        <div class="tab-content" id="pills-tabContent-Jongens">
+                            <!--jongens end-->
                             <div class="tab-pane fade show" id="pills-Jongens" role="tabpanel"
                                  aria-labelledby="pills-Jongens-tab">
 
-                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
-                                                data-bs-target="#pills-home" type="button" role="tab"
-                                                aria-controls="pills-home" aria-selected="true">Home
-                                        </button>
-                                    </li>
+                                <ul class="nav nav-pills mb-3" id="pills-tab-categories" role="tablist">
+                                    @php $category = 0; @endphp
+                                    @foreach($productBoys as $productBoy)
+                                        @if($productBoy->productCategory->id !== $category)
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link @if($loop->index === 0) active @endif"
+                                                        id="pills-jongens-{{$productBoy->productCategory->name}}-tab"
+                                                        data-bs-toggle="pill"
+                                                        data-bs-target="#pills-jongens-{{$productBoy->productCategory->name}}"
+                                                        type="button" role="tab"
+                                                        aria-controls="pills-jongens-{{$productBoy->productCategory->name}}"
+                                                        aria-selected="true">{{$productBoy->productCategory->name}}
+                                                </button>
+                                            </li>
+                                        @endif
+                                        @php $category = $productBoy->productCategory->id; @endphp
+                                    @endforeach
                                 </ul>
-                                <div class="tab-content" id="pills-tabContent-t">
-                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                         aria-labelledby="pills-home-tab">...
-                                    </div>
+
+                                <div class="tab-content" id="pills-tabContent-Jongens">
+                                    @php $category = 0; @endphp
+                                    @foreach($productBoys as $productBoy)
+                                        @if($productBoy->productCategory->id !== $category)
+                                            @php $category = $productBoy->productCategory->id; @endphp
+                                            <div class="tab-pane fade show @if($loop->index === 0) active @endif"
+                                                 id="pills-jongens-{{$productBoy->productCategory->name}}"
+                                                 role="tabpanel"
+                                                 aria-labelledby="pills-jongens-{{$productBoy->productCategory->name}}-tab">
+                                                <div class="row row-cols-md-4 row-cols-2">
+                                                    @php $count = 1; @endphp
+                                                    @foreach($productBoys as $product)
+                                                        @if($product->productCategory->id === $category )
+
+                                                            @if($count <= 4)
+                                                                @php $count++; @endphp
+                                                                <div>
+                                                                    <div class="card m-2 card-span h-100">
+                                                                        <img class="img-fluid h-100"
+                                                                             src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
+                                                                             alt="..."/>
+                                                                        <div class="card-img-overlay ps-0"></div>
+                                                                        <div class="card-body text-center ps-0 bg-200">
+                                                                            <h5 class="fw-bold text-1000 text-truncate">
+                                                                                Flat Hill
+                                                                                Slingback</h5>
+                                                                            <div class="fw-bold">
+                                                                                @foreach($productDetails as $productDetail)
+                                                                                    @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
+                                                                                        <span
+                                                                                            class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
+                                                                                    </span>
+                                                                                        <span
+                                                                                            class="text-primary">
+                                                                                        @php
+                                                                                            $discountPrice = $productDetail->price/100;
+                                                                                            $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
+                                                                                        @endphp
+                                                                                        &euro; {{$discountPrice}}
+                                                                                    </span>
+                                                                                        @break
+                                                                                    @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
+                                                                                        <span
+                                                                                            class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
+                                                                                    </span>
+                                                                                        @break
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </div>
+                                                                        </div>
+                                                                        @php
+                                                                            foreach($productDetails as $productDetail){
+                                                                                 if($productDetail->product_id === $product->id ){
+                                                                                     foreach($productDetail->colors as $color){
+                                                                                         $name = $color->name;
+                                                                                     }
+                                                                                 }
+                                                                            }
+
+
+                                                                        @endphp
+                                                                        <a class="stretched-link"
+                                                                           href="{{route('productsPerColor', ['id' => $product->id, 'name' => $name])}}"></a>
+
+                                                                    </div>
+                                                                </div>
+                                                </div>
+                                                @endif
+
+                                                @elseif($product->productCategory->id !== $category)
+                                                    @php $count = 1; @endphp
+                                                @endif
+                                                @endforeach
+                                            </div>
                                 </div>
-
-
+                                @endif
+                                @endforeach
                             </div>
-                        </div>-->
-
-
+                        </div>
+                        <!--jongens end-->
                     </div>
+
+
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <!-- <section> shop by categorgy ============================-->
@@ -436,7 +619,8 @@
             <div class="row h-100 gx-2">
                 <div class="col-md-6">
                     <div class="card card-span h-100 text-white"><img class="card-img h-100"
-                                                                      src="{{asset('img/gallery/Collection-Boy.jpg')}}" alt="..."/>
+                                                                      src="{{asset('img/gallery/Collection-Boy.jpg')}}"
+                                                                      alt="..."/>
                         <div class="card-img-overlay bg-dark-gradient">
                             <div class="p-5 p-md-2 p-xl-5">
                                 <h1 class="fs-md-4 fs-lg-7 text-light">Urban Stories </h1>
@@ -448,7 +632,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card card-span h-100 text-white"><img class="card-img h-100"
-                                                                      src="{{asset('img/gallery/Collection-Girl.jpg')}}" alt="..."/>
+                                                                      src="{{asset('img/gallery/Collection-Girl.jpg')}}"
+                                                                      alt="..."/>
                         <div class="card-img-overlay bg-dark-gradient">
                             <div
                                 class="p-5 p-md-2 p-xl-5 d-flex flex-column flex-end-center align-items-baseline h-100">
@@ -466,171 +651,6 @@
     </section>
     <!-- <section> close ============================-->
 
-    <!-- <section> bestsellers ============================-->
-    <section id="bestSellers">
-        <div class="container">
-            <div class="row h-100">
-                <div class="col-lg-7 mx-auto text-center mb-6">
-                    <h5 class="fw-bold fs-3 fs-lg-5 lh-sm mb-3">Best Sellers</h5>
-                </div>
-                <div class="col-12">
-                    <div class="carousel slide" id="carouselBestDeals" data-bs-touch="false" data-bs-interval="false">
-                        <div class="carousel-inner">
-
-                            <div class="carousel-item active"
-                                 data-bs-interval="10000">
-                                <div class="row h-100 align-items-center g-2">
-                                    @foreach($products as $product)
-                                        @if($loop->index < 4)
-                                            <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                                                <div class="card card-span h-100 text-white">
-                                                    <img class="img-fluid h-100"
-                                                         src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
-                                                         alt="..."/>
-                                                    <div class="card-body text-center ps-0 bg-200">
-                                                        <h5 class="fw-bold text-1000 text-truncate">{{$product->name}}</h5>
-                                                        <div class="fw-bold"><span
-                                                            @foreach($product->productDetails as $productDetail)
-                                                                @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
-                                                                    <span
-                                                                        class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
-                                                                </span>
-                                                                    <span
-                                                                        class="text-primary">
-                                                                    @php
-                                                                        $discountPrice = $productDetail->price/100;
-                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
-                                                                    @endphp
-                                                                    &euro; {{$discountPrice}}
-                                                            </span>
-                                                                    @break
-                                                                @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
-                                                                    <span
-                                                                        class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
-                                                                </span>
-                                                                    @break
-                                                                @endif
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                </div>
-                                @endif
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="carousel-item"
-                             data-bs-interval="10000">
-                            <div class="row h-100 align-items-center g-2">
-                                @foreach($products as $product)
-                                    @if($loop->index < 8 && $loop->index > 3)
-                                        <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                                            <div class="card card-span h-100 text-white">
-                                                <img class="img-fluid h-100"
-                                                     src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
-                                                     alt="..."/>
-                                                <div class="card-img-overlay ps-0"></div>
-                                                <div class="card-body text-center ps-0 bg-200">
-                                                    <h5 class="fw-bold text-1000 text-truncate">Flat Hill
-                                                        Slingback</h5>
-                                                    <div class="fw-bold"><span
-                                                        @foreach($productDetails as $productDetail)
-                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
-                                                                <span
-                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
-                                                                </span>
-                                                                <span
-                                                                    class="text-primary">
-                                                                    @php
-                                                                        $discountPrice = $productDetail->price/100;
-                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
-                                                                    @endphp
-                                                                    &euro; {{$discountPrice}}
-                                                            </span>
-                                                                @break
-                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
-                                                                <span
-                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
-                                                                </span>
-                                                                @break
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <a class="stretched-link" href="#"></a>
-                                            </div>
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="carousel-item"
-                             data-bs-interval="10000">
-                            <div class="row h-100 align-items-center g-2">
-                                @foreach($products as $product)
-                                    @if($loop->index < 12 && $loop->index > 7)
-                                        <div class="col-sm-6 col-md-3 mb-3 mb-md-0 h-100">
-                                            <div class="card card-span h-100 text-white">
-                                                <img class="img-fluid h-100"
-                                                     src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
-                                                     alt="..."/>
-                                                <div class="card-img-overlay ps-0"></div>
-                                                <div class="card-body text-center ps-0 bg-200">
-                                                    <h5 class="fw-bold text-1000 text-truncate">Flat Hill
-                                                        Slingback</h5>
-                                                    <div class="fw-bold"><span
-                                                        @foreach($productDetails as $productDetail)
-                                                            @if($productDetail->product_id === $product->id and $productDetail->discount->percentage > 0)
-                                                                <span
-                                                                    class="text-600 me-2 text-decoration-line-through">&euro; {{$productDetail->price}}
-                                                                </span>
-                                                                <span
-                                                                    class="text-primary">
-                                                                    @php
-                                                                        $discountPrice = $productDetail->price/100;
-                                                                        $discountPrice = $discountPrice * (100 - $productDetail->discount->percentage);
-                                                                    @endphp
-                                                                    &euro; {{$discountPrice}}
-                                                            </span>
-                                                                @break
-                                                            @elseif($productDetail->product_id === $product->id and $productDetail->discount->percentage === 0)
-                                                                <span
-                                                                    class="text-600 me-2 text-decoration">&euro; {{$productDetail->price}}
-                                                                </span>
-                                                                @break
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <a class="stretched-link" href="#"></a>
-                                            </div>
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="row my-auto">
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselBestDeals"
-                                    data-bs-slide="prev"><span class="carousel-control-prev-icon"
-                                                               aria-hidden="true"></span><span
-                                    class="visually-hidden">Previous</span></button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselBestDeals"
-                                    data-bs-slide="next"><span class="carousel-control-next-icon"
-                                                               aria-hidden="true"></span><span
-                                    class="visually-hidden">Next </span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-    <!-- <section> bestsellers ============================-->
-
     <!-- <section> summer ============================-->
     <section class="py-5" id="outlet">
 
@@ -642,7 +662,7 @@
                         <div class="card-img-overlay bg-dark-gradient rounded-0">
                             <div
                                 class="p-5 p-md-2 p-xl-5 d-flex flex-column flex-end-center align-items-baseline h-100">
-                                <h1 class="fs-md-4 fs-lg-7 text-light">Summer of '21 </h1>
+                                <h1 class="fs-md-4 fs-lg-7 text-light">Summer of '22 </h1>
                             </div>
                         </div>
                     </div>

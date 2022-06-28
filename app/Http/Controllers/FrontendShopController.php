@@ -147,7 +147,6 @@ class FrontendShopController extends Controller
         return view('frontend.shop.show', compact('product', 'productDetails', 'colors', 'oldColor', 'images', 'brand', 'color', 'name'));
     }
 
-
     public function edit($id)
     {
         //
