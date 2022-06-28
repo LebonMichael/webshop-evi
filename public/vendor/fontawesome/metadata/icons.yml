@@ -7169,7 +7169,7 @@ file-image:
     - '4.1'
     - 5.0.0
     - 5.10.2
-  label: Image File
+  label: ImagesProduct File
   search:
     terms:
       - document
@@ -10655,7 +10655,7 @@ image:
     - '1'
     - 5.0.0
     - 5.10.1
-  label: Image
+  label: ImagesProduct
   search:
     terms:
       - album

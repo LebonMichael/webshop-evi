@@ -8,7 +8,7 @@ use App\Models\ClothSizes;
 use App\Models\Color;
 use App\Models\Discount;
 use App\Models\Gender;
-use App\Models\Image;
+use App\Models\ImagesProduct;
 use App\Models\Photo;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -17,6 +17,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 class AdminProductsController extends Controller
 {
@@ -42,7 +43,7 @@ class AdminProductsController extends Controller
 
     public function createProductDetailsImages($id){
         $product = Product::findOrFail($id);
-        $images = Image::select('color_id')->where('product_id', $id)->groupBy('color_id')->get();
+        $images = ImagesProduct::select('color_id')->where('product_id', $id)->groupBy('color_id')->get();
         $imageColors = $images->pluck('color_id')->toArray();
 
         return view ('admin.productsDetails.createImages', compact('product','images','imageColors'));
@@ -79,7 +80,16 @@ class AdminProductsController extends Controller
         /** photo opslaan **/
         if ($file = $request->file('photo')) {
             $name = time() . $file->getClientOriginalName();
-            $file->move('img/products', $name);
+            Image::make($file)
+                ->resize(300,null, function ($constraint){
+                    $constraint->aspectRatio();
+                })
+                ->save(public_path('img/products/real' . $name))
+                ->crop(100,100)
+                ->save(public_path('img/products/' . $name))
+                ->crop(200,200)
+                ->save(public_path('img/products/200' . $name ));
+
             $photo = Photo::create(['file' => $name]);
             $product->photo_id = $photo->id;
         }
@@ -115,7 +125,7 @@ class AdminProductsController extends Controller
         if ($image = $request->file('image1')) {
             $imageName = time() . $image->getClientOriginalName();
             $image->move('img/productsDetails/'. $color->name, $imageName);
-            Image::create([
+            ImagesProduct::create([
                 'product_id' => $product->id,
                 'color_id' => $color->id,
                 'image' => $imageName,
@@ -124,7 +134,7 @@ class AdminProductsController extends Controller
         if ($image = $request->file('image2')) {
             $imageName = time() . $image->getClientOriginalName();
             $image->move('img/productsDetails/'. $color->name, $imageName);
-            Image::create([
+            ImagesProduct::create([
                 'product_id' => $product->id,
                 'color_id' => $color->id,
                 'image' => $imageName,
@@ -133,7 +143,7 @@ class AdminProductsController extends Controller
         if ($image = $request->file('image3')) {
             $imageName = time() . $image->getClientOriginalName();
             $image->move('img/productsDetails/'. $color->name, $imageName);
-            Image::create([
+            ImagesProduct::create([
                 'product_id' => $product->id,
                 'color_id' => $color->id,
                 'image' => $imageName,
@@ -142,7 +152,7 @@ class AdminProductsController extends Controller
         if ($image = $request->file('image4')) {
             $imageName = time() . $image->getClientOriginalName();
             $image->move('img/productsDetails/'. $color->name, $imageName);
-            Image::create([
+            ImagesProduct::create([
                 'product_id' => $product->id,
                 'color_id' => $color->id,
                 'image' => $imageName,
@@ -179,7 +189,7 @@ class AdminProductsController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        $images = Image::where('product_id', $id)->get();
+        $images = ImagesProduct::where('product_id', $id)->get();
         $productDetails = ProductDetails::where('product_id', $id)->with('colors','clothSize','discount')->orderBy('clothSize_id')->get();
 
         return view('admin.products.show', compact('product', 'productDetails','images'));

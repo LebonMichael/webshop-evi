@@ -8,7 +8,7 @@ use App\Models\ClothSizes;
 use App\Models\Color;
 use App\Models\Discount;
 use App\Models\Gender;
-use App\Models\Image;
+use App\Models\ImagesProduct;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductDetails;
@@ -76,7 +76,7 @@ class AdminProductDetailsController extends Controller
             foreach ($request->file('image') as $image){
                 $imageName = time() . $image->getClientOriginalName();
                 $image->move('img/productsDetails/colors', $imageName);
-                Image::create([
+                ImagesProduct::create([
                     'product_details_id' => $productDetail->id,
                     'image' => $imageName,
                 ]);

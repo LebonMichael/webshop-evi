@@ -6,7 +6,7 @@ use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\ClothSizes;
 use App\Models\Color;
-use App\Models\Image;
+use App\Models\ImagesProduct;
 use App\Models\Order;
 use App\Models\OrderAdress;
 use App\Models\OrderDetails;
@@ -136,7 +136,7 @@ class FrontendShopController extends Controller
     {
         $product = Product::findOrFail($id);
         $brand = Brand::all();
-        $images = Image::where('product_id', $id)->orderBy('color_id', 'ASC')->get();
+        $images = ImagesProduct::where('product_id', $id)->orderBy('color_id', 'ASC')->get();
         $oldColor = 0;
         $colors = ProductDetails::where('product_id', $id)->whereHas('colors')->orderBy('color_id', 'ASC')->get();
         $color = ProductDetails::select('color_id')->where('product_id', $id)->orderBy('color_id', 'ASC')->take(1)->get();
@@ -165,7 +165,7 @@ class FrontendShopController extends Controller
     public function productsPerColor($id, $name)
     {
         $product = Product::findOrFail($id);
-        $images = Image::where('product_id', $id)->orderBy('color_id', 'ASC')->get();
+        $images = ImagesProduct::where('product_id', $id)->orderBy('color_id', 'ASC')->get();
         $brands = Brand::all();
         $colors = ProductDetails::where('product_id', $id)->get();
         $color = Color::select('id')->where('name', $name)->get()->toArray();
