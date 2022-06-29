@@ -26,9 +26,8 @@ class FrontendShopController extends Controller
         $brands = Brand::all();
         $sizes = ClothSizes::all();
         $categories = ProductCategory::all();
-        $products = Product::with('photo', 'gender', 'productCategory', 'brand', 'colors')->paginate(9);
         $productDetails = ProductDetails::with('discount', 'colors')->orderBy('discount_id', 'DESC')->get();
-
+        $products = Product::with('photo', 'gender', 'productCategory', 'brand', 'colors')->paginate(9);
 
 
 
@@ -43,6 +42,103 @@ class FrontendShopController extends Controller
             $shoppingCarts = '';
         }
         return view('frontend.shop.cart', compact('shoppingCarts'));
+    }
+
+    public function shopFilter(Request $request)
+    {
+        $brands = Brand::all();
+        $sizes = ClothSizes::all();
+        $categories = ProductCategory::all();
+        $productDetails = ProductDetails::with('discount', 'colors')->orderBy('discount_id', 'DESC')->get();
+
+        $filterCategory = $request->category;
+        $filterBrands = $request->brands;
+        $filterSizes = $request->sizes;
+        $filterColors = $request->colors;
+
+        if ($filterCategory) {
+
+            if ($filterBrands) {
+
+                if($filterSizes){
+                    $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                        ->where([
+                            ['product_category_id', $filterCategory],
+                            ['brand_id', $filterBrands],
+                        ])
+                        ->whereHas('productDetails', function ($query) use ($filterSizes){
+                            $query->where('clothSize_id', 'like', $filterSizes);
+                        })
+                        ->paginate(9);
+                }else{
+                    $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                        ->where([
+                            ['product_category_id', $filterCategory],
+                            ['brand_id', $filterBrands],
+                        ])
+                        ->paginate(9);
+                }
+
+            }elseif ($filterSizes){
+                $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                    ->where([
+                        ['product_category_id', $filterCategory],
+                    ])
+                    ->whereHas('productDetails', function ($query) use ($filterSizes){
+                        $query->where('clothSize_id', 'like', $filterSizes);
+                    })
+                    ->paginate(9);
+            }
+            else{
+                $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                    ->where([
+                        ['product_category_id', $filterCategory],
+                    ])
+                    ->paginate(9);
+            }
+        }
+        elseif($filterBrands){
+            if($filterSizes){
+                $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                    ->where([
+                        ['brand_id', $filterBrands],
+                    ])
+                    ->whereHas('productDetails', function ($query) use ($filterSizes){
+                        $query->where('clothSize_id', 'like', $filterSizes);
+                    })
+                    ->paginate(9);
+            }else{
+                $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                    ->where([
+                        ['brand_id', $filterBrands],
+                    ])
+                    ->paginate(9);
+            }
+
+
+        }
+        elseif ($filterSizes){
+            $products = Product::with('photo','colors', 'gender', 'brand', 'discount', 'productCategory')
+                ->whereHas('productDetails', function ($query) use ($filterSizes){
+                    $query->where('clothSize_id', 'like', $filterSizes);
+                })
+                ->paginate(9);
+        }
+        else{
+            $products = Product::with('photo', 'gender', 'productCategory', 'brand', 'colors')->paginate(9);
+        }
+
+
+        /*    if(empty($filterCategory && $filterBrands && $filterSizes)){
+                $products = Product::with('photo', 'gender', 'productCategory', 'brand', 'colors')->paginate(9);
+
+            }elseif($filterSizes){
+
+                dd($brands);
+            }*/
+
+
+        return view('frontend.shop.index', compact('products', 'categories', 'brands', 'sizes', 'productDetails'));
     }
 
     public function checkout()
@@ -74,7 +170,6 @@ class FrontendShopController extends Controller
 
         return view('frontend.shop.thanksPage');
     }
-
 
     public function addToCart($id)
     {

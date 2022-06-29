@@ -209,7 +209,15 @@ class AdminProductsController extends Controller
         $images = ImagesProduct::where('product_id', $id)->get();
         $productDetails = ProductDetails::where('product_id', $id)->with('colors','clothSize','discount')->orderBy('clothSize_id')->get();
 
-        return view('admin.products.show', compact('product', 'productDetails','images'));
+
+        if ($product === null ){
+            return redirect(route('products.index'));
+
+        }else{
+            return view('admin.products.show', compact('product', 'productDetails','images'));
+        }
+
+
     }
 
     public function edit($id)

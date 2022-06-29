@@ -29,6 +29,8 @@ Route::get('product/color/{id}/{name}', 'App\Http\Controllers\FrontendShopContro
 Route::get('cart','App\Http\Controllers\FrontendShopController@shoppingCart')->name('shoppingCart');
 Route::post('orderAdress','App\Http\Controllers\FrontendShopController@orderAdress')->name('orderAdress');
 
+Route::post('shop/Filter','App\Http\Controllers\FrontendShopController@shopFilter')->name('shopFilter');
+
 Route::get('thanks','App\Http\Controllers\FrontendShopController@thanksPage')->name('thanksPage');
 
 /** MailContact Frontend **/

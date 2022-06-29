@@ -4,7 +4,7 @@
     <div class="row mt-10">
         <div class="col-10 offset-1">
             <div class="row">
-                <div class="col-6">
+                <div class="col-lg-6">
                     <h1>{{$product->name}}</h1>
                     <p><span>Merk:{{$product->brand->name}}</span></p>
                     <div class="text-center">
@@ -61,7 +61,7 @@
 
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4 my-2 my-lg-0">
                     <div class="ms-2">
                         <div class="d-flex">
                             <p class="my-auto">Kies je kleur:</p>
@@ -206,7 +206,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 border border-2 border-black rounded-2 shadow-lg mb-2 h-100">
+                <div class="col-xl-2 border border-2 border-black rounded-2 shadow-lg mb-2 h-100">
                     <div class="text-center mt-3">
                         <p class="pt-3">Total products
                             ({{Session::has('cart') ? Session::get('cart')->totalQuantity : '0'}})</p>
