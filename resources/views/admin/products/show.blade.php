@@ -89,7 +89,7 @@
                                                         <img class="img-fluid m-2 border border-2 rounded"
                                                              src="{{asset('img/productsDetails/') . '/' . $color->name . '/' . $image->image}}"
                                                              alt="">
-                                                        <a href="{{route('productsDetails.edit', $product->id)}}">Edit</a>
+                                                        <a href="{{route('productDetailsImages.edit', $image->id)}}">Edit</a>
                                                     </div>
                                                     @endif
                                                 @endforeach

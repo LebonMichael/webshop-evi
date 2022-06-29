@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
+use Intervention\Image\File;
 
 class AdminProductsController extends Controller
 {
@@ -81,14 +82,10 @@ class AdminProductsController extends Controller
         if ($file = $request->file('photo')) {
             $name = time() . $file->getClientOriginalName();
             Image::make($file)
-                ->resize(300,null, function ($constraint){
+                ->fit(325,375, function ($constraint){
                     $constraint->aspectRatio();
                 })
-                ->save(public_path('img/products/real' . $name))
-                ->crop(100,100)
-                ->save(public_path('img/products/' . $name))
-                ->crop(200,200)
-                ->save(public_path('img/products/200' . $name ));
+                ->save(public_path('img/products/' . $name));
 
             $photo = Photo::create(['file' => $name]);
             $product->photo_id = $photo->id;
@@ -122,9 +119,17 @@ class AdminProductsController extends Controller
         $product = Product::findOrFail($id);
         $color = Color::findorFail($request->color_id);
         /** photo opslaan **/
+        $path = public_path('img/productsDetails/'. $color->name);
+        if(!\Illuminate\Support\Facades\File::exists($path)){
+            \Illuminate\Support\Facades\File::makeDirectory($path, 0777,true,true);
+        }
         if ($image = $request->file('image1')) {
-            $imageName = time() . $image->getClientOriginalName();
-            $image->move('img/productsDetails/'. $color->name, $imageName);
+            $imageName = time() . '1' . $image->getClientOriginalName();
+            Image::make($image)
+                ->fit(325,375, function ($constraint){
+                    $constraint->aspectRatio();
+                })
+                ->save(public_path('img/productsDetails/' . $color->name .'/'.  $imageName));
             ImagesProduct::create([
                 'product_id' => $product->id,
                 'color_id' => $color->id,
@@ -132,8 +137,12 @@ class AdminProductsController extends Controller
             ]);
         }
         if ($image = $request->file('image2')) {
-            $imageName = time() . $image->getClientOriginalName();
-            $image->move('img/productsDetails/'. $color->name, $imageName);
+            $imageName = time() . '2' . $image->getClientOriginalName();
+            Image::make($image)
+                ->fit(325,375, function ($constraint){
+                    $constraint->aspectRatio();
+                })
+                ->save(public_path('img/productsDetails/' . $color->name .'/'.  $imageName));
             ImagesProduct::create([
                 'product_id' => $product->id,
                 'color_id' => $color->id,
@@ -141,8 +150,12 @@ class AdminProductsController extends Controller
             ]);
         }
         if ($image = $request->file('image3')) {
-            $imageName = time() . $image->getClientOriginalName();
-            $image->move('img/productsDetails/'. $color->name, $imageName);
+            $imageName = time() . '3' . $image->getClientOriginalName();
+            Image::make($image)
+                ->fit(325,375, function ($constraint){
+                    $constraint->aspectRatio();
+                })
+                ->save(public_path('img/productsDetails/' . $color->name .'/'.  $imageName));
             ImagesProduct::create([
                 'product_id' => $product->id,
                 'color_id' => $color->id,
@@ -150,8 +163,12 @@ class AdminProductsController extends Controller
             ]);
         }
         if ($image = $request->file('image4')) {
-            $imageName = time() . $image->getClientOriginalName();
-            $image->move('img/productsDetails/'. $color->name, $imageName);
+            $imageName = time() . '4' . $image->getClientOriginalName();
+            Image::make($image)
+                ->fit(325,375, function ($constraint){
+                    $constraint->aspectRatio();
+                })
+                ->save(public_path('img/productsDetails/' . $color->name .'/'.  $imageName));
             ImagesProduct::create([
                 'product_id' => $product->id,
                 'color_id' => $color->id,
@@ -207,6 +224,14 @@ class AdminProductsController extends Controller
         return view('admin.products.edit', compact('product','brands','colors','genders','clothSizes','productCategories','discounts'));
     }
 
+    public function editProductDetailsImages($id){
+
+        $images = ImagesProduct::findOrfail($id);
+        $color = Color::findorFail($images->color_id);
+
+        return view ('admin.productsDetails.editImages', compact('images','color'));
+    }
+
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -226,7 +251,11 @@ class AdminProductsController extends Controller
             }
             /**wegschrijven naar de img folder**/
             $name = time(). $file->getClientOriginalName();
-            $file->move('img/products', $name);
+            Image::make($file)
+                ->fit(325,375, function ($constraint){
+                    $constraint->aspectRatio();
+                })
+                ->save(public_path('img/products/' . $name));
             /**wegschrijven naar de photo table**/
             $photo = Photo::create(['file'=>$name]);
             $product->photo_id = $photo->id;
@@ -236,6 +265,34 @@ class AdminProductsController extends Controller
         $product->colors()->sync($request->colors,true);
         Session::flash('product_message', 'Product ' . $request->name . ' was updated!');
         return redirect()->route('products.index');
+    }
+
+    public function updateProductDetailsImages(Request $request , $id){
+
+        /** photo opslaan **/
+        if ($image = $request->file('image')) {
+
+            $productImage = ImagesProduct::findOrFail($id);
+            $color = Color::where('id',$productImage->color_id)->get();
+
+            $oldImage = ImagesProduct::find($id);
+            if($oldImage){
+                unlink(public_path('img/productsDetails/' . $color[0]->name .'/'. $oldImage->image));
+            }
+
+            $imageName = time() . $image->getClientOriginalName();
+            Image::make($image)
+                ->fit(325,375, function ($constraint){
+                    $constraint->aspectRatio();
+                })
+                ->save(public_path('img/productsDetails/' . $color[0]->name .'/'.  $imageName));
+            $productImage->image = $imageName;
+            $productImage->save();
+
+
+        }
+        Session::flash('product_message','Product Detail Images were created!');
+        return redirect('admin/products');
     }
 
     public function destroy($id)

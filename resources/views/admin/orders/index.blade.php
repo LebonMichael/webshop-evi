@@ -2,6 +2,9 @@
 @section('content')
 <div class="row">
     <div class="col">
+        <div class="border border-2 rounded-3 bg-black my-3">
+            <h1 class="text-center text-white">All Orders</h1>
+        </div>
         <table class="table">
             <thead>
             <tr>

@@ -69,6 +69,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('product/{id}/productDetails/store', 'App\Http\Controllers\AdminProductsController@storeProductDetails')->name('productDetails.store');
     Route::get('product/{id}/images', 'App\Http\Controllers\AdminProductsController@createProductDetailsImages')->name('productDetailsImages.create');
     Route::post('product/{id}/images/store', 'App\Http\Controllers\AdminProductsController@storeProductDetailsImages')->name('productDetailsImages.store');
+    Route::get('product/{id}/images/edit', 'App\Http\Controllers\AdminProductsController@editProductDetailsImages')->name('productDetailsImages.edit');
+    Route::post('product/{id}/images/update', 'App\Http\Controllers\AdminProductsController@updateProductDetailsImages')->name('productDetailsImages.update');
 
     Route::resource('productsDetails', App\Http\Controllers\AdminProductDetailsController::class);
 
