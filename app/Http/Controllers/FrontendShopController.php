@@ -54,6 +54,7 @@ class FrontendShopController extends Controller
         $filterCategory = $request->category;
         $filterBrands = $request->brands;
         $filterSizes = $request->sizes;
+
         if ($filterCategory) {
 
             if ($filterBrands) {
@@ -65,7 +66,7 @@ class FrontendShopController extends Controller
                         ])
                         ->whereIn('brand_id', $filterBrands)
                         ->whereHas('productDetails', function ($query) use ($filterSizes){
-                            $query->where('clothSize_id', 'like', $filterSizes);
+                            $query->whereIn('clothSize_id',$filterSizes);
                         })
                         ->paginate(9);
                 }else{
@@ -83,7 +84,7 @@ class FrontendShopController extends Controller
                         ['product_category_id', $filterCategory],
                     ])
                     ->whereHas('productDetails', function ($query) use ($filterSizes){
-                        $query->where('clothSize_id', 'like', $filterSizes);
+                        $query->whereIn('clothSize_id', $filterSizes);
                     })
                     ->paginate(9);
             }
@@ -100,7 +101,7 @@ class FrontendShopController extends Controller
                 $products = Product::with('photo','colors', 'gender', 'brand', 'discount', 'productCategory')
                     ->whereIn('brand_id', $filterBrands)
                     ->whereHas('productDetails', function ($query) use ($filterSizes){
-                        $query->where('clothSize_id', 'like', $filterSizes);
+                        $query->whereIn('clothSize_id', $filterSizes);
                     })
                     ->paginate(9);
             }else{
@@ -114,7 +115,7 @@ class FrontendShopController extends Controller
         elseif ($filterSizes){
             $products = Product::with('photo','colors', 'gender', 'brand', 'discount', 'productCategory')
                 ->whereHas('productDetails', function ($query) use ($filterSizes){
-                    $query->where('clothSize_id', 'like', $filterSizes);
+                    $query->whereIn('clothSize_id', $filterSizes);
                 })
                 ->paginate(9);
         }
