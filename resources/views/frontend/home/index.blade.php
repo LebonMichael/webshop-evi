@@ -3,10 +3,9 @@
 
     <div class="container">
         <div class="row flex-center">
-            <div class="col-12 mb-2">
+            <div class="col-12 mt-3 mb-5">
                 <div class="d-flex align-items-center flex-column">
-                    <h1 class="fw-normal"> With an outstanding style, only for you</h1>
-                    <h2 class="fs-4 fs-lg-8 fs-md-6 fw-bold">Exclusively designed for you</h2>
+                    <h1 class="fs-4 fs-lg-8 fs-md-6 fw-bold">Webshop Evi</h1>
                 </div>
             </div>
         </div>

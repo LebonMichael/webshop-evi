@@ -76,6 +76,7 @@ class AdminProductsController extends Controller
             'name'=>'required|string|max:255',
             'body'=>'required|string|max:255',
             'photo' => 'required|mimes:jpeg,jpg,png|max:2048',
+            'colors' => 'required',
         ]);
 
         /** photo opslaan **/
@@ -248,6 +249,13 @@ class AdminProductsController extends Controller
         $product->brand_id = $request->brand_id;
         $product->gender_id = $request->gender_id;
         $product->product_category_id = $request->productCategory_id;
+
+        $request->validate([
+            'name'=>'required|string|max:255',
+            'body'=>'required|string|max:255',
+            'colors' => 'required',
+        ]);
+
 
         /**photo opslaan**/
         if($file = $request->file('photo')){
