@@ -18,13 +18,13 @@ class BrandSeeder extends Seeder
     {
         DB::table('brands')->insert([
             'name' => 'Le Chic',
-            'slug' => 'Le Chic',
+            'slug' => 'Le-Chic',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
 
         DB::table('brands')->insert([
             'name' => 'Elle Chic',
-            'slug' => 'Elle chic',
+            'slug' => 'Elle-chic',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
 
@@ -36,7 +36,7 @@ class BrandSeeder extends Seeder
 
         DB::table('brands')->insert([
             'name' => 'Like Flo',
-            'slug' => 'Like Flo',
+            'slug' => 'Like-Flo',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
 
@@ -48,7 +48,7 @@ class BrandSeeder extends Seeder
 
         DB::table('brands')->insert([
             'name' => 'Name It',
-            'slug' => 'Name It',
+            'slug' => 'Name-It',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
     }

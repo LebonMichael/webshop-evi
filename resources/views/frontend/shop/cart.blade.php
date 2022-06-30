@@ -13,7 +13,7 @@
                                         data-bs-target="#panelsStayOpen-collapse-{{$product['productDetails']->id}}"
                                         aria-expanded="true"
                                         aria-controls="panelsStayOpen-collapse-{{$product['productDetails']->id}}">
-                                    <img class="me-2" height="62" width="auto"
+                                    <img class="me-2" height="62" width="62"
                                          src="{{$product['product']->photo ? asset('img/products') . $product['product']->photo->file : 'https://via.placeholder.com/62'}}"
                                          alt=" {{$product['product']->name}}">
                                     {{$product['product']->name}}

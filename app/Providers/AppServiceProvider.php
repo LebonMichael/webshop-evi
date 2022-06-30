@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\User;
+use Barryvdh\Debugbar\Twig\Extension\Debug;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;

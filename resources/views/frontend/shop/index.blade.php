@@ -29,9 +29,9 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio"
                                                                value="{{$category->id}}" name="category"
-                                                               id="flexRadioDefault{{$category->id}}">
+                                                               id="flexRadioDefault-{{$category->name}}">
                                                         <label class="form-check-label"
-                                                               for="flexRadioDefault{{$category->id}}">
+                                                               for="flexRadioDefault-{{$category->name}}">
                                                             {{$category->name}}
                                                         </label>
                                                     </div>
@@ -56,8 +56,8 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox"
                                                                value="{{$brand->id}}" name="brands[]"
-                                                               id="flexRadioDefault{{$brand->id}}">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                               id="flexRadioDefault-{{$brand->name}}">
+                                                        <label class="form-check-label" for="flexRadioDefault-{{$brand->name}}">
                                                             {{$brand->name}}
                                                         </label>
                                                     </div>
@@ -81,8 +81,8 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox"
                                                                value="{{$size->id}}" name="sizes[]"
-                                                               id="flexRadioDefault{{$size->id}}">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                               id="flexRadioDefault-{{$size->size}}">
+                                                        <label class="form-check-label" for="flexRadioDefault-{{$size->size}}">
                                                             {{$size->size}}
                                                         </label>
                                                     </div>

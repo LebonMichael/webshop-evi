@@ -1,25 +1,20 @@
 @extends('layouts.frontendNav')
 @section('content')
-    <section class="py-11 bg-light-gradient border-bottom border-white border-5">
 
-        <!--/.bg-holder-->
-
-        <div class="container">
-            <div class="row flex-center">
-                <div class="col-12 mb-10">
-                    <div class="d-flex align-items-center flex-column">
-                        <h1 class="fw-normal"> With an outstanding style, only for you</h1>
-                        <h2 class="fs-4 fs-lg-8 fs-md-6 fw-bold">Exclusively designed for you</h2>
-                    </div>
+    <div class="container">
+        <div class="row flex-center">
+            <div class="col-12 mb-2">
+                <div class="d-flex align-items-center flex-column">
+                    <h1 class="fw-normal"> With an outstanding style, only for you</h1>
+                    <h2 class="fs-4 fs-lg-8 fs-md-6 fw-bold">Exclusively designed for you</h2>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- ============================================-->
     <!-- <section> Head images ============================-->
-    <section class="py-0" id="header" style="margin-top: -23rem !important;">
-
+    <section class="py-0" id="header">
         <div class="container">
             <div class="row g-0">
                 <div class="col-md-6">
@@ -261,7 +256,7 @@
                 <div class="col-md-6">
                     <div class="bg-300 p-4 h-100 d-flex flex-column justify-content-center">
                         <h4 class="text-800">Exclusive collection 2022</h4>
-                        <h1 class="fw-semi-bold lh-sm fs-4 fs-lg-5 fs-xl-6">Be exclusive</h1>
+                        <h2 class="fw-semi-bold lh-sm fs-4 fs-lg-5 fs-xl-6">Be exclusive</h2>
                         <p class="mb-5 fs-1">The best everyday option in a Super Saver range within a reasonable price.
                             It is our responsibility to keep you 100 percent stylish. Be smart &amp; , trendy with
                             us.</p>
@@ -399,7 +394,7 @@
                             <div class="tab-pane fade show active" id="pills-Meisjes" role="tabpanel"
                                  aria-labelledby="pills-Meisjes-tab">
 
-                                <ul class="nav nav-pills mb-3" id="pills-tab-categories" role="tablist">
+                                <ul class="nav nav-pills mb-3" id="pills-tab-categories-meisjes" role="tablist">
                                     @php $category = 0; @endphp
                                     @foreach($productGirls as $productGirl)
                                         @if($productGirl->productCategory->id !== $category)
@@ -502,11 +497,11 @@
                             <div class="tab-pane fade show" id="pills-Jongens" role="tabpanel"
                                  aria-labelledby="pills-Jongens-tab">
 
-                                <ul class="nav nav-pills mb-3" id="pills-tab-categories" role="tablist">
+                                <div class="nav nav-pills mb-3" id="pills-tab-categories-jongens" role="tablist">
                                     @php $category = 0; @endphp
                                     @foreach($productBoys as $productBoy)
                                         @if($productBoy->productCategory->id !== $category)
-                                            <li class="nav-item" role="presentation">
+                                            <div class="nav-item" role="presentation">
                                                 <button class="nav-link @if($loop->index === 0) active @endif"
                                                         id="pills-jongens-{{$productBoy->productCategory->name}}-tab"
                                                         data-bs-toggle="pill"
@@ -515,11 +510,11 @@
                                                         aria-controls="pills-jongens-{{$productBoy->productCategory->name}}"
                                                         aria-selected="true">{{$productBoy->productCategory->name}}
                                                 </button>
-                                            </li>
+                                            </div>
                                         @endif
                                         @php $category = $productBoy->productCategory->id; @endphp
                                     @endforeach
-                                </ul>
+                                </div>
 
                                 <div class="tab-content" id="pills-tabContent-Jongens">
                                     @php $category = 0; @endphp
@@ -623,7 +618,7 @@
                                                                       alt="..."/>
                         <div class="card-img-overlay bg-dark-gradient">
                             <div class="p-5 p-md-2 p-xl-5">
-                                <h1 class="fs-md-4 fs-lg-7 text-light">Urban Stories </h1>
+                                <h2 class="fs-md-4 fs-lg-7 text-light">Urban Stories </h2>
                                 <h5 class="fs-2 text-light">collection</h5>
                             </div>
                         </div>
@@ -637,7 +632,7 @@
                         <div class="card-img-overlay bg-dark-gradient">
                             <div
                                 class="p-5 p-md-2 p-xl-5 d-flex flex-column flex-end-center align-items-baseline h-100">
-                                <h1 class="fs-md-4 fs-lg-7 text-light">Urban Stories </h1>
+                                <h2 class="fs-md-4 fs-lg-7 text-light">Urban Stories </h2>
                                 <h5 class="fs-2 text-light">collection</h5>
                             </div>
                         </div>
@@ -662,7 +657,7 @@
                         <div class="card-img-overlay bg-dark-gradient rounded-0">
                             <div
                                 class="p-5 p-md-2 p-xl-5 d-flex flex-column flex-end-center align-items-baseline h-100">
-                                <h1 class="fs-md-4 fs-lg-7 text-light">Summer of '22 </h1>
+                                <h2 class="fs-md-4 fs-lg-7 text-light">Summer of '22 </h2>
                             </div>
                         </div>
                     </div>

@@ -54,33 +54,31 @@ class FrontendShopController extends Controller
         $filterCategory = $request->category;
         $filterBrands = $request->brands;
         $filterSizes = $request->sizes;
-        $filterColors = $request->colors;
-
         if ($filterCategory) {
 
             if ($filterBrands) {
 
                 if($filterSizes){
-                    $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                    $products = Product::with('photo','colors', 'gender', 'brand', 'discount', 'productCategory')
                         ->where([
                             ['product_category_id', $filterCategory],
-                            ['brand_id', $filterBrands],
                         ])
+                        ->whereIn('brand_id', $filterBrands)
                         ->whereHas('productDetails', function ($query) use ($filterSizes){
                             $query->where('clothSize_id', 'like', $filterSizes);
                         })
                         ->paginate(9);
                 }else{
-                    $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                    $products = Product::with('photo','colors', 'gender', 'brand', 'discount', 'productCategory')
                         ->where([
                             ['product_category_id', $filterCategory],
-                            ['brand_id', $filterBrands],
                         ])
+                        ->whereIn('brand_id', $filterBrands)
                         ->paginate(9);
                 }
 
             }elseif ($filterSizes){
-                $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                $products = Product::with('photo','colors', 'gender', 'brand', 'discount', 'productCategory')
                     ->where([
                         ['product_category_id', $filterCategory],
                     ])
@@ -90,7 +88,7 @@ class FrontendShopController extends Controller
                     ->paginate(9);
             }
             else{
-                $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
+                $products = Product::with('photo','colors', 'gender', 'brand', 'discount', 'productCategory')
                     ->where([
                         ['product_category_id', $filterCategory],
                     ])
@@ -99,19 +97,15 @@ class FrontendShopController extends Controller
         }
         elseif($filterBrands){
             if($filterSizes){
-                $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
-                    ->where([
-                        ['brand_id', $filterBrands],
-                    ])
+                $products = Product::with('photo','colors', 'gender', 'brand', 'discount', 'productCategory')
+                    ->whereIn('brand_id', $filterBrands)
                     ->whereHas('productDetails', function ($query) use ($filterSizes){
                         $query->where('clothSize_id', 'like', $filterSizes);
                     })
                     ->paginate(9);
             }else{
-                $products = Product::with('photo', 'gender', 'brand', 'discount', 'productCategory')
-                    ->where([
-                        ['brand_id', $filterBrands],
-                    ])
+                $products = Product::with('photo','colors', 'gender', 'brand', 'discount', 'productCategory')
+                    ->whereIn('brand_id', $filterBrands)
                     ->paginate(9);
             }
 
@@ -143,7 +137,6 @@ class FrontendShopController extends Controller
 
     public function checkout()
     {
-
         $user = Auth::user();
 
         return view('frontend.shop.checkout', compact('user'));

@@ -10,7 +10,7 @@
                 @csrf
                 <div class="form-group">
                     <label class="text-white" for="percentage">Category Name : </label>
-                    <input type="number" name="percentage" class="form-control" placeholder="Percentage...">
+                    <input type="number" name="percentage" id="percentage" class="form-control" placeholder="Percentage...">
                 </div>
                 <div class="text-center m-2">
                     <button type="submit" class="btn btn-primary">Add Discount</button>

@@ -10,7 +10,7 @@
                 @csrf
                 <div class="form-group">
                     <label class="text-white" for="name">Product Category Name : </label>
-                    <input type="text" name="name" class="form-control" placeholder="Product Category...">
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Product Category...">
                 </div>
                 <div class="text-center m-2">
                     <button type="submit" class="btn btn-primary">Add Product Category</button>

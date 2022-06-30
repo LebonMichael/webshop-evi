@@ -7,7 +7,7 @@
                 <div class="col-md-4">
                     <div class="m-3 align-items-stretch">
                         <img class="img-fluid img-thumbnail bg-black"
-                             src="{{$user->photo ? asset('img/users') . $user->photo->file : 'http://via.placeholder.com/500x500'}}"
+                             src="{{$user->photo ? asset('img/users') . $user->photo->file : 'http://via.placeholder.com/400'}}"
                              alt="{{$user->name}}">
                     </div>
                 </div>

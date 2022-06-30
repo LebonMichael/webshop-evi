@@ -10,7 +10,7 @@
                 @csrf
                 <div class="form-group">
                     <label class="text-white" for="name">Color Name : </label>
-                    <input type="text" name="name" class="form-control" placeholder="Color...">
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Color...">
                 </div>
                 <div class="form-group">
                     <label class="text-white" for="code">Select your color:</label>

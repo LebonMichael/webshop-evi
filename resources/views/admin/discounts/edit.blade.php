@@ -15,6 +15,7 @@
                         <input
                             type="text"
                             name="percentage"
+                            id="percentage"
                             class="form-control" value="{{$discount->percentage}}"
                             placeholder="Percentage..."
                         >

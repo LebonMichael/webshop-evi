@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html lang="en">
 
 <head>
+    <title>Webshop-evi</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Michael Lebon">
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
@@ -12,8 +14,7 @@
     <link href="{{asset('css/cssfront/theme.css')}}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
+          crossorigin="anonymous"/>
 
 </head>
 
@@ -54,7 +55,7 @@
                     </a>
 
                     <div class="dropdown">
-                        <a class="mx-2  dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                        <a class="mx-2  dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown"
                            aria-expanded="false" href="#">
                             @if(Auth::user())
 
@@ -98,11 +99,6 @@
                             @endguest
                         </ul>
                     </div>
-
-
-                    <a class="mx-2" href="#!">
-                        <i class="fa-solid fa-heart"></i>
-                    </a>
                 </div>
             </div>
         </div>
@@ -133,7 +129,7 @@
                             <div class="col-12">
                                 <div class="text-light text-center py-2">
                                     <h5 class="display-4 fw-normal text-400 fw-normal mb-4">Welkom bij Webshop Evi</h5>
-                                    <h1 class="display-1 text-white fw-normal mb-8">Menen</h1><a
+                                    <h2 class="display-1 text-white fw-normal mb-8">Menen</h2><a
                                         class="btn btn-lg text-light fs-1" href="{{route('contact.index')}}"
                                         role="button">Contact us
                                         <svg class="bi bi-arrow-right-short" xmlns="http://www.w3.org/2000/svg"
@@ -165,29 +161,29 @@
             <div class="row row-cols-md-3 text-center">
                 <div class="mb-3">
                     <h5 class="lh-lg fw-bold text-1000">Company Info</h5>
-                    <ul class="list-unstyled mb-md-4 mb-lg-0">
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">About Us</a></li>
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Affiliate</a></li>
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Fashion Blogger</a></li>
-                    </ul>
+                    <div class="list-unstyled mb-md-4 mb-lg-0">
+                        <a class="text-800 text-decoration-none" href="{{route('contact.index')}}">About Us</a>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <h5 class="lh-lg fw-bold text-1000">Help &amp; Support</h5>
-                    <ul class="list-unstyled mb-md-4 mb-lg-0">
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Shipping Info</a></li>
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Refunds</a></li>
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">How to Order</a></li>
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">How to Track</a></li>
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Size Guides</a></li>
-                    </ul>
+                    <div class="list-unstyled mb-md-4 mb-lg-0">
+                        <a class="text-800 text-decoration-none" href="#!">How to Order</a>
+                        <br>
+                        <a class="text-800 text-decoration-none" href="#!">Size Guides</a>
+
+
+
+                    </div>
                 </div>
                 <div class="mb-3">
                     <h5 class="lh-lg fw-bold text-1000">Customer Care</h5>
-                    <ul class="list-unstyled mb-md-4 mb-lg-0">
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Contact Us</a></li>
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Payment Methods</a></li>
-                        <li class="lh-lg"><a class="text-800 text-decoration-none" href="#!">Bonus Point</a></li>
-                    </ul>
+                    <div class="list-unstyled mb-md-4 mb-lg-0">
+                        <a class="text-800 text-decoration-none" href="{{route('contact.index')}}">Contact Us</a>
+                        <br>
+                        <a class="text-800 text-decoration-none" href="#!">Payment Methods</a>
+
+                    </div>
                 </div>
             </div>
             <div class="border-bottom border-3"></div>
@@ -223,15 +219,8 @@
 <script src="{{asset('vendor/@popperjs/popper.min.js')}}"></script>
 <script src="{{asset('vendor/bootstrap/bootstrap.min.js')}}"></script>
 <script src="{{asset('vendor/is/is.min.js')}}"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-<script src="{{asset('vendor/feather-icons/feather.min.js')}}"></script>
-<script>
-    feather.replace();
-</script>
 <script src="{{asset('js/jsfront/theme.js')}}"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800;900&amp;display=swap"
-      rel="stylesheet">
 </body>
 
 </html>

@@ -14,23 +14,23 @@
                 </div>
                 <div class="form-group">
                     <label class="text-white" for="category">Category : (CTRL + CLICK multiple select)</label>
-                    <select name="categories[]" class="form-control custom-select" multiple>
+                    <select name="categories[]" class="form-control custom-select" id="category" multiple>
                         @foreach($categories as $category)
                             <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="text-white" for="category">Post :</label>
-                    <textarea class="form-control" name="body" id="body" cols="100%" rows="10" placeholder="Description..."></textarea>
+                    <label class="text-white" for="body">Post :</label>
+                    <textarea class="form-control" name="body" id="body" cols="20" rows="10" placeholder="Description..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="text-white" for="photo_id">Photo Product:</label>
+                    <label class="text-white" for="file">Photo Product:</label>
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Your Upload Photo</h4>
-                                <input type="file" name="photo_id" class="dropify" />
+                                <input type="file" name="photo_id" id="file" class="dropify" />
                             </div>
                         </div>
                     </div>

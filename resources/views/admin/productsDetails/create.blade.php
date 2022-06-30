@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <label class="text-white" for="price">Stock: </label>
+                            <label class="text-white" for="stock">Stock: </label>
                             <input type="number" name="stock" id="stock"
                                    class="form-control"
                                    placeholder="Stock">
@@ -39,7 +39,7 @@
                         <div class="col-6">
                             <label class="text-white" for="discount_id">Discount: </label>
                             <div class="input-group pe-2">
-                                <select name="discount_id" class="form-control custom-select">
+                                <select name="discount_id" class="form-control custom-select" id="discount_id">
                                     @foreach($discounts as $discount)
                                         <option value="{{$discount->id}}">
                                             {{$discount->percentage}}
@@ -50,8 +50,8 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <label class="text-white" for="color">Colour:</label>
-                            <select name="color_id" class="form-control">
+                            <label class="text-white" for="color">Color:</label>
+                            <select name="color_id" class="form-control" id="color">
                                 <option value="{{$productColor[0]['id']}}">
                                     {{$productColor[0]['name']}}
                                 </option>
@@ -60,8 +60,8 @@
                     </div>
                     <div class="d-flex">
                         <div class="col-6 pe-2">
-                            <label class="text-white" for="color">Size:</label>
-                            <select name="clothSize" class="form-control custom-select">
+                            <label class="text-white" for="size">Size:</label>
+                            <select name="clothSize" class="form-control custom-select" id="size">
 
                                 @foreach($clothSizes as $clothSize)
                                     @if($productDetails->contains('color_id',$productColor[0]['id']))

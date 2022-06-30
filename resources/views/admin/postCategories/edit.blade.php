@@ -2,7 +2,7 @@
 @section('content')
     <div class="col-12">
         <div class="border border-2 rounded-3 bg-black my-3">
-            <h1 class="text-center text-white">Edit PostCategory</h1>
+            <h1 class="text-center text-white">Edit Post Category</h1>
         </div>
         <div class="row">
             <div class="col-4 offset-4 img-thumbnail bg-black">
@@ -12,7 +12,7 @@
                     @method('PATCH')
                     <div class="form-group ">
                         <label class="text-white" for="category">Category Name : </label>
-                        <input type="text" name="name" class="form-control" value="{{$category->name}}"
+                        <input type="text" name="name" class="form-control" id="category" value="{{$category->name}}"
                                placeholder="Category...">
                     </div>
                     <div class="text-center m-2">

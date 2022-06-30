@@ -3,7 +3,7 @@
     <div class="col">
         @if(session('product_message'))
             <div class="alert alert-info alert-dismissible">
-                <a href="#" class="btn-close" data-dismiss="alert" aria-label="close">&times;</a>
+                <a href="#" class="btn-close" data-dismiss="alert" aria-label="close"></a>
                 <strong>Info!</strong> {{session('product_message')}}
             </div>
         @endif
@@ -24,7 +24,7 @@
             <form>
                 <div class="row">
                     <input type="text" name="search" class="form-control bg-gray-300 border-0 small"
-                           placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                           placeholder="Search for..." aria-label="Search">
                 </div>
             </form>
         </div>
@@ -52,7 +52,7 @@
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>
-                        <img height="62" width="auto"
+                        <img height="62" width="62"
                              src="{{$product->photo ? asset('img/products') . $product->photo->file : 'https://via.placeholder.com/62'}}"
                              alt="{{$product->name}}">
                     </td>

@@ -12,7 +12,7 @@
                     @method('PATCH')
                     <div class="form-group ">
                         <label class="text-white" for="size">Cloth Size: </label>
-                        <input type="number" name="size" class="form-control" value="{{$clothSize->size}}"
+                        <input type="number" name="size" id="size" class="form-control" value="{{$clothSize->size}}"
                                placeholder="Cloth Size...">
                     </div>
                     <div class="text-center m-2">

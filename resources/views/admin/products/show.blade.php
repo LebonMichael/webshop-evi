@@ -47,7 +47,7 @@
                                          aria-labelledby="pills-{{$color->name}}-tab">
                                         <p class="card-text text-white" >Sizes:
                                         </p>
-                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                        <ul class="nav nav-pills mb-3" id="pills-tab-{{$color->name}}" role="tablist">
                                             @foreach($productDetails as $productDetail)
                                                 @if($color->id === $productDetail->color_id)
 
@@ -64,7 +64,7 @@
                                                 @endif
                                             @endforeach
                                         </ul>
-                                        <div class="tab-content" id="pills-tabContent-size">
+                                        <div class="tab-content" id="pills-tabContent-{{$color->name}}">
                                             @foreach($productDetails as $productDetail)
                                                 @if($color->id === $productDetail->color_id)
                                                     <div class="tab-pane fade" id="pills-{{$productDetail->id}}-{{$productDetail->clothSize->size}}"

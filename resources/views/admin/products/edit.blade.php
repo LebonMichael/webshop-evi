@@ -16,7 +16,7 @@
                             <div>
                                 <div class="form-group pe-md-2">
                                     <label class="text-white" for="name">Product Name:</label>
-                                    <input type="text" name="name" id="title"
+                                    <input type="text" name="name" id="name"
                                            class="form-control" value="{{$product->name}}"
                                            placeholder="First Name..">
                                 </div>
@@ -24,7 +24,7 @@
                             <div class="d-flex">
                                 <div class="form-group col-6 pe-2">
                                     <label class="text-white" for="gender_id">Gender: </label>
-                                    <select name="gender_id" class="form-select">
+                                    <select name="gender_id" class="form-select" id="gender_id">
                                         @foreach($genders as $gender)
                                             <option value="{{$gender->id}}" @if($product->gender->id == $gender->id) selected @endif>
                                                 {{$gender->name}}
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="form-group pe-2 col-6">
                                     <label class="text-white" for="brand_id">Brand: </label>
-                                    <select name="brand_id" class="form-select">
+                                    <select name="brand_id" class="form-select" id="brand_id">
                                         @foreach($brands as $brand)
                                             <option value="{{$brand->id}}"  @if($product->brand->id == $brand->id) selected @endif>
                                                 {{$brand->name}}
@@ -46,7 +46,7 @@
                             <div class="d-flex">
                                 <div class="form-group pe-2 col-6">
                                     <label class="text-white" for="productCategory_id">Product Category: </label>
-                                    <select name="productCategory_id" class="form-select">
+                                    <select name="productCategory_id" class="form-select" id="productCategory_id">
                                         @foreach($productCategories as $productCategory)
                                             <option value="{{$productCategory->id}}"
                                                     @if($product->productCategory->id == $productCategory->id) selected @endif >
@@ -57,8 +57,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="text-white" for="colors[]">Colours: (CTRL + CLICK multiple select)</label>
-                                <select name="colors[]" class="form-control custom-select" multiple>
+                                <label class="text-white" for="colors">Colors: (CTRL + CLICK multiple select)</label>
+                                <select name="colors[]" class="form-control custom-select " id="colors" multiple>
                                     @foreach($colors as $color)
                                         <option value="{{$color->id}}"
                                                 @if($product->colors->contains($color->id)) selected @endif>
@@ -70,7 +70,7 @@
 
                             <div class="form-group">
                                 <label class="text-white" for="body">Description: </label>
-                                <textarea class="form-control" name="body" id="body" cols="100%" rows="10"
+                                <textarea class="form-control" name="body" id="body" cols="20" rows="10"
                                           placeholder="Description..."
                                 >{{$product->body}}</textarea>
                             </div>
@@ -83,6 +83,7 @@
                                             <input
                                                 type="file"
                                                 name="photo"
+                                                id="file"
                                                 accept="image/*"
                                                 class="dropify "/>
                                         </div>

@@ -8,47 +8,47 @@
                     <form action="{{route('orderAdress')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <h2 class="my-3 text-center">Leverings Adres</h2>
-                        <div class="input-group mb-3 row row-cols-2">
+                        <div class="mb-3 input-group row row-cols-2">
                             <div>
-                                <label for="basic-url" class="form-label">First Name:</label>
-                                <input type="text" class="form-control" value="{{$user->first_name}}" aria-label="first_name" aria-describedby="basic-addon1">
+                                <p class="form-label fw-bold my-1">First Name:</p>
+                                <input type="text" class="form-control" value="{{$user->first_name}}" aria-label="first_name">
                             </div>
                             <div>
-                                <label for="basic-url" class="form-label">Last Name:</label>
-                                <input type="text" class="form-control" value="{{$user->last_name}}" aria-label="last_name" aria-describedby="basic-addon2">
+                                <p class="form-label fw-bold my-1">Last Name:</p>
+                                <input type="text" class="form-control" value="{{$user->last_name}}" aria-label="last_name" >
                             </div>
                         </div>
                         <div class="input-group my-3 row row-cols-md-2">
                             <div>
-                                <label for="basic-url" class="form-label">Phone:</label>
-                                <input type="text" class="form-control"  value="{{$user->phone}}" aria-label="first_name" aria-describedby="basic-addon3">
+                                <p class="form-label fw-bold my-1">Phone:</p>
+                                <input type="text" class="form-control"  value="{{$user->phone}}" aria-label="phone">
 
                             </div>
                             <div>
-                                <label for="basic-url" class="form-label">E-mail:</label>
-                                <input type="text" class="form-control" value="{{$user->email}}" aria-label="first_name" aria-describedby="basic-addon4">
+                                <p class="form-label fw-bold my-1">E-mail:</p>
+                                <input type="text" class="form-control" value="{{$user->email}}" aria-label="e-mail">
                             </div>
                         </div>
-                        <div class="form-group my-3 row row-cols-md-3">
+                        <div class="input-group my-3 row row-cols-md-3">
                             <div class="my-2">
-                                <label for="basic-url" class="form-label">Street:</label>
-                                <input type="text" class="form-control" name="street" value="{{$user->street}}" aria-label="first_name" aria-describedby="basic-addon5">
+                                <p class="form-label fw-bold my-1">Street:</p>
+                                <input type="text" class="form-control" name="street" value="{{$user->street}}" aria-label="street">
                             </div>
                             <div class="my-2">
-                                <label for="basic-url" class="form-label">Street Number:</label>
-                                <input type="text" class="form-control" name="street_number" value="{{$user->street_number}}" aria-label="first_name" aria-describedby="basic-addon6">
+                                <p class="form-label fw-bold my-1">Street Number:</p>
+                                <input type="text" class="form-control" name="street_number" value="{{$user->street_number}}" aria-label="street number" >
                             </div>
                             <div class="my-2">
-                                <label for="basic-url" class="form-label">City:</label>
-                                <input type="text" class="form-control" name="city" value="{{$user->city}}" aria-label="first_name" aria-describedby="basic-addon7">
+                                <p class="form-label fw-bold my-1">City:</p>
+                                <input type="text" class="form-control" name="city" value="{{$user->city}}" aria-label="city" >
                             </div>
                             <div class="my-2">
-                                <label for="basic-url" class="form-label">Zip Code:</label>
-                                <input type="text" class="form-control" name="zip_code" value="{{$user->zip_code}}" aria-label="first_name" aria-describedby="basic-addon8">
+                                <p class="form-label fw-bold my-1">Zip Code:</p>
+                                <input type="text" class="form-control" name="zip_code" value="{{$user->zip_code}}" aria-label="zip code">
                             </div>
                             <div class="my-2">
-                                <label for="basic-url" class="form-label">Country:</label>
-                                <input type="text" class="form-control" name="country" value="{{$user->country}}" aria-label="first_name" aria-describedby="basic-addon9">
+                                <p class="form-label fw-bold my-1">Country:</p>
+                                <input type="text" class="form-control" name="country" value="{{$user->country}}" aria-label="country">
                             </div>
                         </div>
                         <div class="text-center">

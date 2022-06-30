@@ -15,13 +15,13 @@
                             <div class="row row-cols-2 my-1">
                                 <div class="form-group">
                                     <label class="text-white" for="first_name">First Name:</label>
-                                    <input value="{{$user->first_name}}" type="text" name="first_name" id="title"
+                                    <input value="{{$user->first_name}}" type="text" name="first_name" id="first_name"
                                            class="form-control"
                                            placeholder="{{$user->first_name}}">
                                 </div>
                                 <div class="form-group">
                                     <label class="text-white" for="last_name">Last Name:</label>
-                                    <input value="{{$user->last_name}}" type="text" name="last_name" id="title"
+                                    <input value="{{$user->last_name}}" type="text" name="last_name" id="last_name"
                                            class="form-control"
                                            placeholder="{{$user->last_name}}">
                                 </div>
@@ -29,42 +29,42 @@
                             <div class="row row-cols-2 my-1">
                                 <div class="form-group">
                                     <label class="text-white" for="email">E-mail:</label>
-                                    <input value="{{$user->email}}" type="text" name="email" id="title"
+                                    <input value="{{$user->email}}" type="text" name="email" id="email"
                                            class="form-control"
                                            placeholder="{{$user->email}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="phone" class="text-white">Phone:</label>
-                                    <input type="text" class="form-control"  value="{{$user->phone}}" aria-label="first_name" aria-describedby="basic-addon3">
+                                    <input type="text" class="form-control"  value="{{$user->phone}}" id="phone">
                                 </div>
                             </div>
                             <div class="row row-cols-3 my-1">
                                 <div class="form-group">
-                                    <label for="basic-url" class="text-white">Street:</label>
-                                    <input type="text" class="form-control" name="street" value="{{$user->street}}" aria-label="first_name" aria-describedby="basic-addon5">
+                                    <label for="street" class="text-white">Street:</label>
+                                    <input type="text" class="form-control" name="street" value="{{$user->street}}" id="street">
                                 </div>
                                 <div class="form-group">
-                                    <label for="basic-url" class="text-white">Street Number:</label>
-                                    <input type="text" class="form-control" name="street_number" value="{{$user->street_number}}" aria-label="first_name" aria-describedby="basic-addon6">
+                                    <label for="streetNumber" class="text-white">Street Number:</label>
+                                    <input type="text" class="form-control" name="street_number" value="{{$user->street_number}}" id="streetNumber">
                                 </div>
                                 <div class="form-group">
-                                    <label for="basic-url" class="text-white">City:</label>
-                                    <input type="text" class="form-control" name="city" value="{{$user->city}}" aria-label="first_name" aria-describedby="basic-addon7">
+                                    <label for="city" class="text-white">City:</label>
+                                    <input type="text" class="form-control" name="city" value="{{$user->city}}" id="city">
                                 </div>
                             </div>
                             <div class="row row-cols-2 my-1">
                                 <div class="form-group">
-                                    <label for="basic-url" class="text-white">Zip Code:</label>
-                                    <input type="text" class="form-control" name="zip_code" value="{{$user->zip_code}}" aria-label="first_name" aria-describedby="basic-addon8">
+                                    <label for="zipCode" class="text-white">Zip Code:</label>
+                                    <input type="text" class="form-control" name="zip_code" value="{{$user->zip_code}}" id="zipCode">
                                 </div>
                                 <div class="form-group">
-                                    <label for="basic-url" class="text-white">Country:</label>
-                                    <input type="text" class="form-control" name="country" value="{{$user->country}}" aria-label="first_name" aria-describedby="basic-addon9">
+                                    <label for="country" class="text-white">Country:</label>
+                                    <input type="text" class="form-control" name="country" value="{{$user->country}}" id="country">
                                 </div>
                             </div>
                             <div class="form-group my-1">
                                 <label class="text-white" for="role">Role: (CTRL + CLICK multiple select)</label>
-                                <select name="roles[]" class="form-control custom-select" multiple>
+                                <select name="roles[]" class="form-control custom-select" id="role" multiple>
                                     @foreach($roles as $role)
                                         <option value="{{$role->id}}"
                                                 @if($user->roles->contains($role->id)) selected @endif>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="form-group my-1">
                                 <label class="text-white" for="is_active">Status:</label>
-                                <select name="is_active" class="form-select">
+                                <select name="is_active" class="form-select" id="is_active">
                                     <option value="1" >
                                         Active
                                     </option>
@@ -85,7 +85,7 @@
                                 </select>
                             </div>
                             <div class="form-group my-1">
-                                <label class="text-white" for="email">Password:</label>
+                                <label class="text-white" for="password">Password:</label>
                                 <input value="" type="password" name="password" id="password"
                                        class="form-control "
                                        placeholder="Password...">
@@ -96,7 +96,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 class="card-title">Change Your Profile Photo</h4>
-                                            <input type="file" name="photo_id" class="dropify" />
+                                            <input type="file" name="photo_id" id="file" class="dropify" />
                                         </div>
                                     </div>
                                 </div>

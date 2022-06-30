@@ -13,7 +13,7 @@
                     <h2 class="text-center text-white my-2">Product Details</h2>
 
                     <label class="text-white" for="color_id">Select Color for product details: </label>
-                    <select class="form-select" name="color_id" aria-label="Default select example">
+                    <select class="form-select" name="color_id" id="color_id" aria-label="Default select example">
                         @foreach($product->colors as $color)
                         <option value="{{$color->id}}">{{$color->name}}</option>
                         @endforeach

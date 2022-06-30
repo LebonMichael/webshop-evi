@@ -12,7 +12,7 @@
                     @method('PATCH')
                     <div class="form-group ">
                         <label class="text-white" for="name">Gender Name : </label>
-                        <input type="text" name="name" class="form-control" value="{{$gender->name}}"
+                        <input type="text" name="name" id="name" class="form-control" value="{{$gender->name}}"
                                placeholder="Brand...">
                     </div>
                     <div class="text-center m-2">

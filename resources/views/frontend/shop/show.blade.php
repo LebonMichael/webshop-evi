@@ -17,11 +17,34 @@
                             @foreach($images as $image)
                                 @if($image->product_id === $product->id and $image->color_id === $productDetail->color_id)
                                     <div>
-                                        <a class="border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="border-0" data-bs-toggle="modal" data-bs-target="#modal-{{$image->id}}">
                                             <img class="img-fluid m-2 border border-2 rounded"
                                                  src="{{asset('img/productsDetails/') . '/' . $name . '/' . $image->image}}"
                                                  alt="">
                                         </a>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modal-{{$image->id}}" tabindex="-1" aria-labelledby="modalLabel--{{$image->id}}"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content text-center">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalLabel--{{$image->id}}">{{$product->name}}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img class="img-fluid m-2 border border-2 rounded"
+                                                         src="{{asset('img/productsDetails/') . '/' . $name . '/' . $image->image}}"
+                                                         alt="">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 @endif
                             @endforeach
@@ -31,27 +54,7 @@
                     <!-- Button trigger modal -->
 
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <p>Productbeschrijving:</p>
                     <div class="border-1 border border-black rounded-2 mb-2">

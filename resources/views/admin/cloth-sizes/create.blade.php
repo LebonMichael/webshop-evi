@@ -10,7 +10,7 @@
                 @csrf
                 <div class="form-group">
                     <label class="text-white" for="size">Cloth Size : </label>
-                    <input type="number" name="size" class="form-control" placeholder="Cloth Size...">
+                    <input type="number" name="size" id="size" class="form-control" placeholder="Cloth Size...">
                 </div>
                 <div class="text-center m-2">
                     <button type="submit" class="btn btn-primary">Add Cloth Size</button>

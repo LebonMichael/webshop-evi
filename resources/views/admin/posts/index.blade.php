@@ -15,7 +15,7 @@
             <div class="border border-2 rounded-3 my-3">
                 <form>
                     <input type="text" name="search" class="form-control bg-gray-300 border-0 small"
-                           placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                           placeholder="Search for..." aria-label="Search">
                 </form>
             </div>
             <div class="col-12 my-3">
@@ -41,7 +41,7 @@
                         <tr>
                             <td>{{$post->id}}</td>
                             <td>
-                                <img width="auto" height="62" src="{{$post->photo ? asset('img/posts') . $post->photo->file : 'http://via.placeholder.com/62'}}" alt="{{$post->title}}">
+                                <img width="62" height="62" src="{{$post->photo ? asset('img/posts') . $post->photo->file : 'http://via.placeholder.com/62'}}" alt="{{$post->title}}">
                             </td>
                             <td>{{$post->user ? $post->user->first_name . " " . $post->user->last_name : 'Username not known'}}</td>
                             <td>

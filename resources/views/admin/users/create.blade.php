@@ -12,26 +12,26 @@
                     <div class="d-flex">
                         <div class="form-group pe-2 col-6">
                             <label class="text-white" for="first_name">First Name:</label>
-                            <input type="text" name="first_name" id="title"
+                            <input type="text" name="first_name" id="first_name"
                                    class="form-control"
                                    placeholder="First Name..">
                         </div>
                         <div class="form-group col-6">
                             <label class="text-white" for="last_name">Last Name:</label>
-                            <input type="text" name="last_name" id="title"
+                            <input type="text" name="last_name" id="last_name"
                                    class="form-control"
                                    placeholder="Last Name..">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="text-white" for="email">E-mail:</label>
-                        <input type="email" name="email" id="title"
+                        <input type="email" name="email" id="email"
                                class="form-control"
                                placeholder="E-mail..">
                     </div>
                     <div class="form-group">
                         <label class="text-white" for="role">Role: (CTRL + CLICK multiple select)</label>
-                        <select name="roles[]" class="form-control custom-select" multiple>
+                        <select name="roles[]" class="form-control custom-select" id="role" multiple>
                             @foreach($roles as $role)
                                 <option value="{{$role->id}}">
                                     {{$role->name}}
@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label class="text-white" for="is_active">Status:</label>
-                        <select name="is_active" class="form-select">
+                        <select name="is_active" class="form-select" id="is_active">
                             <option value="1">
                                 Active
                             </option>
@@ -51,7 +51,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="text-white" for="email">Password:</label>
+                        <label class="text-white" for="password">Password:</label>
                         <input value="" type="password" name="password" id="password"
                                class="form-control"
                                placeholder="Password...">
@@ -62,7 +62,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Your Profile Picture</h5>
-                                    <input type="file" name="photo_id" class="dropify" />
+                                    <input type="file" name="photo_id" id="file" class="dropify" />
                                 </div>
                             </div>
                         </div>
